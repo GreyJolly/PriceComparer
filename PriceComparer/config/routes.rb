@@ -7,4 +7,5 @@ Rails.application.routes.draw do
     end
   end
   get "home", to: "home#index"
+  get "users", to: "administrator#users"
 end
