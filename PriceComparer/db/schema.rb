@@ -10,29 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_23_150607) do
+ActiveRecord::Schema.define(version: 2024_05_24_141742) do
 
   create_table "products", force: :cascade do |t|
-    t.integer "id"
+    t.integer "id_product"
     t.string "name"
     t.text "description"
     t.string "site"
     t.decimal "price", precision: 10, scale: 2
-    t.boolean "is_administrator"
-    t.boolean "is_analyst"
+    t.string "category"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.string "roles"
+    t.string "isAnalyst"
+    t.string "isAdministrator"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "wishlist", force: :cascade do |t|
-    t.integer "id_product"
+    t.integer "ID_product"
     t.string "users_name"
   end
 

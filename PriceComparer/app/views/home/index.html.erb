@@ -1,7 +1,18 @@
-<h1> PriceComparer </h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Price Comparer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+  </head>
+  
 
 
-<table>
+  <body>
+    <table>
 	<thead>
 		<tr>
 		<th>Nome</th>
@@ -10,6 +21,17 @@
 		<th>Prezzo</th>
 		<th>Azioni</th>
 	</thead>
-	<tbody>
-	
-	</tbody>
+    <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= product.description %></td>
+        <td><%= product.site %></td>
+        <td><%= product.price %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+  </table>
+
+  </body>
+</html>
