@@ -39,3 +39,20 @@ users = [
 users.each do |user|
     User.create(user)
 end
+
+wishlists = [
+    {ID_product: 1, users_name: 'User1'},
+    {ID_product: 2, users_name: 'User2'},
+    {ID_product: 3, users_name: 'User3'},
+    {ID_product: 4, users_name: 'User4'},
+    {ID_product: 5, users_name: 'User5'},
+    {ID_product: 6, users_name: 'User6'},
+    {ID_product: 7, users_name: 'User7'},
+    {ID_product: 8, users_name: 'User8'},
+    {ID_product: 9, users_name: 'User9'},
+    {ID_product: 10, users_name: 'User10'},
+]
+
+wishlists.each do |wishlist|
+    Wishlist.create(wishlist)
+end
