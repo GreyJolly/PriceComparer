@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :products do
-    member do
-      patch 'wishlist', to: 'home#wishlist'
-      patch 'report', to: 'home#report'
-    end
+	# Devise routes with OmniAuth callbacks
+	devise_for :users, controllers: { sessions: 'sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
+	
+	
+
+	# Resource routes for products with custom member actions
+	resources :products do
+	  member do
+		patch 'wishlist', to: 'home#wishlist'
+		patch 'report', to: 'home#report'
+	  end
+	end
+  
+	# Custom route for the administrator user list
+	get 'users_list', to: 'administrator#users_list'
+  
+	# Root path
+	root to: 'home#index'
   end
-  get "home", to: "home#index"
-  get "users", to: "administrator#users"
-end
+  

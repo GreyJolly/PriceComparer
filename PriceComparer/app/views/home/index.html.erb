@@ -1,41 +1,84 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Price Comparer</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+	<head>
+		<title>Price Comparer</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+    	<%= csrf_meta_tags %>
+    	<%= csp_meta_tag %>
+		<%= stylesheet_link_tag "application", media: "all" %>
+	</head>
 
-    <%= stylesheet_link_tag "application", media: "all" %>
-  </head>
-  
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Descrizione</th>
+					<th>Sito</th>
+					<th>Prezzo</th>
+					<th>Azioni</th>
+				</tr>
+			</thead>
+    		<tbody>
+    			<% @products.each do |product| %>
+    				<tr>
+        				<td><%= product.name %></td>
+        				<td><%= product.description %></td>
+        				<td><%= product.site %></td>
+        				<td><%= product.price %></td>
+						<td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch %></td>
+						<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
+					</tr>
+    			<% end %>
+  			</tbody>
+		</table>
+
+		<h2>Log in</h2>
+
+		<% resource = User.new %>
+		<% resource_name = :user %>
+		<% devise_mapping = Devise.mappings[:user] %>
+
+		<% if user_signed_in? %>
+  			<p>Logged in as: <%= current_user.email %></p>
+			<%= button_to "Logout", destroy_user_session_path, method: :delete %>
+		<% else %>
+			<p>You are not currently signed in</p>
+		<% end %>
+
+		<br>
+
+		<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+			<div class="field">
+   				<%= f.label :email %><br />
+   				<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+			</div>
+			<div class="field">
+				<%= f.label :password %><br />
+				<%= f.password_field :password, autocomplete: "current-password" %>
+			</div>
+				<% if devise_mapping.rememberable? %>
+   				<div class="field">
+   					<%= f.check_box :remember_me %>
+   					<%= f.label :remember_me %>
+   				</div>
+			<% end %>
+				<div class="actions">
+				<%= f.submit "Log in" %>
+			</div>
+		<% end %>
+	
+		<%= render "devise/shared/links", resource_name: :user, devise_mapping: Devise.mappings[:user], resource_class: User %>
+
+		<div class="omniauth-links">
+			<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-primary" %>
+		</div>
+		
+		<% if user_signed_in? && current_user.admin? %>
+      		<%= button_to "Utenti", users_list_path, method: :get %>
+    	<% end %>
 
 
-  <body>
-    <table>
-	<thead>
-		<tr>
-		<th>Nome</th>
-		<th>Descrizione</th>
-		<th>Sito</th>
-		<th>Prezzo</th>
-		<th>Azioni</th>
-	</thead>
-    <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.site %></td>
-        <td><%= product.price %></td>
-		<td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch %></td>
-		<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
-	  </tr>
-    <% end %>
-  </tbody>
-  </table>
 
-	<%= if can? :manage, @users then button_to "Segnala", "AA" end %></td>
-
-  </body>
+	</body>
 </html>
