@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Administator</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", media: "all" %>
+  </head>
+  
+  <body>
+    <table>
+	<thead>
+		<tr>
+		<th>Nome</th>
+		<th>Email</th>
+		<th>Administator</th>
+		<th>Analyst</th>
+	</thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.isAdministrator %></td>
+        <td><%= user.isAnalyst %></td>
+	  </tr>
+    <% end %>
+  </tbody>
+  </table>
+
+  </body>
+</html>
