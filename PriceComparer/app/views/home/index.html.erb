@@ -9,13 +9,7 @@
 	</head>
 
 	<body>
-
-		<% if flash[:alert] %>
-  			<div class="alert alert-danger">
-    			<%= flash[:alert] %>
-  			</div>
-		<% end %>
-	
+		<h1> Price Comparer </h1>
 		<table>
 			<thead>
 				<tr>
@@ -48,22 +42,22 @@
 		<% else %>
 			<p>You are not currently signed in</p>
 		<% end %>
+
+		<% if user_signed_in? %>
+			<!-- TODO: send to correct page -->
+			<%= button_to "Wishlist", users_list_path, method: :get %>
+			<% if current_user.admin? %>
+      			<%= button_to "Utenti", users_list_path, method: :get %>
+				<!-- TODO: send to correct page -->
+				<%= button_to "Reports", users_list_path %>
+    		<% end %>
+			<% if current_user.analyst? %>
+				<!-- TODO: send to correct page -->
+      			<%= button_to "Dashboard", users_list_path %>
+    		<% end %>
+		<% end %>
 	
 		<%= render "devise/shared/links", resource_name: :user, devise_mapping: Devise.mappings[:user], resource_class: User %>
-
-		<div class="omniauth-links">
-			<%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, class: "btn btn-primary" %>
-		</div>
 		
-		<% if user_signed_in? && current_user.admin? %>
-      		<%= button_to "Utenti", users_list_path, method: :get %>
-			<% # button_to "Reports", TODO: implement %>
-    	<% end %>
-		<% if user_signed_in? && current_user.analyst? %>
-      		<% # button_to "Dashboard", TODO: implement %>
-    	<% end %>
-
-
-
 	</body>
 </html>
