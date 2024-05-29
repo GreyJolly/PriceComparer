@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 	
 	# Resource routes for products with custom member actions
 	resources :products do
+		collection do
+			get 'search', to: 'home#search'
+		end
 	  member do
 		patch 'wishlist', to: 'home#wishlist'
 		patch 'report', to: 'home#report'

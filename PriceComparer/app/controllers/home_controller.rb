@@ -1,7 +1,5 @@
 class HomeController < ApplicationController
 
-  @products = Product.all
-
   def wishlist
     @product = Product.find(params[:id])
     # Logic to wishlist
@@ -16,6 +14,16 @@ class HomeController < ApplicationController
 
   def index
     @products = Product.all
+  end
+
+  def search
+    @query = params[:query]
+    @products = if @query.present?
+                  Product.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%")
+                else
+                  Product.all
+                end
+    render :index
   end
   
 end
