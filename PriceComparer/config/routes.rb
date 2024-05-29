@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 		patch 'report', to: 'home#report'
 	  end
 	end
+
 	
 	# Resource routes for users with custom member actions
 	resources :users do
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
 		  patch 'toggle_admin', to: 'administrator#toggle_admin'
 		end
 	  end
+	
+
 	
   
 	# Custom route for the administrator user list
