@@ -6,7 +6,7 @@ class AdministratorController < ApplicationController
 		  flash[:alert] = "You are not authorized to access the users list. You have been redirected"
 		  redirect_to root_path # Or any other path
 		end
-	  end
+	end
 
 	def users_list
     	@users = User.all
@@ -24,11 +24,4 @@ class AdministratorController < ApplicationController
     	redirect_back(fallback_location: root_path)
 	end
 
-	  def authorize_specific_user
-    specific_user_id = 123 # Replace with the ID of the specific user
-    unless current_user && current_user.id == specific_user_id
-      flash[:alert] = "You are not authorized to access this page."
-      redirect_to root_path # Or any other path
-    end
-  end
 end
