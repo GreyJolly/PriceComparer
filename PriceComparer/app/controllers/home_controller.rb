@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
 
-
   @products = Product.all
 
   def wishlist
@@ -18,5 +17,5 @@ class HomeController < ApplicationController
   def index
     @products = Product.all
   end
-
+  
 end
