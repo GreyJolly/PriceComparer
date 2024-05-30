@@ -24,4 +24,14 @@ class AdministratorController < ApplicationController
     	redirect_back(fallback_location: root_path)
 	end
 
+	def search_users
+		@query = params[:query_user]
+		@users = if @query.present?
+						User.where("name LIKE ? OR email LIKE ?", "%#{@query}%", "%#{@query}%")
+					else
+						User.all
+					end
+		render :users_list
+	end
+
 end
