@@ -26,7 +26,7 @@ Rails.application.routes.draw do
 		  patch 'toggle_admin', to: 'administrator#toggle_admin'
 		end
 	end
-	
+
 
 	
   

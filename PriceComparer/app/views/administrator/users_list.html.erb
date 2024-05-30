@@ -17,7 +17,15 @@
         <%= text_field_tag :query_user, params[:query_user] %>
       </div>
           
-
+      <div>
+        <%= radio_button_tag :order, 'alphabetical', params[:order] == 'alphabetical' %>
+        <%= label_tag :order_alphabetical, 'Alphabetical' %>
+      </div>
+      
+      <div>
+        <%= radio_button_tag :order, 'non_alphabetical', params[:order] == 'non_alphabetical' %>
+        <%= label_tag :order_non_alphabetical, 'Non-Alphabetical' %>
+      </div>
 
       <div class="actions"> <%= submit_tag "Search" %> </div>
 
