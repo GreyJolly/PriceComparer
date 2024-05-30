@@ -16,11 +16,16 @@ Rails.application.routes.draw do
 	
 	# Resource routes for users with custom member actions
 	resources :users do
+
+		collection do
+			get 'search_users', to: 'administrator#search_users'
+		end
+
 		member do
 		  patch 'toggle_analyst', to: 'administrator#toggle_analyst'
 		  patch 'toggle_admin', to: 'administrator#toggle_admin'
 		end
-	  end
+	end
 	
 
 	
