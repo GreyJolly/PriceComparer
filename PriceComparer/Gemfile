@@ -53,6 +53,7 @@ group :development do
   # Code guard
   gem "guard"
   gem "guard-zeus"
+  gem 'guard-rspec'
   gem "rack-livereload"
 end
 
