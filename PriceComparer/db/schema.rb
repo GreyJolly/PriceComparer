@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_28_132243) do
+ActiveRecord::Schema.define(version: 2024_05_31_161310) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2024_05_28_132243) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
     t.string "email"
     t.string "password_digest"
     t.boolean "isAnalyst", default: false
@@ -35,10 +34,12 @@ ActiveRecord::Schema.define(version: 2024_05_28_132243) do
     t.datetime "remember_created_at"
     t.string "provider"
     t.string "uid"
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid"], name: "index_users_on_uid"
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   create_table "wishlist", force: :cascade do |t|
