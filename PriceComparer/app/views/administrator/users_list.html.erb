@@ -8,9 +8,16 @@
 
     <%= stylesheet_link_tag "application", media: "all" %>
   </head>
-  
+
   <body>
     <h1> Price Comparer </h1>
+
+    <% if flash[:error] %>
+      <div class="flash-error">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+
     <%= form_with url: search_users_users_path, method: :get, local: true do %>
       <div class="field">
         <%= label_tag :query_user, "Search" %>
@@ -29,8 +36,11 @@
 
         <%= check_box_tag :analyst, '1', params[:analyst] == '1' %>
         <%= label_tag :analyst, "Analyst" %>
-      </div>
 
+        <%= check_box_tag :neither_role, '1', params[:neither_role] == '1' %>
+        <%= label_tag :neither_role, "neither_role" %>
+      </div>
+      
 
       <div class="actions"> <%= submit_tag "Search" %> </div>
 
@@ -56,5 +66,8 @@
       </tbody>
     </table>
 
+    <p>Number of Analysts: <%= @analyst_count %></p>
+    <p>Number of Administrator: <%= @administrator_count %></p>
+    <p>Number of Administrator and Analyst: <%= @analystAdministrato_count %></p>
   </body>
 </html>
