@@ -46,7 +46,7 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= user.name %></td>
+            <td><%= user.username %></td>
             <td><%= user.email %></td>
           <td><%= user.isAdministrator ? "Amministratore" : "" %> &emsp; <%= user.isAnalyst ? "Analista" : "" %> </td>
           <td> <%= button_to "Toggle amministratore", toggle_admin_user_path(user), method: :patch %> </td>

@@ -20,19 +20,19 @@
 
 			<div class="field">
     			<%= label_tag :min_price, "Minimum Price" %>
-   				<%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01%>
+   				<%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01 %>
   			</div>
   			<div class="field">
     			<%= label_tag :max_price, "Maximum Price" %>
-    			<%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01%>
+    			<%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
   			</div>
 			
 			<label>
-    			<%= radio_button_tag :order, 'asc', params[:order] == 'asc' %>
+    			<%= radio_button_tag :order, "asc", params[:order] == "asc" %>
    	 			Sort by Ascending Price
   			</label>
   			<label>
-    			<%= radio_button_tag :order, 'desc', params[:order] == 'desc' %>
+    			<%= radio_button_tag :order, "desc", params[:order] == "desc" %>
     			Sort by Descending Price
   			</label>
 
@@ -66,16 +66,8 @@
   			</tbody>
 		</table>
 
-		<h2>Account</h2>
-
-		<% if user_signed_in? %>
-  			<p>Logged in as: <%= current_user.email %></p>
-			<%= button_to "Logout", destroy_user_session_path, method: :delete %>
-		<% else %>
-			<p>You are not currently signed in</p>
-		<% end %>
-
-		<% if user_signed_in? %>
+		<% if user_signed_in? %>	
+			<h2>Pagine particolari</h2>
 			<!-- TODO: send to correct page -->
 			<%= button_to "Wishlist", users_list_path, method: :get %>
 			<% if current_user.admin? %>
@@ -89,7 +81,16 @@
     		<% end %>
 		<% end %>
 	
-		<%= render "devise/shared/links", resource_name: :user, devise_mapping: Devise.mappings[:user], resource_class: User %>
-		
+		<h2>Account</h2>
+		<% if user_signed_in? %>
+			<p>Benvenuto, <%= current_user.username %></p>
+			<%= button_to "Edit profile", edit_user_registration_path, method: :get %>
+			<%= button_to "Logout", destroy_user_session_path, method: :delete %>
+		<% else %>
+			<%= link_to "Sign up", new_user_registration_path %> or
+			<%= link_to "Login", new_user_session_path %>
+		<% end %>
+		<br>
+
 	</body>
 </html>
