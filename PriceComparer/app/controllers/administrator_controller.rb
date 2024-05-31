@@ -26,20 +26,26 @@ class AdministratorController < ApplicationController
 
 	def search_users
 		@query = params[:query_user]
-    	@order = params[:order]
-
-		@users = if @query.present?
-					User.where("name LIKE ? OR email LIKE ?", "%#{@query}%", "%#{@query}%")
-				else
-					User.all
-				end
-
-		@users = if @order == 'alphabetical'
-					@users.order(:name)
-				else
-					@users
-				end
-
+		@administrator = params[:administrator] == '1'
+		@analyst = params[:analyst] == '1'
+		@alphabetical = params[:alphabetical] == '1'
+	
+		@users = User.all
+	
+		if @administrator && @analyst
+		  @users = @users.where(isAdministrator: true).or(@users.where(isAnalyst: true))
+		elsif @administrator
+		  @users = @users.where(isAdministrator: true)
+		elsif @analyst
+		  @users = @users.where(isAnalyst: true)
+		end
+	
+		if @query.present?
+		  @users = @users.where("name LIKE ? OR email LIKE ?", "%#{@query}%", "%#{@query}%")
+		end
+	
+		@users = @users.order(:name) if @alphabetical
+	
 		render :users_list
 	end
 

@@ -18,14 +18,19 @@
       </div>
           
       <div>
-        <%= radio_button_tag :order, 'alphabetical', params[:order] == 'alphabetical' %>
-        <%= label_tag :order_alphabetical, 'Alphabetical' %>
+        <%= check_box_tag :alphabetical, '1', params[:alphabetical] == '1' %>
+        <%= label_tag :alphabetical, "Alphabetical Order" %>
       </div>
       
       <div>
-        <%= radio_button_tag :order, 'non_alphabetical', params[:order] == 'non_alphabetical' %>
-        <%= label_tag :order_non_alphabetical, 'Non-Alphabetical' %>
+        <p>Filter by role:</p>
+        <%= check_box_tag :administrator, '1', params[:administrator] == '1' %>
+        <%= label_tag :administrator, "Administrator" %>
+
+        <%= check_box_tag :analyst, '1', params[:analyst] == '1' %>
+        <%= label_tag :analyst, "Analyst" %>
       </div>
+
 
       <div class="actions"> <%= submit_tag "Search" %> </div>
 
