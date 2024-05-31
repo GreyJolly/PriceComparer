@@ -24,16 +24,16 @@ products.each do |product|
 end
 
 users = [
-    {name: 'User1', email: 'User1@uniroma1.it', password_digest: 'password_digest1'},
-    {name: 'User2', email: 'User2@uniroma1.it', password_digest: 'password_digest2'},
-    {name: 'User3', email: 'User3@uniroma1.it', password_digest: 'password_digest3'},
-    {name: 'User4', email: 'User4@uniroma1.it', password_digest: 'password_digest4'},
-    {name: 'User5', email: 'User5@uniroma1.it', password_digest: 'password_digest5'},
-    {name: 'User6', email: 'User6@uniroma1.it', password_digest: 'password_digest6'},
-    {name: 'User7', email: 'User7@uniroma1.it', password_digest: 'password_digest7'},
-    {name: 'User8', email: 'User8@uniroma1.it', password_digest: 'password_digest8'},
-    {name: 'User9', email: 'User9@uniroma1.it', password_digest: 'password_digest9'},
-    {name: 'User10', email: 'User10@uniroma1.it', password_digest: 'password_digest10'},
+    {username: 'User1', email: 'User1@uniroma1.it', password_digest: 'password_digest1'},
+    {username: 'User2', email: 'User2@uniroma1.it', password_digest: 'password_digest2'},
+    {username: 'User3', email: 'User3@uniroma1.it', password_digest: 'password_digest3'},
+    {username: 'User4', email: 'User4@uniroma1.it', password_digest: 'password_digest4'},
+    {username: 'User5', email: 'User5@uniroma1.it', password_digest: 'password_digest5'},
+    {username: 'User6', email: 'User6@uniroma1.it', password_digest: 'password_digest6'},
+    {username: 'User7', email: 'User7@uniroma1.it', password_digest: 'password_digest7'},
+    {username: 'User8', email: 'User8@uniroma1.it', password_digest: 'password_digest8'},
+    {username: 'User9', email: 'User9@uniroma1.it', password_digest: 'password_digest9'},
+    {username: 'User10', email: 'User10@uniroma1.it', password_digest: 'password_digest10'},
 ]
 
 users.each do |user|

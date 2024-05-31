@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "wishlist", force: :cascade do |t|
+  create_table "wishlists", force: :cascade do |t|
     t.integer "ID_product"
     t.string "users_name"
   end
