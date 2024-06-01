@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_31_161310) do
+ActiveRecord::Schema.define(version: 2024_05_31_210816) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
     t.string "site"
     t.decimal "price", precision: 10, scale: 2
     t.string "category"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +48,9 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
     t.index ["uid"], name: "index_users_on_uid"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
+
+# Could not dump table "wishlist" because of following StandardError
+#   Unknown type 'SERIAL' for column 'id'
 
   create_table "wishlists", force: :cascade do |t|
     t.integer "ID_product"

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 	  end
 	end
 
+    # Resource routes for reports
+    resources :reports
 	
 	# Resource routes for users with custom member actions
 	resources :users do
