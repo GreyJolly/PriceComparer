@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
     t.boolean "isAdministrator", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "encrypted_password", default: "", null: false
+	# TODO: remove "test" password
+    t.string "encrypted_password", default: "test", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
