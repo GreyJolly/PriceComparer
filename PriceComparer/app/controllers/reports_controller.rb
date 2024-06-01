@@ -38,6 +38,17 @@ class ReportsController < ApplicationController
       @report.destroy
       redirect_to reports_path
     end
+
+    def report_product
+        product = Product.find(params[:id])
+        @report = Report.new(title: "Segnalazione per #{product.name}", content: "Descrizione del problema...")
+        
+        if @report.save
+          redirect_to reports_path, notice: 'Report creato con successo.'
+        else
+          redirect_to root_path, alert: 'Errore nella creazione del report.'
+        end
+      end
   
     private
   

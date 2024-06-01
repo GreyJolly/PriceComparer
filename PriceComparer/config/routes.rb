@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 	# Devise routes with OmniAuth callbacks
 	devise_for :users, controllers: { sessions: 'sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
 	
+    # Resource routes for reports
+    resources :reports
+
 	# Resource routes for products with custom member actions
 	resources :products do
 		collection do
@@ -13,8 +16,10 @@ Rails.application.routes.draw do
 	  end
 	end
 
-    # Resource routes for reports
-    resources :reports
+    resources :products do
+        patch :report_product, on: :member
+      end
+    
 	
 	# Resource routes for users with custom member actions
 	resources :users do
