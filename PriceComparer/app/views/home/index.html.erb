@@ -39,9 +39,7 @@
   			<div class="actions"> <%= submit_tag "Search" %> </div>
 
 		<% end %>
-
 		
-
 		<table>
 			<thead>
 				<tr>
@@ -70,12 +68,12 @@
 			<h2>Pagine particolari</h2>
 			<!-- TODO: send to correct page -->
 			<%= button_to "Wishlist", users_list_path, method: :get %>
-			<% if current_user.admin? %>
+			<% if current_user.isAdministrator? %>
       			<%= button_to "Utenti", users_list_path, method: :get %>
 				<!-- TODO: send to correct page -->
 				<%= button_to "Reports", users_list_path %>
     		<% end %>
-			<% if current_user.analyst? %>
+			<% if current_user.isAnalyst? %>
 				<!-- TODO: send to correct page -->
       			<%= button_to "Dashboard", users_list_path %>
     		<% end %>
