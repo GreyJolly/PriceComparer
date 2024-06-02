@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Price Comparer</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+    	<%= csrf_meta_tags %>
+    	<%= csp_meta_tag %>
+		<%= stylesheet_link_tag "application", media: "all" %>
+	</head>
+
+
+  <body>
+    <h1> Price Comparer </h1>
+
+    <% if flash[:error] %>
+      <div class="flash-error">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+	
+		<%= form_with url: search_wishlisted_products_path, method: :get, local: true do %>
+  			<div class="field">
+    			<%= label_tag :query, "Search" %>
+    			<%= text_field_tag :query, params[:query] %>
+  			</div>
+  					
+
+			<div class="field">
+    			<%= label_tag :min_price, "Minimum Price" %>
+   				<%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01 %>
+  			</div>
+  			<div class="field">
+    			<%= label_tag :max_price, "Maximum Price" %>
+    			<%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
+  			</div>
+			
+			<label>
+    			<%= radio_button_tag :order, "asc", params[:order] == "asc" %>
+   	 			Sort by Ascending Price
+  			</label>
+  			<label>
+    			<%= radio_button_tag :order, "desc", params[:order] == "desc" %>
+    			Sort by Descending Price
+  			</label>
+
+  			<div class="actions"> <%= submit_tag "Search" %> </div>
+
+		<% end %>
+		
+
+    <table>
+      <thead>
+        <tr>
+        <th>id Prodotto</th>
+		<th>nome Utente</th>
+      </thead>
+      <tbody>
+        <% @wishlistedProducts.each do |product| %>
+			<tr>
+        		<td><%= product.name %></td>
+        		<td><%= product.description %></td>
+        		<td><%= product.site %></td>
+        		<td><%= product.price %></td>
+				<td><%= button_to "Rimuovi alla wishlist", remove_from_wishlist_product_path(product), method: :delete %></td>
+				<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
+			</tr>
+        <% end %>
+      </tbody>
+    </table>
+
+	<%= button_to "Home", root_path, method: :get %>
+
+</html>

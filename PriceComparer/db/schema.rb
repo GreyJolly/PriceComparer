@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_31_161310) do
+ActiveRecord::Schema.define(version: 2024_06_02_084107) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
     t.string "site"
     t.decimal "price", precision: 10, scale: 2
     t.string "category"
+    t.index ["id_product"], name: "index_products_on_id_product", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -28,7 +29,6 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
     t.boolean "isAdministrator", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-	# TODO: remove "test" password
     t.string "encrypted_password", default: "test", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -44,8 +44,11 @@ ActiveRecord::Schema.define(version: 2024_05_31_161310) do
   end
 
   create_table "wishlists", force: :cascade do |t|
-    t.integer "ID_product"
-    t.string "users_name"
+    t.integer "product_id"
+    t.string "username"
+    t.index ["product_id", "username"], name: "index_wishlists_on_product_id_and_username", unique: true
   end
 
+  add_foreign_key "wishlists", "products", primary_key: "id_product"
+  add_foreign_key "wishlists", "users", column: "username", primary_key: "username"
 end
