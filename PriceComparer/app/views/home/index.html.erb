@@ -40,28 +40,34 @@
 
 		<% end %>
 		
-		<table>
+		 <table>
 			<thead>
-				<tr>
-					<th>Nome</th>
-					<th>Descrizione</th>
-					<th>Sito</th>
-					<th>Prezzo</th>
-					<th>Azioni</th>
-				</tr>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+				<th>Sito</th>
+				<th>Prezzo</th>
+				<th>Azioni</th>
+			</tr>
 			</thead>
-    		<tbody>
-    			<% @products.each do |product| %>
-    				<tr>
-        				<td><%= product.name %></td>
-        				<td><%= product.description %></td>
-        				<td><%= product.site %></td>
-        				<td><%= product.price %></td>
-						<td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch %></td>
-						<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
-					</tr>
-    			<% end %>
-  			</tbody>
+			<tbody>
+			<% (@combined_products || []).each do |product| %>
+				<tr>
+				<td><%= product.name %></td>
+				<td><%= product.description %></td>
+				<td><%= product.site %></td>
+				<td><%= product.price %></td>
+				<% if product.site == 'eBay' %>
+					<td><a href="<%= product.url %>">View on eBay</a></td>
+				<% else %>
+					<td>
+					<%= button_to "Wishlist", wishlist_product_path(product), method: :patch %>
+					<%= button_to "Segnala", report_product_path(product), method: :patch %>
+					</td>
+				<% end %>
+				</tr>
+			<% end %>
+			</tbody>
 		</table>
 
 		<% if user_signed_in? %>	

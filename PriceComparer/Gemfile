@@ -73,5 +73,5 @@ group :development, :test do
 end
 
 #Manage Ebay API
-gem 'httparty'
-gem 'dotenv-rails'
+gem 'rest-client'
+
