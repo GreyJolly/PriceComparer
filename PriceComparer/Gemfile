@@ -70,12 +70,8 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem "guard-livereload", "~> 2.5", require: false
-<<<<<<< HEAD
 end
 
 #Manage Ebay API
 gem 'rest-client'
 
-=======
-end
->>>>>>> 0ec63ad6fdf6d1bdd187b16eef7ca984a0512c73
