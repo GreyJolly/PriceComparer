@@ -59,12 +59,15 @@
 				<td><%= product.price %></td>
 				<% if product.site == 'eBay' %>
 					<td><a href="<%= product.url %>">View on eBay</a></td>
-				<% else %>
-					<td>
-					<%= button_to "Wishlist", wishlist_product_path(product), method: :patch %>
-					<%= button_to "Segnala", report_product_path(product), method: :patch %>
-					</td>
 				<% end %>
+				<% if user_signed_in? %>
+							<% if  Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
+								<td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete %>
+							<% else %>
+								<td><%= button_to "Aggiungi alla wishlist", add_to_wishlist_product_path(product), method: :post %></td>
+							<% end %>			
+					<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
+				<% end %>	
 				</tr>
 			<% end %>
 			</tbody>
@@ -72,8 +75,7 @@
 
 		<% if user_signed_in? %>	
 			<h2>Pagine particolari</h2>
-			<!-- TODO: send to correct page -->
-			<%= button_to "Wishlist", users_list_path, method: :get %>
+			<%= button_to "Wishlist", wishlist_path, method: :get %>
 			<% if current_user.isAdministrator? %>
       			<%= button_to "Utenti", users_list_path, method: :get %>
 				<!-- TODO: send to correct page -->

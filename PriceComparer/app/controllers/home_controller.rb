@@ -1,9 +1,6 @@
 class HomeController < ApplicationController
-  def wishlist
-    @product = Product.find(params[:id])
-    # Logic to wishlist
-    print("Wishlisted " + @product.name + "\n")
-  end
+
+
 
   def report
     @product = Product.find(params[:id])
