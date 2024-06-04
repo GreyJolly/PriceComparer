@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_02_084107) do
+ActiveRecord::Schema.define(version: 2024_06_04_125204) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2024_06_02_084107) do
   create_table "wishlists", force: :cascade do |t|
     t.integer "product_id"
     t.string "username"
+    t.string "labels"
     t.index ["product_id", "username"], name: "index_wishlists_on_product_id_and_username", unique: true
   end
 

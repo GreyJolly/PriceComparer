@@ -38,6 +38,13 @@ Rails.application.routes.draw do
 
   get "wishlist", to: "wishlist#wishlist"
 
+  resources :wishlists do
+    member do
+      post "add_label", to: "wishlist#add_label"
+      delete "remove_label", to: "wishlist#remove_label"
+    end
+  end
+
   # Administrator only
   get "users_list", to: "administrator#users_list"
 

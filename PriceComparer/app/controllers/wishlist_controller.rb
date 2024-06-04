@@ -1,5 +1,5 @@
 class WishlistController < ApplicationController
-  before_action :authorize_users
+  before_action :authorize_users, :set_wishlist, only: [:add_label, :remove_label]
 
   def authorize_users
     unless current_user
@@ -10,28 +10,24 @@ class WishlistController < ApplicationController
 
   def wishlist
     @user = User.find_by(username: params[:user]) if current_user.isAdministrator
-	@user = current_user if !@user.present?
-	
-	@wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: @user.username })
+    @user = current_user if !@user.present?
+
+    @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: @user.username }).includes(:wishlists)
   end
 
   def add_to_wishlist
-
     @product = Product.find(params[:id])
-	
-	# TODO: Check if product is already present
-	Wishlist.create!( { product_id: @product.id, username: @user.username })
+
+    # TODO: Check if product is already present
+    Wishlist.create!({ product_id: @product.id, username: @user.username })
   end
 
   def remove_from_wishlist
-
     @product = Product.find(params[:id])
-	@user = current_user
-	
-	# TODO: Check if the product is present
-	Wishlist.find_by(product_id: @product.id, username: @user.username).destroy
-  end
 
+    # TODO: Check if the product is present
+    Wishlist.find_by(product_id: @product.id, username: @user.username).destroy
+  end
 
   def search
     @query = params[:query]
@@ -44,5 +40,26 @@ class WishlistController < ApplicationController
     @wishlistedProducts = @wishlistedProducts.order(price: :asc) if params[:order] == "asc"
     @wishlistedProducts = @wishlistedProducts.order(price: :desc) if params[:order] == "desc"
     render :wishlist
+  end
+
+  def add_label
+
+	if params[:label_name] =~ /\A[a-zA-Z0-9 ]*\z/
+		@wishlist.add_label(params[:label_name])
+	else
+		flash[:error] = "Sono consentiti solo caratteri alfanumerici e lo spazio nel nome di un etichetta."
+	end
+    redirect_back(fallback_location: root_path)
+  end
+
+  def remove_label
+    @wishlist.remove_label(params[:label_name])
+    redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def set_wishlist
+    @wishlist = Wishlist.find(params[:id])
   end
 end
