@@ -3,8 +3,8 @@ class AdministratorController < ApplicationController
 
 	def authorize_admins
 		unless current_user && current_user.isAdministrator
-		  flash[:alert] = "You are not authorized to access the users list. You have been redirected"
-		  redirect_to root_path # Or any other path
+		  flash[:alert] = "You are not authorized to access this page. You have been redirected"
+		  redirect_to root_path
 		end
 	end
 

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Price Comparer</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+    	<%= csrf_meta_tags %>
+    	<%= csp_meta_tag %>
+		<%= stylesheet_link_tag "application", media: "all" %>
+	</head>
+
+
+  <body>
+
+  	<%= render "partials/header" %>
+
+    <% if flash[:error] %>
+      <div class="flash-error">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
+	
+	Prodotti salvati per categoria:
+    <table>
+      <thead>
+        <tr>
+        <th>Categoria</th>
+		<th>Numero</th>
+      </thead>
+      <tbody>
+        <!-- TODO: implement -->
+      </tbody>
+    </table>
+
+	Prodotti salvati per fascia di prezzo:
+    <table>
+      <thead>
+        <tr>
+        <th>Prezzo minimo</th>
+		<th>Prezzo massimo</th>
+		<th>Numero</th>
+      </thead>
+      <tbody>
+        <!-- TODO: implement -->
+      </tbody>
+    </table>
+
+	<%= button_to "Home", root_path, method: :get %>
+
+</html>

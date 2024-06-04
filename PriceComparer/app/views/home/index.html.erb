@@ -10,7 +10,8 @@
 
 	<body>
 		
-		<h1> Price Comparer </h1>
+		<%= render "partials/header" %>
+		
 		<%= form_with url: search_products_path, method: :get, local: true do %>
   			<div class="field">
     			<%= label_tag :query, "Search" %>
@@ -72,20 +73,6 @@
 			<% end %>
 			</tbody>
 		</table>
-
-		<% if user_signed_in? %>	
-			<h2>Pagine particolari</h2>
-			<%= button_to "Wishlist", wishlist_path, method: :get %>
-			<% if current_user.isAdministrator? %>
-      			<%= button_to "Utenti", users_list_path, method: :get %>
-				<!-- TODO: send to correct page -->
-				<%= button_to "Reports", users_list_path %>
-    		<% end %>
-			<% if current_user.isAnalyst? %>
-				<!-- TODO: send to correct page -->
-      			<%= button_to "Dashboard", users_list_path %>
-    		<% end %>
-		<% end %>
 	
 		<h2>Account</h2>
 		<% if user_signed_in? %>

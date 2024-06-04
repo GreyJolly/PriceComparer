@@ -38,8 +38,11 @@ Rails.application.routes.draw do
 
   get "wishlist", to: "wishlist#wishlist"
 
-  # Administrator only users list
+  # Administrator only
   get "users_list", to: "administrator#users_list"
+
+  # Analyst only
+  get "products_dashboard", to: "analyst#products_dashboard"
 
   # Root path
   root to: "home#index"

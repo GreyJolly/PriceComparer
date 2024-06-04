@@ -4,7 +4,7 @@ class WishlistController < ApplicationController
   def authorize_users
     unless current_user
       flash[:alert] = "You are not currently logged in. You have been redirected"
-      redirect_to root_path # Or any other path
+      redirect_to root_path
     end
   end
 
