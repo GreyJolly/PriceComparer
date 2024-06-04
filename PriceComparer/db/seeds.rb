@@ -40,6 +40,10 @@ end
 # Wishlists data
 wishlists = [
   { product_id: 1, username: "User1" },
+  { product_id: 6, username: "User1" },
+  { product_id: 7, username: "User1" },
+  { product_id: 8, username: "User1" },
+  { product_id: 9, username: "User1" },
   { product_id: 2, username: "User2" },
   { product_id: 3, username: "User3" },
   { product_id: 4, username: "User4" },
@@ -49,6 +53,11 @@ wishlists = [
   { product_id: 8, username: "User8" },
   { product_id: 9, username: "User9" },
   { product_id: 10, username: "User10" },
+  { product_id: 1, username: "amministratore" },
+  { product_id: 2, username: "amministratore" },
+  { product_id: 3, username: "amministratore" },
+  { product_id: 4, username: "amministratore" },
+  { product_id: 5, username: "amministratore" },
 ]
 
 # Create wishlists

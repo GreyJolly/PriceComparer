@@ -1,4 +1,15 @@
 <h1> Price Comparer </h1>
+
+<% if user_signed_in? %>
+	<p>Hai effettuato l'accesso come: <%= current_user.username %></p>
+	|  <%= link_to "Modifica profilo", edit_user_registration_path, method: :get %>  |  
+	<%= button_to "Logout", destroy_user_session_path, method: :delete %>  |
+<% else %>
+	<p> Non hai effettuato l'accesso</p>
+	|  <%= link_to "Accedi", new_user_session_path %>  |  
+	<%= link_to "Registrati", new_user_registration_path %>  |
+<% end %>
+<br>
 |  <%= link_to "Home", root_path, method: :get %>  |  
 <% if user_signed_in? %>	
 	<%= link_to "Wishlist", wishlist_path, method: :get %>  |  

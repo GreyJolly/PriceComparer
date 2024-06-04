@@ -9,13 +9,15 @@ class WishlistController < ApplicationController
   end
 
   def wishlist
-    @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: current_user.username })
+    @user = User.find_by(username: params[:user]) if current_user.isAdministrator
+	@user = current_user if !@user.present?
+	
+	@wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: @user.username })
   end
 
   def add_to_wishlist
 
     @product = Product.find(params[:id])
-	@user = current_user
 	
 	# TODO: Check if product is already present
 	Wishlist.create!( { product_id: @product.id, username: @user.username })

@@ -60,7 +60,9 @@
             <td><%= user.email %></td>
           <td><%= user.isAdministrator ? "Amministratore" : "" %> &emsp; <%= user.isAnalyst ? "Analista" : "" %> </td>
           <td> <%= button_to "Toggle amministratore", toggle_admin_user_path(user), method: :patch %> </td>
-        <td> <%= button_to "Toggle analista", toggle_analyst_user_path(user), method: :patch %> </td>
+       	  <td> <%= button_to "Toggle analista", toggle_analyst_user_path(user), method: :patch %> </td>
+		  <!-- TODO: Find way to set params[:user] = user -->
+		  <td> <%= button_to "Visualizza Wishlist", wishlist_path, method: :get %> </td>
         </tr>
         <% end %>
       </tbody>
