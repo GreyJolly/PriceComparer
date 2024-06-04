@@ -3,7 +3,13 @@ Rails.application.routes.draw do
 	devise_for :users, controllers: { sessions: 'sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
 	
     # Resource routes for reports
-    resources :reports
+    resources :reports do
+        member do
+            delete "destroy", to: "reports#destroy"
+        end
+
+    end
+
 
 	# Resource routes for products with custom member actions
 	resources :products do
