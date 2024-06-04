@@ -1,5 +1,9 @@
 class ReportsController < ApplicationController
     def index
+        unless current_user && current_user.isAdministrator
+            flash[:alert] = "You are not authorized to access this page. You have been redirected"
+            redirect_to root_path
+          end
       @reports = Report.all
     end
   
