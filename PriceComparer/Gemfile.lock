@@ -62,6 +62,8 @@ GEM
       zeitwerk (~> 2.3)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    autoprefixer-rails (10.4.16.0)
+      execjs (~> 2)
     base64 (0.2.0)
     bcrypt (3.1.20)
     bindex (0.8.1)
@@ -103,6 +105,7 @@ GEM
       http_parser.rb (~> 0)
     erubi (1.12.0)
     eventmachine (1.2.7)
+    execjs (2.9.1)
     faraday (2.8.1)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -161,6 +164,10 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
+    material_icons (4.0.0)
+      railties (>= 3.2)
+    materialize-sass (1.0.0.1)
+      autoprefixer-rails (>= 6.0.3)
     matrix (0.4.2)
     method_source (1.1.0)
     mini_mime (1.1.5)
@@ -347,6 +354,8 @@ DEPENDENCIES
   httparty
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  material_icons
+  materialize-sass (~> 1.0.0)
   omniauth
   omniauth-google-oauth2
   puma (~> 5.0)

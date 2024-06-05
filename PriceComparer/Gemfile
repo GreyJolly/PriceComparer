@@ -75,3 +75,7 @@ end
 #Manage Ebay API
 gem 'httparty'
 gem 'dotenv-rails'
+
+#Bundle to use Material Design
+gem 'materialize-sass', '~> 1.0.0'
+gem 'material_icons'
