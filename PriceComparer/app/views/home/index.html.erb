@@ -1,101 +1,97 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Price Comparer</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1">
-    	<%= csrf_meta_tags %>
-    	<%= csp_meta_tag %>
-		<%= stylesheet_link_tag "application", media: "all" %>
-	</head>
+  <head>
+    <title>Price Comparer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+  </head>
 
-	<body>
-		<div class="header">
-            <h1> Price Comparer </h1>
+  <body>
+    <div class="header">
+      <h1> Price Comparer </h1>
+    </div>
+
+    <div class="container">
+      <%= form_with url: search_products_path, method: :get, local: true do %>
+        <div class="input-field">
+          <%= label_tag :query, "Search" %>
+          <%= text_field_tag :query, params[:query] %>
         </div>
 
-        <div class="container">
-            <%= form_with url: search_products_path, method: :get, local: true do %>
-  			<div class="field">
-    			<%= label_tag :query, "Search" %>
-    			<%= text_field_tag :query, params[:query] %>
-  			</div>
-  					
-
-			<div class="field">
-    			<%= label_tag :min_price, "Minimum Price" %>
-   				<%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01 %>
-  			</div>
-  			<div class="field">
-    			<%= label_tag :max_price, "Maximum Price" %>
-    			<%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
-  			</div>
-			
-			<label>
-    			<%= radio_button_tag :order, "asc", params[:order] == "asc" %>
-   	 			Sort by Ascending Price
-  			</label>
-  			<label>
-    			<%= radio_button_tag :order, "desc", params[:order] == "desc" %>
-    			Sort by Descending Price
-  			</label>
-
-  			<div class="actions"> <%= submit_tag "Search" %> </div>
-
-		    <% end %>
-		
-            <table>
-            <thead>
-                <tr>
-                <th>Nome</th>
-                <th>Descrizione</th>
-                <th>Sito</th>
-                <th>Prezzo</th>
-                <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @products.each do |product| %>
-                <tr>
-                    <td><%= product.name %></td>
-                    <td><%= product.description %></td>
-                    <td><%= product.site %></td>
-                    <td><%= product.price %></td>
-                    <td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch %></td>
-                    <td><%= button_to "Segnala", report_product_product_path(product), method: :patch %></td>
-                </tr>
-                <% end %>
-            </tbody>
-            </table>
-
-
-            <% if user_signed_in? %>	
-                <h2>Pagine particolari</h2>
-                <!-- TODO: send to correct page -->
-                <%= button_to "Wishlist", users_list_path, method: :get %>
-                <% if current_user.isAdministrator? %>
-                    <%= button_to "Utenti", users_list_path, method: :get %>
-                    <!-- TODO: send to correct page -->
-                    <%= button_to "Reports", users_list_path %>
-                <% end %>
-                <% if current_user.isAnalyst? %>
-                    <!-- TODO: send to correct page -->
-                    <%= button_to "Dashboard", users_list_path %>
-                <% end %>
-            <% end %>
+        <div class="input-field">
+          <%= label_tag :min_price, "Minimum Price" %>
+          <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01 %>
+        </div>
+        <div class="input-field">
+          <%= label_tag :max_price, "Maximum Price" %>
+          <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
         </div>
 
-        <footer>
-        	<h2>Account</h2>
-		    <% if user_signed_in? %>
-			    <p>Benvenuto, <%= current_user.username %></p>
-			    <%= button_to "Edit profile", edit_user_registration_path, method: :get %>
-			    <%= button_to "Logout", destroy_user_session_path, method: :delete %>
-		    <% else %>
-			    <%= link_to "Sign up", new_user_registration_path %> or
-			    <%= link_to "Login", new_user_session_path %>
-		    <% end %>
-        </footer>
-		
+        <p>
+          <label>
+            <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
+            <span>Sort by Ascending Price</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
+            <span>Sort by Descending Price</span>
+          </label>
+        </p>
 
-	</body>
+        <div class="actions"> <%= submit_tag "Search", class: "btn" %> </div>
+      <% end %>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Sito</th>
+            <th>Prezzo</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.description %></td>
+              <td><%= product.site %></td>
+              <td><%= product.price %></td>
+              <td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch, class: "btn" %></td>
+              <td><%= button_to "Segnala", report_product_product_path(product), method: :patch, class: "btn" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <% if user_signed_in? %>  
+        <h2>Pagine particolari</h2>
+        <%= button_to "Wishlist", users_list_path, method: :get, class: "btn" %>
+        <% if current_user.isAdministrator? %>
+          <%= button_to "Utenti", users_list_path, method: :get, class: "btn" %>
+          <%= button_to "Reports", users_list_path, class: "btn" %>
+        <% end %>
+        <% if current_user.isAnalyst? %>
+          <%= button_to "Dashboard", users_list_path, class: "btn" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <footer>
+      <h2>Account</h2>
+      <% if user_signed_in? %>
+        <p>Benvenuto, <%= current_user.username %></p>
+        <%= button_to "Edit profile", edit_user_registration_path, method: :get, class: "btn" %>
+        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn" %>
+      <% else %>
+        <%= link_to "Sign up", new_user_registration_path %> or
+        <%= link_to "Login", new_user_session_path %>
+      <% end %>
+    </footer>
+  </body>
 </html>
