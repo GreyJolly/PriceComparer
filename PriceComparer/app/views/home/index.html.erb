@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Price Comparer</title>
+    <title>PriceComparer</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -9,24 +9,39 @@
   </head>
 
   <body>
-    <div class="header">
-      <h1> Price Comparer </h1>
-    </div>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo">Price Comparer</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <% if user_signed_in? %>
+                <li><%= link_to "Edit profile", edit_user_registration_path, method: :get %></li>
+                <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+            <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path %></li>
+                <li><%= link_to "Login", new_user_session_path %></li>
+            <% end %>
+        </ul>
+      </div>
+    </nav>
+
+
 
     <div class="container">
+      
+
       <%= form_with url: search_products_path, method: :get, local: true do %>
         <div class="input-field">
           <%= label_tag :query, "Search" %>
-          <%= text_field_tag :query, params[:query] %>
+          <%= text_field_tag :query, params[:query], class: "validate" %>
         </div>
 
         <div class="input-field">
           <%= label_tag :min_price, "Minimum Price" %>
-          <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01 %>
+          <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
         <div class="input-field">
           <%= label_tag :max_price, "Maximum Price" %>
-          <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
+          <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <p>
@@ -42,10 +57,12 @@
           </label>
         </p>
 
-        <div class="actions"> <%= submit_tag "Search", class: "btn" %> </div>
+        <div class="actions">
+          <%= submit_tag "Search", class: "btn" %>
+        </div>
       <% end %>
 
-      <table>
+      <table class="striped">
         <thead>
           <tr>
             <th>Nome</th>
@@ -68,30 +85,12 @@
           <% end %>
         </tbody>
       </table>
-
-      <% if user_signed_in? %>  
-        <h2>Pagine particolari</h2>
-        <%= button_to "Wishlist", users_list_path, method: :get, class: "btn" %>
-        <% if current_user.isAdministrator? %>
-          <%= button_to "Utenti", users_list_path, method: :get, class: "btn" %>
-          <%= button_to "Reports", users_list_path, class: "btn" %>
-        <% end %>
-        <% if current_user.isAnalyst? %>
-          <%= button_to "Dashboard", users_list_path, class: "btn" %>
-        <% end %>
-      <% end %>
     </div>
 
     <footer>
-      <h2>Account</h2>
-      <% if user_signed_in? %>
-        <p>Benvenuto, <%= current_user.username %></p>
-        <%= button_to "Edit profile", edit_user_registration_path, method: :get, class: "btn" %>
-        <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn" %>
-      <% else %>
-        <%= link_to "Sign up", new_user_registration_path %> or
-        <%= link_to "Login", new_user_session_path %>
-      <% end %>
+        <div class="container">
+            <p>&copy; 2021 Price Comparer</p>
+        </div>
     </footer>
   </body>
 </html>

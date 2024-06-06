@@ -1,11 +1,12 @@
 <h1>Reports</h1>
-<%= link_to 'New Report', new_report_path %>
+<%= button_to 'New Report', new_report_path, method: :get, class: "btn" %>
+<%= button_to 'Home', root_path, method: :get, class: "btn" %>
 <ul>
   <% @reports.each do |report| %>
     <li>
-      <%= link_to report.title, report %>
-      <%= link_to 'Edit', edit_report_path(report) %>
-      <%= button_to 'Destroy', delete_report_path(report), method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= button_to report.title, report, method: :get, class: "btn"%>
+      <%= button_to 'Edit', edit_report_path(report), method: :get, class: "btn"%>
+      <%= button_to 'Destroy', delete_report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn" %>
     </li>
   <% end %>
 </ul>
