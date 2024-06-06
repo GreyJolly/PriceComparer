@@ -9,9 +9,12 @@
 	</head>
 
 	<body>
-		
-		<h1> Price Comparer </h1>
-		<%= form_with url: search_products_path, method: :get, local: true do %>
+		<div class="header">
+            <h1> Price Comparer </h1>
+        </div>
+
+        <div class="container">
+            <%= form_with url: search_products_path, method: :get, local: true do %>
   			<div class="field">
     			<%= label_tag :query, "Search" %>
     			<%= text_field_tag :query, params[:query] %>
@@ -38,58 +41,61 @@
 
   			<div class="actions"> <%= submit_tag "Search" %> </div>
 
-		<% end %>
+		    <% end %>
 		
-		<table>
-        <thead>
-            <tr>
-            <th>Nome</th>
-            <th>Descrizione</th>
-            <th>Sito</th>
-            <th>Prezzo</th>
-            <th>Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @products.each do |product| %>
-            <tr>
-                <td><%= product.name %></td>
-                <td><%= product.description %></td>
-                <td><%= product.site %></td>
-                <td><%= product.price %></td>
-                <td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch %></td>
-                <td><%= button_to "Segnala", report_product_product_path(product), method: :patch %></td>
-            </tr>
+            <table>
+            <thead>
+                <tr>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Sito</th>
+                <th>Prezzo</th>
+                <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @products.each do |product| %>
+                <tr>
+                    <td><%= product.name %></td>
+                    <td><%= product.description %></td>
+                    <td><%= product.site %></td>
+                    <td><%= product.price %></td>
+                    <td><%= button_to "Wishlist", wishlist_product_path(product), method: :patch %></td>
+                    <td><%= button_to "Segnala", report_product_product_path(product), method: :patch %></td>
+                </tr>
+                <% end %>
+            </tbody>
+            </table>
+
+
+            <% if user_signed_in? %>	
+                <h2>Pagine particolari</h2>
+                <!-- TODO: send to correct page -->
+                <%= button_to "Wishlist", users_list_path, method: :get %>
+                <% if current_user.isAdministrator? %>
+                    <%= button_to "Utenti", users_list_path, method: :get %>
+                    <!-- TODO: send to correct page -->
+                    <%= button_to "Reports", users_list_path %>
+                <% end %>
+                <% if current_user.isAnalyst? %>
+                    <!-- TODO: send to correct page -->
+                    <%= button_to "Dashboard", users_list_path %>
+                <% end %>
             <% end %>
-        </tbody>
-        </table>
+        </div>
 
-
-		<% if user_signed_in? %>	
-			<h2>Pagine particolari</h2>
-			<!-- TODO: send to correct page -->
-			<%= button_to "Wishlist", users_list_path, method: :get %>
-			<% if current_user.isAdministrator? %>
-      			<%= button_to "Utenti", users_list_path, method: :get %>
-				<!-- TODO: send to correct page -->
-				<%= button_to "Reports", users_list_path %>
-    		<% end %>
-			<% if current_user.isAnalyst? %>
-				<!-- TODO: send to correct page -->
-      			<%= button_to "Dashboard", users_list_path %>
-    		<% end %>
-		<% end %>
-	
-		<h2>Account</h2>
-		<% if user_signed_in? %>
-			<p>Benvenuto, <%= current_user.username %></p>
-			<%= button_to "Edit profile", edit_user_registration_path, method: :get %>
-			<%= button_to "Logout", destroy_user_session_path, method: :delete %>
-		<% else %>
-			<%= link_to "Sign up", new_user_registration_path %> or
-			<%= link_to "Login", new_user_session_path %>
-		<% end %>
-		<br>
+        <footer>
+        	<h2>Account</h2>
+		    <% if user_signed_in? %>
+			    <p>Benvenuto, <%= current_user.username %></p>
+			    <%= button_to "Edit profile", edit_user_registration_path, method: :get %>
+			    <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+		    <% else %>
+			    <%= link_to "Sign up", new_user_registration_path %> or
+			    <%= link_to "Login", new_user_session_path %>
+		    <% end %>
+        </footer>
+		
 
 	</body>
 </html>

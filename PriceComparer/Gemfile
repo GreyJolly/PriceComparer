@@ -79,3 +79,6 @@ gem 'dotenv-rails'
 #Bundle to use Material Design
 gem 'materialize-sass', '~> 1.0.0'
 gem 'material_icons'
+
+#JS Runtime
+gem 'therubyracer', platforms: :ruby
