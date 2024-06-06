@@ -72,7 +72,7 @@
 			<% if current_user.isAdministrator? %>
       			<%= button_to "Utenti", users_list_path, method: :get %>
 				<!-- TODO: send to correct page -->
-				<%= button_to "Reports", reports_path, method: :get %>
+				<%= button_to "Reports", users_list_path %>
     		<% end %>
 			<% if current_user.isAnalyst? %>
 				<!-- TODO: send to correct page -->

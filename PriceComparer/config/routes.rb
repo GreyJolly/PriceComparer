@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     # Resource routes for reports
     resources :reports do
         member do
-            delete "delete", to: "reports#destroy"
+            delete "destroy", to: "reports#destroy"
         end
 
     end
