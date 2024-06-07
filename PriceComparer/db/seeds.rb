@@ -39,16 +39,25 @@ end
 
 # Wishlists data
 wishlists = [
-  { ID_product: 1, users_name: "User1" },
-  { ID_product: 2, users_name: "User2" },
-  { ID_product: 3, users_name: "User3" },
-  { ID_product: 4, users_name: "User4" },
-  { ID_product: 5, users_name: "User5" },
-  { ID_product: 6, users_name: "User6" },
-  { ID_product: 7, users_name: "User7" },
-  { ID_product: 8, users_name: "User8" },
-  { ID_product: 9, users_name: "User9" },
-  { ID_product: 10, users_name: "User10" },
+  { product_id: 1, username: "User1" },
+  { product_id: 6, username: "User1" },
+  { product_id: 7, username: "User1" },
+  { product_id: 8, username: "User1" },
+  { product_id: 9, username: "User1" },
+  { product_id: 2, username: "User2" },
+  { product_id: 3, username: "User3" },
+  { product_id: 4, username: "User4" },
+  { product_id: 5, username: "User5" },
+  { product_id: 6, username: "User6" },
+  { product_id: 7, username: "User7" },
+  { product_id: 8, username: "User8" },
+  { product_id: 9, username: "User9" },
+  { product_id: 10, username: "User10" },
+  { product_id: 1, username: "amministratore" },
+  { product_id: 2, username: "amministratore" },
+  { product_id: 3, username: "amministratore" },
+  { product_id: 4, username: "amministratore" },
+  { product_id: 5, username: "amministratore" },
 ]
 
 # Create wishlists

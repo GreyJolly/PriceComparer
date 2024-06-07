@@ -3,13 +3,16 @@ class AdministratorController < ApplicationController
 
 	def authorize_admins
 		unless current_user && current_user.isAdministrator
-		  flash[:alert] = "You are not authorized to access the users list. You have been redirected"
-		  redirect_to root_path # Or any other path
+		  flash[:alert] = "You are not authorized to access this page. You have been redirected"
+		  redirect_to root_path
 		end
 	end
 
 	def users_list
     	@users = User.all
+		@analyst_count = User.where(isAnalyst: true).count
+		@administrator_count = User.where(isAdministrator: true).count
+		@analystAdministrato_count = User.where(isAnalyst: true, isAdministrator: true).count
 	end
 
 	def toggle_analyst
@@ -62,14 +65,14 @@ class AdministratorController < ApplicationController
 		end
 	
 		if @query.present?
-		  @users = @users.where("name LIKE ? OR email LIKE ?", "%#{@query}%", "%#{@query}%")
+		  @users = @users.where("username LIKE ? OR email LIKE ?", "%#{@query}%", "%#{@query}%")
 		end
 	
-		@users = @users.order(:name) if @alphabetical
+		@users = @users.order(:username) if @alphabetical
 
-		@analyst_count = User.where(isAnalyst: true).count
-		@administrator_count = User.where(isAdministrator: true).count
-		@analystAdministrato_count = User.where(isAnalyst: true, isAdministrator: true).count
+		@analyst_count = @users.where(isAnalyst: true).count
+		@administrator_count = @users.where(isAdministrator: true).count
+		@analystAdministrato_count = @users.where(isAnalyst: true, isAdministrator: true).count
 		
 		render :users_list
 	end

@@ -73,8 +73,8 @@ group :development, :test do
 end
 
 #Manage Ebay API
-gem 'httparty'
-gem 'dotenv-rails'
+gem 'rest-client'
+
 
 #Bundle to use Material Design
 gem 'materialize-sass', '~> 1.0.0'

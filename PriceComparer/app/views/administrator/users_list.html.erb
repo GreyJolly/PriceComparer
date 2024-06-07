@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <h1> Price Comparer </h1>
+	<%= render "partials/header" %>
 
     <% if flash[:error] %>
       <div class="flash-error">
@@ -52,6 +52,7 @@
         <th>Nome</th>
         <th>Email</th>
         <th>Ruoli</th>
+		<th colspan="3"> Azioni </th>
       </thead>
       <tbody>
         <% @users.each do |user| %>
@@ -60,7 +61,8 @@
             <td><%= user.email %></td>
           <td><%= user.isAdministrator ? "Amministratore" : "" %> &emsp; <%= user.isAnalyst ? "Analista" : "" %> </td>
           <td> <%= button_to "Toggle amministratore", toggle_admin_user_path(user), method: :patch %> </td>
-        <td> <%= button_to "Toggle analista", toggle_analyst_user_path(user), method: :patch %> </td>
+       	  <td> <%= button_to "Toggle analista", toggle_analyst_user_path(user), method: :patch %> </td>
+		  <td> <%= button_to "Visualizza Wishlist", wishlist_path, method: :get,  params:{:user => user.username} %> </td>
         </tr>
         <% end %>
       </tbody>
