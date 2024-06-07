@@ -41,7 +41,12 @@ Rails.application.routes.draw do
 	end
 
 
-	
+	resources :products do
+        member do
+          patch :report_product
+        end
+    end
+      
   
 	# Custom route for the administrator user list
 	get 'users_list', to: 'administrator#users_list'

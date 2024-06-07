@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_05_31_210816) do
+ActiveRecord::Schema.define(version: 2024_06_04_125204) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -19,13 +19,7 @@ ActiveRecord::Schema.define(version: 2024_05_31_210816) do
     t.string "site"
     t.decimal "price", precision: 10, scale: 2
     t.string "category"
-  end
-
-  create_table "reports", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.index ["id_product"], name: "index_products_on_id_product", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -49,12 +43,20 @@ ActiveRecord::Schema.define(version: 2024_05_31_210816) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-# Could not dump table "wishlist" because of following StandardError
-#   Unknown type 'SERIAL' for column 'id'
-
   create_table "wishlists", force: :cascade do |t|
-    t.integer "ID_product"
-    t.string "users_name"
+    t.integer "product_id"
+    t.string "username"
+    t.string "labels"
+    t.index ["product_id", "username"], name: "index_wishlists_on_product_id_and_username", unique: true
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "wishlists", "products", primary_key: "id_product"
+  add_foreign_key "wishlists", "users", column: "username", primary_key: "username"
 end
