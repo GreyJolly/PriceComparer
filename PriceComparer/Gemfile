@@ -75,3 +75,7 @@ end
 #Manage Ebay API
 gem 'httparty'
 gem 'dotenv-rails'
+
+#Material Design
+gem 'materialize-sass'
+gem 'jquery-rails'
