@@ -10,12 +10,10 @@
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo center">Price Comparer</a>
-    </div>
-  </nav>
+  
 
+  <%= render "partials/header" %>
+  
   <div class="container">
     <h1 class="center-align">Price Comparer</h1>
 
@@ -81,27 +79,6 @@
       </tbody>
     </table>
 
-    <% if user_signed_in? %>
-      <h2>Pagine particolari</h2>
-      <%= button_to "Wishlist", users_list_path, method: :get, class: "btn waves-effect waves-light" %>
-      <% if current_user.isAdministrator? %>
-        <%= button_to "Utenti", users_list_path, method: :get, class: "btn waves-effect waves-light" %>
-        <%= button_to "Reports", reports_path, method: :get, class: "btn waves-effect waves-light" %>
-      <% end %>
-      <% if current_user.isAnalyst? %>
-        <%= button_to "Dashboard", users_list_path, class: "btn waves-effect waves-light" %>
-      <% end %>
-    <% end %>
-
-    <h2>Account</h2>
-    <% if user_signed_in? %>
-      <p>Benvenuto, <%= current_user.username %></p>
-      <%= button_to "Edit profile", edit_user_registration_path, method: :get, class: "btn waves-effect waves-light" %>
-      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn waves-effect waves-light red" %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn waves-effect waves-light" %>
-      <%= link_to "Login", new_user_session_path, class: "btn waves-effect waves-light" %>
-    <% end %>
   </div>
 </body>
 </html>

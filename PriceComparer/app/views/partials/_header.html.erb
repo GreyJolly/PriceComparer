@@ -1,0 +1,40 @@
+<nav>
+    <div class="nav-wrapper">
+
+        <% if user_signed_in? %>
+            <a href="#" class="brand-logo center">Benvenuto <%= current_user.username %></a>
+
+            <% else %>
+                <a href="#" class="brand-logo center">Benvenuto</a>
+        <% end %>
+
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="<%= root_path %>">Home</a></li>
+
+        <% if user_signed_in? %>
+            
+            <li><%= link_to "Wishlist", users_list_path, method: :get %></li>
+
+            <% if current_user.isAdministrator? %>
+                <li><%= link_to "Utenti", users_list_path, method: :get %></li>
+                <li><%= link_to "Reports", reports_path, method: :get %></li>
+            <% end %>
+
+            <% if current_user.isAnalyst? %>
+                <li><%= link_to "Dashboard", users_list_path %></li>
+            <% end %>
+
+            <li><%= link_to "Profile", edit_user_registration_path, method: :get %></li> 
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+
+            <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path %></li> 
+                <li><%= link_to "Login", new_user_session_path %></li>
+        <% end %>
+        
+      </ul>
+
+
+    </div>
+  </nav>
