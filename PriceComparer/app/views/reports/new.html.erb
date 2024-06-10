@@ -1,29 +1,78 @@
-<h1><%= action_name.capitalize %> Report</h1>
-<%= form_with model: @report, local: true do |form| %>
-  <% if @report.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
-      <ul>
-        <% @report.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= action_name.capitalize %> Report</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <style>
+        .btn-back {
+            background-color: #f44336 !important; /* Rosso */
+            color: white !important;
+            margin-top: 10px;
+        }
+        .btn-submit {
+            background-color: #4CAF50 !important; /* Verde */
+            color: white !important;
+        }
+        .input-field {
+            margin-bottom: 20px;
+        }
+        .error-explanation {
+            background-color: #ffebee; /* Light red background */
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <%= render "partials/header" %>
+
+    <div class="container">
+        <h1 class="center-align"><%= action_name.capitalize %> Report</h1>
+        <%= form_with model: @report, local: true, html: { class: 'col s12' } do |form| %>
+            <% if @report.errors.any? %>
+                <div id="error_explanation" class="error-explanation">
+                    <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+                    <ul>
+                        <% @report.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            <% end %>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <%= form.label :title %>
+                    <%= form.text_field :title, class: 'validate', placeholder: 'Title' %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <%= form.label :content %>
+                    <%= form.text_area :content, class: 'materialize-textarea', placeholder: 'Report description' %>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <%= form.submit 'Submit', class: 'btn waves-effect waves-light btn-submit' %>
+                </div>
+            </div>
         <% end %>
-      </ul>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <%= link_to 'Back', reports_path, class: 'btn waves-effect waves-light btn-back' %>
+            </div>
+        </div>
     </div>
-  <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', reports_path %>
+</body>
+</html>
