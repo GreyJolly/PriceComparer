@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Price Comparer</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "application", media: "all" %>
-  <%= javascript_include_tag 'application' %>
+    <title>Price Comparer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag 'application' %>
+    <meta charset="UTF-8">
 </head>
 
 <body>
   
 
-  <%= render "partials/header" %>
+    <%= render "partials/header" %>
   
-  <div class="container">
-    <h1 class="center-align">Price Comparer</h1>
+    <div class="container">
+        <h1 class="center-align">Price Comparer</h1>
 
-    <%= form_with url: search_products_path, method: :get, local: true, html: { class: 'col s12' } do %>
-      <div class="row">
-        <div class="input-field col s12">
-          <%= label_tag :query, "Search" %>
-          <%= text_field_tag :query, params[:query], class: "validate" %>
+        <%= form_with url: search_products_path, method: :get, local: true, html: { class: 'col s12' } do %>
+        <div class="row">
+            <div class="input-field col s12">
+            <%= label_tag :query, "Search" %>
+            <%= text_field_tag :query, params[:query], class: "validate" %>
         </div>
 
         <div class="input-field col s12 m6">
-          <%= label_tag :min_price, "Minimum Price" %>
-          <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate" %>
+            <%= label_tag :min_price, "Minimum Price" %>
+            <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <div class="input-field col s12 m6">
-          <%= label_tag :max_price, "Maximum Price" %>
-          <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
+            <%= label_tag :max_price, "Maximum Price" %>
+            <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <p>
-          <label>
-            <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
-            <span>Sort by Ascending Price</span>
-          </label>
+            <label>
+                <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
+                <span>Sort by Ascending Price</span>
+            </label>
         </p>
+
         <p>
-          <label>
-            <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
-            <span>Sort by Descending Price</span>
+            <label>
+                <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
+                <span>Sort by Descending Price</span>
           </label>
         </p>
 
@@ -69,7 +71,7 @@
             <td><%= product.name %></td>
             <td><%= product.description %></td>
             <td><%= product.site %></td>
-            <td><%= product.price %></td>
+            <td><%= product.price %> €</td>
             <td>
               <%= button_to "Wishlist", wishlist_product_path(product), method: :patch, class: "btn-small" %>
               <%= button_to "Segnala", report_product_product_path(product), method: :patch, class: "btn-small red" %>
