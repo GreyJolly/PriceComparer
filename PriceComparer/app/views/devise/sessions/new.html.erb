@@ -1,26 +1,83 @@
-<h2>Log in</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" %>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("https://i.ibb.co/28F2JSn/login-background.webp") !important;
+        }
+        .login-container {
+            background: white;
+            padding: 40px 50px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .login-container h2 {
+            margin-bottom: 30px;
+        }
+        .input-field {
+            margin-bottom: 20px;
+        }
+        .actions {
+            margin-top: 20px;
+        }
+        .actions .btn {
+            width: 100%;
+        }
+        .links {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Log in</h2>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="input-field">
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'validate' %>
+                <%= f.label :email, "Email" %>
+            </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+            <div class="input-field">
+                <%= f.password_field :password, autocomplete: "current-password", class: 'validate' %>
+                <%= f.label :password, "Password" %>
+            </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+            <% if devise_mapping.rememberable? %>
+                <div class="input-field">
+                    <label>
+                        <%= f.check_box :remember_me %>
+                        <span>Remember me</span>
+                    </label>
+                </div>
+            <% end %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+            <div class="actions">
+                <%= f.submit "Log in", class: 'btn waves-effect waves-light' %>
+            </div>
+        <% end %>
+        <!--  
+        <div class="links">
+            <%= render "devise/shared/links" %>
+        </div>
+        -->
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+    <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            M.updateTextFields();
+        });
+    </script>
+</body>
+</html>
