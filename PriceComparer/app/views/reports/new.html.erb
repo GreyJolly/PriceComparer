@@ -13,10 +13,12 @@
             background-color: #f44336 !important; /* Rosso */
             color: white !important;
             margin-top: 10px;
+            margin-left: 10px; /* Optional: Adds some space between the buttons */
         }
         .btn-submit {
             background-color: #4CAF50 !important; /* Verde */
             color: white !important;
+            margin-top: 10px;
         }
         .input-field {
             margin-bottom: 20px;
@@ -48,30 +50,25 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <%= form.label :title %>
-                    <%= form.text_field :title, class: 'validate', placeholder: 'Title' %>
+                    <%= form.label :title, "Report's Title" %>
+                    <%= form.text_field :title, class: 'validate' %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
-                    <%= form.label :content %>
-                    <%= form.text_area :content, class: 'materialize-textarea', placeholder: 'Report description' %>
+                    <%= form.label :content, "Report's description" %>
+                    <%= form.text_area :content, class: 'materialize-textarea' %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
                     <%= form.submit 'Submit', class: 'btn waves-effect waves-light btn-submit' %>
+                    <%= link_to 'Back', reports_path, class: 'btn waves-effect waves-light btn-back' %>
                 </div>
             </div>
         <% end %>
-
-        <div class="row">
-            <div class="input-field col s12">
-                <%= link_to 'Back', reports_path, class: 'btn waves-effect waves-light btn-back' %>
-            </div>
-        </div>
     </div>
 
 </body>
