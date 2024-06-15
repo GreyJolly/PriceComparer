@@ -14,7 +14,7 @@
 
         <% if user_signed_in? %>
             
-            <li><%= link_to "Wishlist", users_list_path, method: :get %></li>
+            <li><%= link_to "Wishlist", wishlist_path, method: :get %></li>
 
             <% if current_user.isAdministrator? %>
                 <li><%= link_to "Utenti", users_list_path, method: :get %></li>
@@ -22,7 +22,7 @@
             <% end %>
 
             <% if current_user.isAnalyst? %>
-                <li><%= link_to "Dashboard", users_list_path %></li>
+                <li><%= link_to "Dashboard", products_dashboard_path %></li>
             <% end %>
 
             <li><%= link_to "Profile", edit_user_registration_path, method: :get %></li> 
