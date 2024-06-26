@@ -72,6 +72,8 @@ group :development, :test do
   gem "guard-livereload", "~> 2.5", require: false
 end
 
-#Manage Ebay API
+#Material Design
+gem 'materialize-sass'
+gem 'jquery-rails'
 gem 'rest-client'
 

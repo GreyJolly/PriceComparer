@@ -50,6 +50,13 @@ ActiveRecord::Schema.define(version: 2024_06_04_125204) do
     t.index ["product_id", "username"], name: "index_wishlists_on_product_id_and_username", unique: true
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "wishlists", "products", primary_key: "id_product"
   add_foreign_key "wishlists", "users", column: "username", primary_key: "username"
 end

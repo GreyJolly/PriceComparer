@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= @report.title %> Report</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+    <style>
+        .btn-edit {
+            background-color: #ff9800 !important; /* Arancione */
+            color: white !important;
+        }
+        .btn-back {
+            background-color: #f44336 !important; /* Rosso */
+            color: white !important;
+        }
+        .report-title {
+            margin-top: 20px;
+        }
+        .report-content {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <%= render "partials/header" %>
+
+    <div class="container">
+        <h3 class="center-align report-title"><%= @report.title %></h3>
+        <p class="report-content"><%= @report.content %></p>
+        <div class="row">
+            <div class="col s12">
+                <%= link_to 'Edit', edit_report_path(@report), class: 'btn waves-effect waves-light btn-edit' %>
+                <%= link_to 'Back', reports_path, class: 'btn waves-effect waves-light btn-back' %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
