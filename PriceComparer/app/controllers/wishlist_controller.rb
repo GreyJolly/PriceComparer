@@ -3,15 +3,19 @@ class WishlistController < ApplicationController
 
   def authorize_users
     unless current_user
-      flash[:alert] = "You are not currently logged in. You have been redirected"
+      flash[:alert] = "Non hai effettuato l'accesso. Sei stato redirezionato"
       redirect_to root_path
     end
+
+	if current_user.isAdministrator && params[:user].present?
+		@user = User.find_by(username: params[:user])
+	  else
+		@user = current_user
+	  end
   end
 
   def wishlist
-    @user = User.find_by(username: params[:user]) if current_user.isAdministrator
-    @user = current_user if !@user.present?
-
+	authorize_users()
     @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: @user.username }).includes(:wishlists)
   end
 
@@ -30,6 +34,8 @@ class WishlistController < ApplicationController
   end
 
   def search
+	authorize_users()
+	
     @query = params[:query]
     @min_price = params[:min_price]
     @max_price = params[:max_price]
@@ -43,12 +49,11 @@ class WishlistController < ApplicationController
   end
 
   def add_label
-
-	if params[:label_name] =~ /\A[a-zA-Z0-9 ]*\z/
-		@wishlist.add_label(params[:label_name])
-	else
-		flash[:error] = "Sono consentiti solo caratteri alfanumerici e lo spazio nel nome di un etichetta."
-	end
+    if params[:label_name] =~ /\A[a-zA-Z0-9 ]*\z/
+      @wishlist.add_label(params[:label_name])
+    else
+      flash[:error] = "Sono consentiti solo caratteri alfanumerici e lo spazio nel nome di un etichetta."
+    end
     redirect_back(fallback_location: root_path)
   end
 

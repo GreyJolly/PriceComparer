@@ -21,27 +21,32 @@
 	<p> Wishlist di: <%= @user.username %> </p> 
 		<%= form_with url: search_wishlisted_products_path, method: :get, local: true do %>
   			<div class="field">
-    			<%= label_tag :query, "Search" %>
+    			<%= label_tag :query, "Cerca" %>
     			<%= text_field_tag :query, params[:query] %>
   			</div>
   					
 			<div class="field">
-    			<%= label_tag :min_price, "Minimum Price" %>
+    			<%= label_tag :min_price, "Prezzo minimo" %>
    				<%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01 %>
   			</div>
   			<div class="field">
-    			<%= label_tag :max_price, "Maximum Price" %>
+    			<%= label_tag :max_price, "Prezzo massimo" %>
     			<%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
   			</div>
-			
-			<label>
-    			<%= radio_button_tag :order, "asc", params[:order] == "asc" %>
-   	 			Sort by Ascending Price
-  			</label>
-  			<label>
-    			<%= radio_button_tag :order, "desc", params[:order] == "desc" %>
-    			Sort by Descending Price
-  			</label>
+
+	        <p>
+	            <label>
+    	            <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
+        	        <span>Ordina per prezzo crescente</span>
+        	    </label>
+        	</p>
+
+    	    <p>
+	            <label>
+        	        <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
+        	        <span>Ordina per prezzo decrescente</span>
+        		</label>
+        	</p>
 
   			<div class="actions"> <%= submit_tag "Search" %> </div>
 

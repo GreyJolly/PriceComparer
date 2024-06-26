@@ -21,31 +21,31 @@
         <%= form_with url: search_products_path, method: :get, local: true, html: { class: 'col s12' } do %>
         <div class="row">
             <div class="input-field col s12">
-            <%= label_tag :query, "Search" %>
+            <%= label_tag :query, "Cerca" %>
             <%= text_field_tag :query, params[:query], class: "validate" %>
         </div>
 
         <div class="input-field col s12 m6">
-            <%= label_tag :min_price, "Minimum Price" %>
+            <%= label_tag :min_price, "Prezzo minimo" %>
             <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <div class="input-field col s12 m6">
-            <%= label_tag :max_price, "Maximum Price" %>
+            <%= label_tag :max_price, "Prezzo massimo" %>
             <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <p>
             <label>
                 <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
-                <span>Sort by Ascending Price</span>
+                <span>Ordina per prezzo crescente</span>
             </label>
         </p>
 
         <p>
             <label>
                 <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
-                <span>Sort by Descending Price</span>
+                <span>Ordina per prezzo decrescente</span>
           </label>
         </p>
 

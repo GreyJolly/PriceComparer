@@ -116,7 +116,8 @@
                             <td>
                                 <%= button_to "Toggle amministratore", toggle_admin_user_path(user), method: :patch, class: 'btn btn-toggle waves-effect waves-light orange' %>
                                 <%= button_to "Toggle analista", toggle_analyst_user_path(user), method: :patch, class: 'btn btn-toggle waves-effect waves-light blue' %>
-                            </td>
+								<%= button_to "Mostra wishlist", wishlist_path, method: :get, params: { user: user.username } %></li>
+							</td>
                         </tr>
                     <% end %>
                 </tbody>
