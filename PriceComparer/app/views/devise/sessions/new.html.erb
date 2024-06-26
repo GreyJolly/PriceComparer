@@ -71,7 +71,15 @@
             <%= render "devise/shared/links" %>
         </div>
         -->
-    </div>
+
+
+	<%- if devise_mapping.omniauthable? %>
+		<%- resource_class.omniauth_providers.each do |provider| %>
+    		<%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
+		<% end %>
+	<% end %>
+
+	</div>
 
     <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" %>
     <script>

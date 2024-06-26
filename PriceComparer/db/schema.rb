@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_04_125204) do
+ActiveRecord::Schema.define(version: 2024_06_26_134543) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 2024_06_04_125204) do
     t.decimal "price", precision: 10, scale: 2
     t.string "category"
     t.index ["id_product"], name: "index_products_on_id_product", unique: true
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,6 +43,9 @@ ActiveRecord::Schema.define(version: 2024_06_04_125204) do
     t.string "provider"
     t.string "uid"
     t.string "username"
+    t.string "oauth_token"
+    t.string "oauth_refresh_token"
+    t.datetime "oauth_expires_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -48,13 +58,6 @@ ActiveRecord::Schema.define(version: 2024_06_04_125204) do
     t.string "username"
     t.string "labels"
     t.index ["product_id", "username"], name: "index_wishlists_on_product_id_and_username", unique: true
-  end
-
-  create_table "reports", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "wishlists", "products", primary_key: "id_product"

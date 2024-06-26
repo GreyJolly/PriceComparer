@@ -17,9 +17,9 @@ class User < ApplicationRecord
   
 	user.provider = auth.provider
 	user.uid = auth.uid
-	user.token = auth.credentials.token
-	user.expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
-	user.refresh_token = auth.credentials.refresh_token if auth.credentials.refresh_token
+	user.oauth_token = auth.credentials.token
+	user.oauth_expires_at = Time.at(auth.credentials.expires_at) if auth.credentials.expires_at
+	user.oauth_refresh_token = auth.credentials.refresh_token if auth.credentials.refresh_token
 	user.save!
 	user
   end
