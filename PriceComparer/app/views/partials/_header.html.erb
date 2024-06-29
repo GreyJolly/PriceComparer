@@ -1,17 +1,16 @@
+
 <nav>
     <div class="nav-wrapper">
-
-        <% if user_signed_in? %>
+    <% if user_signed_in? %>
             <a href="#" class="brand-logo left">Benvenuto <%= current_user.username %></a>
 
-            <% else %>
-                <a href="#" class="brand-logo center">Benvenuto</a>
-        <% end %>
+    <% else %>
+        <a href="#" class="brand-logo center">Benvenuto</a>
+    <% end %>
 
-
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+    <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="<%= root_path %>">Home</a></li>
-
         <% if user_signed_in? %>
             
             <li><%= link_to "Wishlist", wishlist_path, method: :get %></li>
@@ -27,15 +26,39 @@
 
             <li><%= link_to "Profile", edit_user_registration_path, method: :get %></li>
 			<!-- TODO: make not a button --> 
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
 
             <% else %>
                 <li><%= link_to "Sign up", new_user_registration_path %></li> 
                 <li><%= link_to "Login", new_user_session_path %></li>
         <% end %>
-        
-      </ul>
-
-
+    </ul>
     </div>
-  </nav>
+</nav>
+
+<ul class="sidenav" id="mobile-demo">
+
+        <li><a href="<%= root_path %>">Home</a></li>
+        <% if user_signed_in? %>
+            
+            <li><%= link_to "Wishlist", wishlist_path, method: :get %></li>
+
+            <% if current_user.isAdministrator? %>
+                <li><%= link_to "Utenti", users_list_path, method: :get %></li>
+                <li><%= link_to "Reports", reports_path, method: :get %></li>
+            <% end %>
+
+            <% if current_user.isAnalyst? %>
+                <li><%= link_to "Dashboard", products_dashboard_path %></li>
+            <% end %>
+
+            <li><%= link_to "Profile", edit_user_registration_path, method: :get %></li>
+			<!-- TODO: make not a button --> 
+            <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+
+            <% else %>
+                <li><%= link_to "Sign up", new_user_registration_path %></li> 
+                <li><%= link_to "Login", new_user_session_path %></li>
+        <% end %>
+
+</ul>
