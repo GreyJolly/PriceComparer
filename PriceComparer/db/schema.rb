@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_06_26_134543) do
+ActiveRecord::Schema.define(version: 2024_06_28_095934) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2024_06_26_134543) do
     t.string "site"
     t.decimal "price", precision: 10, scale: 2
     t.string "category"
+    t.string "url"
+    t.string "currency"
     t.index ["id_product"], name: "index_products_on_id_product", unique: true
   end
 

@@ -6,7 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", media: "all" %>
-    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag "application" %>
     <meta charset="UTF-8">
 </head>
 
@@ -18,7 +18,7 @@
     <div class="container">
         <h1 class="center-align">Price Comparer</h1>
 
-        <%= form_with url: search_products_path, method: :get, local: true, html: { class: 'col s12' } do %>
+        <%= form_with url: search_products_path, method: :get, local: true, html: { class: "col s12" } do %>
         <div class="row">
             <div class="input-field col s12">
             <%= label_tag :query, "Cerca" %>
@@ -76,14 +76,23 @@
 				<td><%= product.description %></td>
 				<td><%= product.site %></td>
 				<td><%= product.price %></td>
-				<% if product.site == 'eBay' %>
+				<% if product.site == "eBay" %>
 					<td><a href="<%= product.url %>">View on eBay</a></td>
 				<% end %>
 				<% if user_signed_in? %>
-							<% if  Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
+							<% if Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
 								<td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete %>
 							<% else %>
-								<td><%= button_to "Aggiungi alla wishlist", add_to_wishlist_product_path(product), method: :post %></td>
+								<td> <%= button_to "Add to Wishlist", add_to_wishlist_products_path, method: :post, params: {
+                                                                               product: {
+                                                                                 name: product.name,
+                                                                                 description: product.description,
+                                                                                 site: product.site,
+                                                                                 price: product.price,
+                                                                                 currency: product.currency,
+                                                                                 url: product.url,
+                                                                               },
+                                                                             } %></td>
 							<% end %>			
 					<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
 				<% end %>	

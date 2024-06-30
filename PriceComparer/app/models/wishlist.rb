@@ -1,6 +1,7 @@
 class Wishlist < ApplicationRecord
   belongs_to :product
   belongs_to :user, foreign_key: "username", primary_key: "username"
+  validates :username, uniqueness: { scope: :product_id, message: "has already added this product to the wishlist" }
 
   def labels_array
     labels.present? ? labels.split(",").map(&:strip) : []

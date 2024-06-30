@@ -7,35 +7,54 @@ class WishlistController < ApplicationController
       redirect_to root_path
     end
 
-	if current_user.isAdministrator && params[:user].present?
-		@user = User.find_by(username: params[:user])
-	  else
-		@user = current_user
-	  end
+    if current_user.isAdministrator && params[:user].present?
+      @user = User.find_by(username: params[:user])
+    else
+      @user = current_user
+    end
   end
 
   def wishlist
-	authorize_users()
+    authorize_users()
     @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: @user.username }).includes(:wishlists)
   end
 
   def add_to_wishlist
-    @product = Product.find(params[:id])
+    product_params = params.require(:product).permit(:name, :description, :site, :price, :currency, :url)
 
-    # TODO: Check if product is already present
-    Wishlist.create!({ product_id: @product.id, username: @user.username })
+    # Find or create the product based on unique attributes (e.g., name and site)
+    product = Product.find_or_create_by(name: product_params[:name], site: product_params[:site]) do |p|
+      p.description = product_params[:description]
+      p.price = product_params[:price]
+      p.currency = product_params[:currency]
+      p.url = product_params[:url]
+    end
+
+    if product.persisted?
+      # Create or find the wishlist entry
+      wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, product_id: product.id_product)
+      if wishlist_entry.persisted?
+        #redirect_to request.referer, notice: "Product added to wishlist successfully."
+      else
+        logger.error "Errors: #{wishlist_entry.errors.full_messages.join(", ")}"
+        #redirect_to request.referer, alert: "Unable to add product to wishlist."
+      end
+    else
+      # Handle product creation failure
+      redirect_to request.referer, alert: "Unable to create product."
+    end
   end
 
   def remove_from_wishlist
     @product = Product.find(params[:id])
 
     # TODO: Check if the product is present
-    Wishlist.find_by(product_id: @product.id, username: @user.username).destroy
+    Wishlist.find_by(product_id: @product.id, username: current_user.username).destroy
   end
 
   def search
-	authorize_users()
-	
+    authorize_users()
+
     @query = params[:query]
     @min_price = params[:min_price]
     @max_price = params[:max_price]
