@@ -79,6 +79,9 @@ group :development, :test do
 end
 
 #Material Design
-gem "materialize-sass"
-gem "jquery-rails"
-gem "rest-client"
+gem 'materialize-sass'
+gem 'jquery-rails'
+gem 'rest-client'
+
+#Turbolinks for link_to's delete method
+gem 'turbolinks', '~> 5'
