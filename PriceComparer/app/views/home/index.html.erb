@@ -10,11 +10,34 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta charset="UTF-8">
-  <style>
+<style>
     /* Media queries per la riduzione del titolo */
     h1 {
       font-size: 3rem; /* Dimensione di default */
     }
+
+    /* Stile personalizzato per i bottoni */
+    .btn-custom {
+        background-color: #00796b;
+        color: white;
+        border: 1px solid white !important;
+        padding: 10px 20px;
+        cursor: pointer;
+        text-align: center;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        transition-duration: 0.4s;
+        min-width: 120px; /* Imposta una larghezza minima fissa */
+    }
+
+    .btn-custom:hover {
+        border: 1px solid #00796b !important;
+        background-color: white;
+        color: #00796b;
+        border: 1px solid #00796b;
+    }
+
     @media (max-width: 992px) {
       h1 {
         font-size: 2.5rem; /* Dimensione per schermi medi */
@@ -38,6 +61,7 @@
       font-size: 16px;
       margin: 4px 2px;
       transition-duration: 0.4s;
+      min-width: 120px; /* Imposta una larghezza minima fissa */
     }
     .btn-custom:hover {
       background-color: white;
