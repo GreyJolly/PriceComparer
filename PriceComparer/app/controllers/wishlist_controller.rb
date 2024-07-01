@@ -24,6 +24,14 @@ class WishlistController < ApplicationController
   end
 
   def add_to_wishlist
+    # Ensure all required parameters are present
+    required_params = [:name, :site, :price, :currency, :url]
+    if required_params.any? { |param| params[param].blank? }
+      flash[:alert] = "Please provide all required product information."
+      redirect_to request.referer || root_path
+      return
+    end
+
     product_params = params.permit(:name, :description, :site, :price, :currency, :url)
 
     # Find or create the product based on unique attributes (e.g., name and site)
@@ -38,14 +46,15 @@ class WishlistController < ApplicationController
       # Create or find the wishlist entry
       wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, product_id: product.id_product)
       if wishlist_entry.persisted?
-        redirect_to request.referer, notice: "Product added to wishlist successfully."
+        redirect_back fallback_location: root_path, notice: "Product added to wishlist successfully."
       else
         logger.error "Errors: #{wishlist_entry.errors.full_messages.join(", ")}"
-        redirect_to request.referer, alert: "Unable to add product to wishlist."
+        redirect_back fallback_location: root_path, alert: "Unable to add product to wishlist."
       end
     else
       # Handle product creation failure
-      redirect_to request.referer, alert: "Unable to create product."
+      flash[:alert] = "Unable to create product."  # Set the flash alert message
+      redirect_to request.referer || root_path
     end
   end
 

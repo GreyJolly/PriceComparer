@@ -18,8 +18,6 @@ class DummyjsonService
     # Make the API request
     response = Net::HTTP.get(url)
 
-    puts(response)
-
     # Parse the JSON response
     result = JSON.parse(response)
 
@@ -31,8 +29,6 @@ class DummyjsonService
 
     # Extract relevant information from the response
     items = result['products'] || []
-
-    puts(items)
 
     items
   end

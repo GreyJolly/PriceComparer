@@ -22,8 +22,6 @@ class EbayService
     # Make the API request
     response = Net::HTTP.get(url)
 
-    puts(response)
-
     # Parse the JSON response
     result = JSON.parse(response)
 
@@ -35,8 +33,6 @@ class EbayService
 
     # Extract relevant information from the response
     items = result.dig('findItemsByKeywordsResponse', 0, 'searchResult', 0, 'item') || []
-
-    puts(items)
 
     items
   end
