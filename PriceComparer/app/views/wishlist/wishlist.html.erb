@@ -102,8 +102,8 @@
 				<% end %>
 				</td>
 				<% if @user == current_user %>
-				<td><%= button_to "Rimuovi alla wishlist", remove_from_wishlist_product_path(product), method: :delete %></td>
-				<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
+					<td><%= button_to "Rimuovi alla wishlist", remove_from_wishlist_product_path(product), method: :delete %></td>
+					<td><%= button_to "Segnala", report_product_product_path(product), method: :patch %></td>
 				<% end %>
 			</tr>
 			<% end %>

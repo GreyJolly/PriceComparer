@@ -40,14 +40,14 @@ class ProductsController < ApplicationController
     end
   
     def report_product
-        product = Product.find(params[:id])
-        @report = Report.new(title: "Segnalazione per #{product.name}", content: "Descrizione del problema...")
-        if @report.save
-          redirect_to edit_report_path(@report), notice: 'Report creato con successo. Puoi modificarlo qui sotto.'
-        else
-          redirect_to root_path, alert: 'Errore nella creazione del report.'
-        end
+      product = Product.find(params[:id])
+      @report = Report.new(title: "Segnalazione per #{product.name}", content: "Descrizione del problema...")
+      if @report.save
+        redirect_to edit_report_path(@report), notice: 'Report creato con successo. Puoi modificarlo qui sotto.'
+      else
+        redirect_to root_path, alert: 'Errore nella creazione del report.'
       end
+    end
   
     private
   

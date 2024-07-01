@@ -51,7 +51,7 @@
                         </div>
                         <div class="col s4 center-text">
                             <%= link_to 'Edit', edit_report_path(report), class: 'btn-flat waves-effect btn-edit' %>
-                            <%= button_to 'Destroy', delete_report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
+                            <%= button_to 'Destroy', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
                         </div>
                     </div>
                 </li>
