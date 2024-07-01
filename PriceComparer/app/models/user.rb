@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   has_many :wishlists, foreign_key: 'username', primary_key: 'username'
-  has_many :wishlist_products, through: :wishlists, source: :product
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable

@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
-  has_many :wishlists
-  has_many :wishlisted_by_users, through: :wishlists, source: :user
+  has_many :wishlists, foreign_key: "product_id", primary_key: "id_product"
   before_create :generate_unique_product_id
 
   private

@@ -16,7 +16,11 @@ class WishlistController < ApplicationController
 
   def wishlist
     authorize_users()
-    @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: @user.username }).includes(:wishlists)
+
+    @wishlisted_products_with_labels = Product
+      .joins(:wishlists)
+      .where(wishlists: { username: @user.username })
+      .select("products.*, wishlists.labels AS wishlist_labels")
   end
 
   def add_to_wishlist
@@ -61,14 +65,19 @@ class WishlistController < ApplicationController
     @max_price = params[:max_price]
     @label = params[:label]
 
-    @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: current_user.username })
-    @wishlistedProducts = @wishlistedProducts.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%") if @query.present?
-    @wishlistedProducts = @wishlistedProducts.where("price >= ?", @min_price) if @min_price.present?
-    @wishlistedProducts = @wishlistedProducts.where("price <= ?", @max_price) if @max_price.present?
-    @wishlistedProducts = @wishlistedProducts.joins(:wishlists).where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
+    @wishlisted_products_with_labels = Product
+      .joins(:wishlists)
+      .where(wishlists: { username: current_user.username })
+      .select("products.*, wishlists.labels AS wishlist_labels")
 
-    @wishlistedProducts = @wishlistedProducts.order(price: :asc) if params[:order] == "asc"
-    @wishlistedProducts = @wishlistedProducts.order(price: :desc) if params[:order] == "desc"
+    @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%") if @query.present?
+    @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("price >= ?", @min_price) if @min_price.present?
+    @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("price <= ?", @max_price) if @max_price.present?
+    @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
+
+    @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :asc) if params[:order] == "asc"
+    @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :desc) if params[:order] == "desc"
+
     render :wishlist
   end
 
@@ -89,6 +98,6 @@ class WishlistController < ApplicationController
   private
 
   def set_wishlist
-    @wishlist = Wishlist.find(params[:id])
+    @wishlist = Wishlist.find_by(product_id: params[:id], username: @user.username)
   end
 end
