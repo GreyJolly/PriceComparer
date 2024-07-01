@@ -1,184 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Price Comparer</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag "application", media: "all" %>
-  <%= javascript_include_tag 'application' %>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <meta charset="UTF-8">
-<style>
-    /* Media queries per la riduzione del titolo */
-    h1 {
-      font-size: 3rem; /* Dimensione di default */
-    }
-
-    /* Stile personalizzato per i bottoni */
-    .btn-custom {
-        background-color: #00796b;
-        color: white;
-        border: 1px solid white !important;
-        padding: 10px 20px;
-        cursor: pointer;
-        text-align: center;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        transition-duration: 0.4s;
-        min-width: 120px; /* Imposta una larghezza minima fissa */
-    }
-
-    .btn-custom:hover {
-        border: 1px solid #00796b !important;
-        background-color: white;
-        color: #00796b;
-        border: 1px solid #00796b;
-    }
-
-    @media (max-width: 992px) {
-      h1 {
-        font-size: 2.5rem; /* Dimensione per schermi medi */
-      }
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem; /* Dimensione per schermi piccoli */
-      }
-    }
-    
-    /* Stile personalizzato per i bottoni */
-    .btn-custom {
-      background-color: #00796b;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      text-align: center;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      min-width: 120px; /* Imposta una larghezza minima fissa */
-    }
-    .btn-custom:hover {
-      background-color: white;
-      color: #00796b;
-      border: 1px solid #00796b;
-    }
-
-    /* Stile verticale per la tabella solo per dispositivi mobili */
-    @media (max-width: 600px) {
-      .vertical-table .row {
-        display: flex;
-        flex-direction: column;
-        border-bottom: 1px solid #ddd;
-        padding: 10px 0;
-      }
-      .vertical-table .column {
-        padding: 5px 0;
-      }
-      .vertical-table .actions {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 10px;
-      }
-      
-    }
-  </style>
+    <title>Price Comparer</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= javascript_include_tag 'application' %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="UTF-8">
 </head>
 
 <body>
-  <%= render "partials/header" %>
+  
 
-  <div class="container">
-    <h1 class="center-align">Price Comparer</h1>
+    <%= render "partials/header" %>
+  
+    <div class="container">
+        <h1 class="center-align">Price Comparer</h1>
 
-    <%= form_with url: search_products_path, method: :get, local: true, html: { class: 'col s12' } do %>
-      <div class="row">
-        <div class="input-field col s12">
-          <%= label_tag :query, "Cerca" %>
-          <%= text_field_tag :query, params[:query], class: "validate" %>
+        <%= form_with url: search_products_path, method: :get, local: true, html: { class: "col s12" } do %>
+        <div class="row">
+            <div class="input-field col s12">
+            <%= label_tag :query, "Cerca" %>
+            <%= text_field_tag :query, params[:query], class: "validate" %>
         </div>
 
         <div class="input-field col s12 m6">
-          <%= label_tag :min_price, "Prezzo minimo" %>
-          <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate" %>
+            <%= label_tag :min_price, "Prezzo minimo" %>
+            <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <div class="input-field col s12 m6">
-          <%= label_tag :max_price, "Prezzo massimo" %>
-          <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
+            <%= label_tag :max_price, "Prezzo massimo" %>
+            <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
         <p>
-          <label>
-            <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
-            <span>Ordina per prezzo crescente</span>
-          </label>
+            <label>
+                <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
+                <span>Ordina per prezzo crescente</span>
+            </label>
         </p>
 
         <p>
-          <label>
-            <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
-            <span>Ordina per prezzo decrescente</span>
+            <label>
+                <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
+                <span>Ordina per prezzo decrescente</span>
           </label>
         </p>
 
         <div class="input-field col s12">
-          <%= submit_tag "Search", class: "btn-custom" %>
+          <%= submit_tag "Search", class: "btn waves-effect waves-light" %>
         </div>
       </div>
     <% end %>
 
-    <table class="striped responsive-table vertical-table">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Descrizione</th>
-          <th>Sito</th>
-          <th>Prezzo</th>
-          <% if user_signed_in? %>
-            <th>Azioni</th>
-          <% else %>
-            <th colspan="3">Azioni</th>
-          <% end %> 
-        </tr>
-      </thead>
-      <tbody>
-        <% (@combined_products || []).each do |product| %>
-          <tr class="row">
-            <td class="column"><strong>Nome:</strong> <%= product.name %></td>
-            <td class="column"><strong>Descrizione:</strong> <%= product.description %></td>
-            <td class="column"><strong>Sito:</strong> <%= product.site %></td>
-            <td class="column"><strong>Prezzo:</strong> <%= product.price %></td>
-            <td class="column actions">
-              <% if product.site == 'eBay' %>
-                <a href="<%= product.url %>" class="btn-custom">View on eBay</a>
-              <% end %>
-              <% if user_signed_in? %>
-                <% if Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
-                  <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: 'btn-custom' %>
-                <% else %>
-                  <%= button_to "Aggiungi alla wishlist", add_to_wishlist_product_path(product), method: :post, class: 'btn-custom' %>
-                <% end %>
-                <%= button_to "Segnala", report_product_path(product), method: :patch, class: 'btn-custom' %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+    <table class="striped responsive-table">
+			<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+				<th>Sito</th>
+				<th>Prezzo</th>
+				<% if user_signed_in? %>
+					<th> Azioni</th>
+				<% else %>
+					<th colspan = "3"> Azioni</th>
+				<% end %>	
+			</tr>
+			</thead>
+			<tbody>
+			<% (@combined_products || []).each do |product| %>
+				<tr>
+				<td><%= product.name %></td>
+				<td><%= product.description %></td>
+				<td><%= product.site %></td>
+				<td><%= product.price %></td>
+				<% if product.site == "eBay" %>
+					<td><a href="<%= product.url %>">View on eBay</a></td>
+				<% end %>
+				<% if user_signed_in? %>
+							<% if Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
+								<td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete %>
+							<% else %>
+								<td> <%= button_to "Add to Wishlist", add_to_wishlist_products_path, method: :post, params: {
+                                                                               product: {
+                                                                                 name: product.name,
+                                                                                 description: product.description,
+                                                                                 site: product.site,
+                                                                                 price: product.price,
+                                                                                 currency: product.currency,
+                                                                                 url: product.url,
+                                                                               },
+                                                                             } %></td>
+							<% end %>			
+					<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
+				<% end %>	
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.sidenav');
-      var instances = M.Sidenav.init(elems);
-    });
-  </script>
-</body>
-</html>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.sidenav');
+            var instances = M.Sidenav.init(elems);
+        });
+        </script>
+
+	</body>
+
+>
