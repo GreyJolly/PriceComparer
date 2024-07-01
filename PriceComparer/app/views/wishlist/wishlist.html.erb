@@ -33,6 +33,10 @@
     			<%= label_tag :max_price, "Prezzo massimo" %>
     			<%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01 %>
   			</div>
+			<div class="field">
+    			<%= label_tag :label, "Etichetta" %>
+  				<%= text_field_tag :label, params[:label] %>
+  			</div>
 
 	        <p>
 	            <label>
@@ -66,24 +70,24 @@
 			<% end %>
 	  </thead>
       <tbody>
-        <% @wishlistedProducts.each do |product| %>
-		<% product.wishlists.where(username: @user.username).each do |wishlist| %>
-			<tr>
-        		<td><%= product.name %></td>
-        		<td><%= product.description %></td>
-        		<td><%= product.site %></td>
-        		<td><%= product.price %></td>
+		<% @wishlistedProducts.each do |product| %>
+			<% product.wishlists.where(username: @user.username).each do |wishlist| %>
+			<tr id="wishlist-item-<%= product.id_product %>">
+				<td><%= product.name %></td>
+				<td><%= product.description %></td>
+				<td><%= product.site %></td>
+				<td><%= product.price %></td>
 				<td>
-					<table>
+				<table>
 					<% wishlist.labels_array.each do |label| %>
-						<tr>
-						<td> <%= label %> </td>
+					<tr>
+						<td><%= label %></td>
 						<% if @user == current_user %>
-							<td> <%= button_to "Rimuovi", remove_label_wishlist_path(wishlist, label_name: label), method: :delete, class: "btn btn-danger btn-sm" %> </td>
+						<td><%= button_to "Rimuovi", remove_label_wishlist_path(wishlist, label_name: label), method: :delete, class: "btn btn-danger btn-sm" %></td>
 						<% end %>
-						<tr>
+					</tr>
 					<% end %>
-					</table>
+				</table>
 				<% if @user == current_user %>
 					<%= form_with url: add_label_wishlist_path(wishlist), method: :post, local: true do %>
 					<div class="input-group">
@@ -96,13 +100,13 @@
 				<% end %>
 				</td>
 				<% if @user == current_user %>
-					<td><%= button_to "Rimuovi alla wishlist", remove_from_wishlist_product_path(product), method: :delete %></td>
-					<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
+				<td><%= button_to "Rimuovi alla wishlist", remove_from_wishlist_product_path(product), method: :delete %></td>
+				<td><%= button_to "Segnala", report_product_path(product), method: :patch %></td>
 				<% end %>
 			</tr>
 			<% end %>
-        <% end %>
-      </tbody>
+		<% end %>
+		</tbody>
     </table>
 
 </html>

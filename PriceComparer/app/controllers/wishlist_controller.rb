@@ -34,10 +34,10 @@ class WishlistController < ApplicationController
       # Create or find the wishlist entry
       wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, product_id: product.id_product)
       if wishlist_entry.persisted?
-        #redirect_to request.referer, notice: "Product added to wishlist successfully."
+        redirect_to request.referer, notice: "Product added to wishlist successfully."
       else
         logger.error "Errors: #{wishlist_entry.errors.full_messages.join(", ")}"
-        #redirect_to request.referer, alert: "Unable to add product to wishlist."
+        redirect_to request.referer, alert: "Unable to add product to wishlist."
       end
     else
       # Handle product creation failure
@@ -58,10 +58,14 @@ class WishlistController < ApplicationController
     @query = params[:query]
     @min_price = params[:min_price]
     @max_price = params[:max_price]
+    @label = params[:label]
+
     @wishlistedProducts = Product.joins(:wishlists).where(wishlists: { username: current_user.username })
     @wishlistedProducts = @wishlistedProducts.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%") if @query.present?
     @wishlistedProducts = @wishlistedProducts.where("price >= ?", @min_price) if @min_price.present?
     @wishlistedProducts = @wishlistedProducts.where("price <= ?", @max_price) if @max_price.present?
+    @wishlistedProducts = @wishlistedProducts.joins(:wishlists).where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
+
     @wishlistedProducts = @wishlistedProducts.order(price: :asc) if params[:order] == "asc"
     @wishlistedProducts = @wishlistedProducts.order(price: :desc) if params[:order] == "desc"
     render :wishlist

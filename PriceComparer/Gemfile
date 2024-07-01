@@ -25,20 +25,20 @@ gem "jbuilder", "~> 2.7"
 gem "bootsnap", ">= 1.4.4", require: false
 
 # User roles creation and management
-gem 'canard', '~> 0.6.2.pre'
+gem "canard", "~> 0.6.2.pre"
 
 # Authentication
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "devise"
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
- 
+
   # Use environment variables
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
 end
 
 group :development do
@@ -54,7 +54,7 @@ group :development do
   # Code guard
   gem "guard"
   gem "guard-zeus"
-  gem 'guard-rspec'
+  gem "guard-rspec"
   gem "rack-livereload"
 end
 
@@ -71,10 +71,14 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem "guard-livereload", "~> 2.5", require: false
+	
+  # Testers and test helpers
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "cucumber"
 end
 
 #Material Design
-gem 'materialize-sass'
-gem 'jquery-rails'
-gem 'rest-client'
-
+gem "materialize-sass"
+gem "jquery-rails"
+gem "rest-client"

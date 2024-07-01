@@ -66,6 +66,7 @@ GEM
       execjs (~> 2)
     base64 (0.2.0)
     bcrypt (3.1.20)
+    bigdecimal (3.1.8)
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
@@ -87,6 +88,31 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.2.3)
     crass (1.0.6)
+    cucumber (9.2.0)
+      builder (~> 3.2)
+      cucumber-ci-environment (> 9, < 11)
+      cucumber-core (> 13, < 14)
+      cucumber-cucumber-expressions (~> 17.0)
+      cucumber-gherkin (> 24, < 28)
+      cucumber-html-formatter (> 20.3, < 22)
+      cucumber-messages (> 19, < 25)
+      diff-lcs (~> 1.5)
+      mini_mime (~> 1.1)
+      multi_test (~> 1.1)
+      sys-uname (~> 1.2)
+    cucumber-ci-environment (10.0.1)
+    cucumber-core (13.0.2)
+      cucumber-gherkin (>= 27, < 28)
+      cucumber-messages (>= 20, < 23)
+      cucumber-tag-expressions (> 5, < 7)
+    cucumber-cucumber-expressions (17.1.0)
+      bigdecimal
+    cucumber-gherkin (27.0.0)
+      cucumber-messages (>= 19.1.4, < 23)
+    cucumber-html-formatter (21.4.0)
+      cucumber-messages (> 19, < 25)
+    cucumber-messages (22.0.0)
+    cucumber-tag-expressions (6.1.0)
     date (3.3.4)
     devise (4.9.4)
       bcrypt (~> 3.0)
@@ -106,6 +132,11 @@ GEM
     erubi (1.12.0)
     eventmachine (1.2.7)
     execjs (2.9.1)
+    factory_bot (6.4.5)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.4.3)
+      factory_bot (~> 6.4)
+      railties (>= 5.0.0)
     faraday (2.8.1)
       base64
       faraday-net_http (>= 2.0, < 3.1)
@@ -179,6 +210,7 @@ GEM
     minitest (5.22.3)
     msgpack (1.7.2)
     multi_json (1.15.0)
+    multi_test (1.1.0)
     multi_xml (0.6.0)
     nenv (0.3.0)
     net-imap (0.4.10)
@@ -292,6 +324,14 @@ GEM
     rspec-mocks (3.13.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
+    rspec-rails (6.1.3)
+      actionpack (>= 6.1)
+      activesupport (>= 6.1)
+      railties (>= 6.1)
+      rspec-core (~> 3.13)
+      rspec-expectations (~> 3.13)
+      rspec-mocks (~> 3.13)
+      rspec-support (~> 3.13)
     rspec-support (3.13.1)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -323,6 +363,8 @@ GEM
       sprockets (>= 3.0.0)
     sqlite3 (1.7.3)
       mini_portile2 (~> 2.8.0)
+    sys-uname (1.3.0)
+      ffi (~> 1.1)
     thor (1.3.1)
     tilt (2.3.0)
     timeout (0.4.1)
@@ -358,8 +400,10 @@ DEPENDENCIES
   byebug
   canard (~> 0.6.2.pre)
   capybara (>= 3.26)
+  cucumber
   devise
   dotenv-rails
+  factory_bot_rails
   guard
   guard-livereload (~> 2.5)
   guard-rspec
@@ -376,6 +420,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.7, >= 6.1.7.7)
   rest-client
+  rspec-rails
   sass-rails (>= 6)
   selenium-webdriver (>= 4.0.0.rc1)
   spring

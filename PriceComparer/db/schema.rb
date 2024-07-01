@@ -62,6 +62,6 @@ ActiveRecord::Schema.define(version: 2024_06_28_095934) do
     t.index ["product_id", "username"], name: "index_wishlists_on_product_id_and_username", unique: true
   end
 
-  add_foreign_key "wishlists", "products", primary_key: "id_product"
+  add_foreign_key "wishlists", "products", column: "product_id", primary_key: "id_product"
   add_foreign_key "wishlists", "users", column: "username", primary_key: "username"
 end

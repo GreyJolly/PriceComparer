@@ -1,5 +1,5 @@
 class Wishlist < ApplicationRecord
-  belongs_to :product
+  belongs_to :product, foreign_key: "product_id", primary_key: "id_product"
   belongs_to :user, foreign_key: "username", primary_key: "username"
   validates :username, uniqueness: { scope: :product_id, message: "has already added this product to the wishlist" }
 
