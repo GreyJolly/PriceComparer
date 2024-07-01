@@ -20,7 +20,7 @@ class WishlistController < ApplicationController
   end
 
   def add_to_wishlist
-    product_params = params.require(:product).permit(:name, :description, :site, :price, :currency, :url)
+    product_params = params.permit(:name, :description, :site, :price, :currency, :url)
 
     # Find or create the product based on unique attributes (e.g., name and site)
     product = Product.find_or_create_by(name: product_params[:name], site: product_params[:site]) do |p|
@@ -48,8 +48,9 @@ class WishlistController < ApplicationController
   def remove_from_wishlist
     @product = Product.find(params[:id])
 
-    # TODO: Check if the product is present
-    Wishlist.find_by(product_id: @product.id, username: current_user.username).destroy
+    product_to_be_destroyed = Wishlist.find_by(product_id: @product.id, username: current_user.username)
+
+    product_to_be_destroyed.destroy if product_to_be_destroyed.persisted?
   end
 
   def search

@@ -162,7 +162,7 @@
                 <% if Wishlist.exists?(product_id: product.id, username: current_user.username) %>
                 <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: 'btn-custom' %>
                 <% else %>
-                <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(product_id: product.id, name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: 'btn-custom' %>
+                <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: 'btn-custom' %>
                 <% end %>
                 <%= button_to "Segnala", report_product_product_path(product), method: :patch, class: 'btn-custom' %>
             <% end %>
