@@ -11,13 +11,13 @@ RSpec.describe WishlistController, type: :controller do
 
   describe "POST #add_label" do
     it "adds a label to the wishlist" do
-      post :add_label, params: { id: wishlist.id, label_name: "make up" }
+      post :add_label, params: { id: wishlist.product_id, label_name: "make up" }
       wishlist.reload
       expect(wishlist.labels).to include("make up")
     end
 
     it "does not add invalid labels" do
-      post :add_label, params: { id: wishlist.id, label_name: "make@up" }
+      post :add_label, params: { id: wishlist.product_id, label_name: "make@up" }
       expect(flash[:error]).to be_present
       wishlist.reload
       expect(wishlist.labels).not_to include("make@up")
@@ -27,7 +27,7 @@ RSpec.describe WishlistController, type: :controller do
   describe "DELETE #remove_label" do
     it "removes a label from the wishlist" do
       wishlist.add_label("make up")
-      delete :remove_label, params: { id: wishlist.id, label_name: "make up" }
+      delete :remove_label, params: { id: wishlist.product_id, label_name: "make up" }
       wishlist.reload
       expect(wishlist.labels).not_to include("make up")
     end
