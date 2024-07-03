@@ -66,18 +66,11 @@
                 <%= f.submit "Log in", class: 'btn waves-effect waves-light' %>
             </div>
         <% end %>
-        <!--  
+
         <div class="links">
             <%= render "devise/shared/links" %>
         </div>
-        -->
 
-
-	<%- if devise_mapping.omniauthable? %>
-		<%- resource_class.omniauth_providers.each do |provider| %>
-    		<%= button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false } %><br />
-		<% end %>
-	<% end %>
 
 	</div>
 

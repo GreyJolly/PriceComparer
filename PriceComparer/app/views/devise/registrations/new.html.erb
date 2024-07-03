@@ -1,34 +1,100 @@
-<h2>Sign up</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" %>
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" %>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url("https://i.ibb.co/28F2JSn/login-background.webp") !important;
+    }
+    .signup-container {
+      background: white;
+      padding: 40px 50px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .signup-container h2 {
+      margin-bottom: 30px;
+    }
+    .input-field {
+      margin-bottom: 20px;
+    }
+    .actions {
+      margin-top: 20px;
+    }
+    .actions .btn {
+      width: 100%;
+    }
+    .links {
+      margin-top: 20px;
+    }
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+      .btn-google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .btn-google i {
+        margin-right: 8px;
+    }
 
-  <div class="field">
-	<%= f.label :username %><br />
-	<%= f.text_field :username, autofocus: true, autocomplete: "username" %>
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h2>Sign up</h2>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="input-field">
+        <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'validate' %>
+        <%= f.label :username %>
+      </div>
+      
+      <div class="input-field">
+        <%= f.email_field :email, autocomplete: "email", class: 'validate' %>
+        <%= f.label :email %>
+      </div>
+
+      <div class="input-field">
+        <%= f.password_field :password, autocomplete: "new-password", class: 'validate' %>
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <small><em>(<%= @minimum_password_length %> characters minimum)</em></small>
+        <% end %>
+      </div>
+
+      <div class="input-field">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'validate' %>
+        <%= f.label :password_confirmation %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up", class: "btn waves-effect waves-light" %>
+      </div>
+    <% end %>
+
+    <div class="links">
+      <%= render "devise/shared/links" %>
+    </div>
   </div>
-  
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" %>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      M.updateTextFields();
+    });
+  </script>
+</body>
+</html>
