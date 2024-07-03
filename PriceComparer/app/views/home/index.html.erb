@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "application", media: "all" %>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag "application" %>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <meta charset="UTF-8">
@@ -96,7 +96,7 @@
   <div class="container">
     <h1 class="center-align">Price Comparer</h1>
 
-    <%= form_with url: search_products_path, method: :get, local: true, html: { class: 'col s12' } do %>
+    <%= form_with url: search_products_path, method: :get, local: true, html: { class: "col s12" } do %>
       <div class="row">
         <div class="input-field col s12">
           <%= label_tag :query, "Cerca" %>
@@ -155,16 +155,16 @@
             <td class="column"><strong>Sito:</strong> <%= product.site %></td>
             <td class="column"><strong>Prezzo:</strong> <%= product.price %></td>
             <td class="column actions">
-            <% if product.site == 'eBay' %>
+            <% if product.site == "eBay" %>
                 <a href="<%= product.url %>" class="btn-custom">View on eBay</a>
             <% end %>
             <% if user_signed_in? %>
-                <% if Wishlist.exists?(product_id: product.id, username: current_user.username) %>
-                <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: 'btn-custom' %>
+                <% if Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
+				<%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %>
                 <% else %>
-                <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: 'btn-custom' %>
+                <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: "btn-custom" %>
                 <% end %>
-                <%= button_to "Segnala", report_product_product_path(product), method: :patch, class: 'btn-custom' %>
+                <%= button_to "Segnala", report_product_product_path(product), method: :patch, class: "btn-custom" %>
             <% end %>
             </td>
           </tr>

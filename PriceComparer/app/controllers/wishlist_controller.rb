@@ -59,11 +59,22 @@ class WishlistController < ApplicationController
   end
 
   def remove_from_wishlist
-    @product = Product.find(params[:id])
+    @product = Product.find_by(id_product: params[:id_product])
 
-    product_to_be_destroyed = Wishlist.find_by(product_id: @product.id, username: current_user.username)
+    if @product
+      product_to_be_destroyed = Wishlist.find_by(product_id: @product.id_product, username: current_user.username)
 
-    product_to_be_destroyed.destroy if product_to_be_destroyed.persisted?
+      if product_to_be_destroyed&.persisted?
+        product_to_be_destroyed.destroy
+        flash[:notice] = "Product removed from wishlist successfully."
+      else
+        flash[:alert] = "Product not found in wishlist."
+      end
+    else
+      flash[:alert] = "Product not found."
+    end
+
+    redirect_to request.referer || root_path
   end
 
   def search
