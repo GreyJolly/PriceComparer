@@ -1,9 +1,11 @@
 class ReportsController < ApplicationController
+    before_action :set_product, only: [:create, :update]
+  
     def index
-        unless current_user && current_user.isAdministrator
-            flash[:alert] = "You are not authorized to access this page. You have been redirected"
-            redirect_to root_path
-          end
+      unless current_user && current_user.isAdministrator
+        flash[:alert] = "You are not authorized to access this page. You have been redirected"
+        redirect_to root_path
+      end
       @reports = Report.all
     end
   
@@ -17,6 +19,7 @@ class ReportsController < ApplicationController
   
     def create
       @report = Report.new(report_params)
+      @report.id_product = @product.id_product if @product.present?
       if @report.save
         redirect_to @report
       else
@@ -30,6 +33,7 @@ class ReportsController < ApplicationController
   
     def update
       @report = Report.find(params[:id])
+      @report.id_product = @product.id_product if @product.present?
       if @report.update(report_params)
         redirect_to @report
       else
@@ -42,19 +46,28 @@ class ReportsController < ApplicationController
       @report.destroy
       redirect_to reports_path
     end
-
+  
     def report_product
-        product = Product.find(params[:id])
-        @report = Report.new(title: "Segnalazione per #{product.name}", content: "Descrizione del problema...")
-        
-        if @report.save
-          redirect_to reports_path, notice: 'Report creato con successo.'
-        else
-          redirect_to root_path, alert: 'Errore nella creazione del report.'
-        end
+      @product = Product.find_by(id_product: params[:id_product])
+      unless @product
+        redirect_to root_path, alert: 'Prodotto non trovato.'
+        return
       end
   
+      @report = Report.new(title: "Segnalazione per #{@product.name}", content: "Descrizione del problema...", id_product: @product.id_product)
+      
+      if @report.save
+        redirect_to edit_report_path(@report), notice: 'Report creato con successo. Puoi modificarlo qui sotto.'
+      else
+        redirect_to root_path, alert: 'Errore nella creazione del report.'
+      end
+    end
+  
     private
+  
+    def set_product
+      @product = Product.find_by(id_product: params[:id_product]) if params[:id_product].present?
+    end
   
     def report_params
       params.require(:report).permit(:title, :content)

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
       member do
         delete "remove_from_wishlist", to: "wishlist#remove_from_wishlist"
-        patch "report_product", to: "products#report_product"
+        patch "report_product"
       end
     end
   

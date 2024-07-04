@@ -164,7 +164,7 @@
                 <% else %>
                 <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: "btn-custom" %>
                 <% end %>
-                <%= button_to "Segnala", report_product_product_path(product), method: :patch, class: "btn-custom" %>
+                <%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %>
             <% end %>
             </td>
           </tr>
