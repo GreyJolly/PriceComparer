@@ -23,12 +23,20 @@ class AnalystController < ApplicationController
     else
       @price_ranges = []
     end
+    @wishlisted_by_price_range = load_price_ranges_with_counts(params[:price_ranges]) 
+	print(@wishlisted_by_price_range)
+  end
 
-    @wishlisted_by_price_range = @price_ranges.map do |range|
-      count = Wishlist.joins(:product)
-        .where("products.price >= ? AND products.price < ?", range[:min], range[:max])
-        .count
-      { min: range[:min], max: range[:max], count: count }
+  private 
+
+  def load_price_ranges_with_counts(price_ranges)
+    return [] unless price_ranges
+	
+	params.permit(price_ranges: [:min, :max]).require(:price_ranges).to_h.map do |index, range|
+      min = range[:min].to_f
+      max = range[:max].to_f
+      count = Product.where(price: min..max).count
+      { min: min, max: max, count: count }
     end
   end
 end
