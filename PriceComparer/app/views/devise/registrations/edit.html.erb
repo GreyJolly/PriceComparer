@@ -64,14 +64,14 @@
             <div class="row">
                 <div class="input-field col s12">
                     <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'validate' %>
-                    <%= f.label :username, "Username" %>
+                    <%= f.label :username, "Nome utente" %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
                     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'validate' %>
-                    <%= f.label :email, "Email" %>
+                    <%= f.label :email, "E-mail" %>
                 </div>
             </div>
 
@@ -87,10 +87,10 @@
                 <div class="input-field col s12">
                     <%= f.password_field :password, autocomplete: "new-password", class: 'validate' %>
                     <%= f.label :password, "Password" %>
-                    <span>(leave blank if you don't want to change it)</span>
+                    <span>Lascia vuoto se non desideri cambiarla.</span>
                     <% if @minimum_password_length %>
                         <br />
-                        <em><%= @minimum_password_length %> characters minimum</em>
+                        <em>minimo <%= @minimum_password_length %> caratteri</em>
                     <% end %>
                 </div>
             </div>
@@ -98,38 +98,33 @@
             <div class="row">
                 <div class="input-field col s12">
                     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'validate' %>
-                    <%= f.label :password_confirmation, "Password confirmation" %>
+                    <%= f.label :password_confirmation, "Conferma password" %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
                     <%= f.password_field :current_password, autocomplete: "current-password", class: 'validate' %>
-                    <%= f.label :current_password, "Current password" %>
-                    <span>(we need your current password to confirm your changes)</span>
+                    <%= f.label :current_password, "Password attuale" %>
+                    <span>Abbiamo bisogno della tua password attual per confermare i tuoi cambiamenti</span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col s12">
-                    <%= f.submit "Update", class: 'btn waves-effect waves-light' %>
+                    <%= f.submit "Aggiorna", class: 'btn waves-effect waves-light' %>
                 </div>
             </div>
         <% end %>
 
-        <h3>Cancel my account</h3>
+        <h3>Elimina il mio account</h3>
 
         <div class="row">
             <div class="col s12">
-                Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: 'btn waves-effect waves-light red' %>
+                Desideri cancellare il tuo account? <%= button_to "Elimina il mio account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: 'btn waves-effect waves-light red' %>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col s12">
-                <%= link_to "Back", :back, class: 'btn waves-effect waves-light grey' %>
-            </div>
-        </div>
     </div>
 
     <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" %>

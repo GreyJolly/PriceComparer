@@ -52,7 +52,7 @@
     <%= render "partials/header" %>
     <div class="header">
         <div class="container">
-            <h3>Control Panel</h3>
+            <h3>Lista utenti</h3>
         </div>
     </div>
 
@@ -65,28 +65,28 @@
 
         <%= form_with url: search_users_users_path, method: :get, local: true, html: { class: 'row' } do %>
             <div class="input-field col s12">
-                <%= label_tag :query_user, "Search" %>
+                <%= label_tag :query_user, "Cerca" %>
                 <%= text_field_tag :query_user, params[:query_user], class: 'validate' %>
             </div>
             <div class="col s12">
                 <label>
                     <%= check_box_tag :alphabetical, '1', params[:alphabetical] == '1' %>
-                    <span>Alphabetical Order</span>
+                    <span>Ordine alfabetico</span>
                 </label>
             </div>
             <div class="col s12 checkbox-group">
                 <p>Filter by role:</p>
                 <label>
                     <%= check_box_tag :administrator, '1', params[:administrator] == '1' %>
-                    <span>Administrator</span>
+                    <span>Amministratore</span>
                 </label>
                 <label>
                     <%= check_box_tag :analyst, '1', params[:analyst] == '1' %>
-                    <span>Analyst</span>
+                    <span>Analista</span>
                 </label>
                 <label>
                     <%= check_box_tag :neither_role, '1', params[:neither_role] == '1' %>
-                    <span>Neither Role</span>
+                    <span>Nessun ruolo</span>
                 </label>
             </div>
             <div class="col s12">
@@ -101,7 +101,7 @@
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Ruoli</th>
-                        <th>Actions</th>
+                        <th>Azioni</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,9 +126,9 @@
 
         <div class="row">
             <div class="col s12">
-                <p>Number of Analysts: <%= @analyst_count %></p>
-                <p>Number of Administrators: <%= @administrator_count %></p>
-                <p>Number of Administrators and Analysts: <%= @analystAdministrato_count %></p>
+                <p>Numero di analisti: <%= @analyst_count %></p>
+                <p>Numero di amministratori: <%= @administrator_count %></p>
+                <p>Numero di amministratori e analisti: <%= @analystAdministrato_count %></p>
             </div>
         </div>
     </div>
