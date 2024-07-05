@@ -1,10 +1,5 @@
 class HomeController < ApplicationController
-  def report
-    @product = Product.find(params[:id])
-    # Logic to report
-    print("Reported " + @product.name + "\n")
-  end
-
+	
   def index
     @products = Product.all
   end

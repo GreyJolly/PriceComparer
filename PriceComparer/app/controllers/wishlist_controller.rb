@@ -44,7 +44,6 @@ class WishlistController < ApplicationController
     end
 
     if product.persisted?
-	  print(product.category)
 		
 	  # Create or find the wishlist entry
       wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, id_product: product.id_product)
