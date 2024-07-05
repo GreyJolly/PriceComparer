@@ -28,7 +28,8 @@ class HomeController < ApplicationController
         price: item.dig("sellingStatus", 0, "currentPrice", 0, "__value__").to_f,  # Convert price to float for comparison
         currency: item.dig("sellingStatus", 0, "currentPrice", 0, "@currencyId"),
         url: item["viewItemURL"][0],
-		category: item.dig('primaryCategory', 0, 'categoryName', 0)
+		category: item.dig('primaryCategory', 0, 'categoryName', 0),
+		condition: item.dig('condition', 0, 'conditionDisplayName', 0)
 		)
     end
 
@@ -51,6 +52,7 @@ class HomeController < ApplicationController
         currency: "USD",			# Assuming DummyJSON prices are in USD
         url: "https://dummyjson.com/products/#{item["id"]}", # Construct a URL for the product
 		category: item['category'],
+		condition: "New"
       )
     end
 

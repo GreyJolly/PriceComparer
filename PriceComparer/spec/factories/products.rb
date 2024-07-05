@@ -9,5 +9,6 @@ FactoryBot.define do
     category { "Test Category" }
     url { "http://example.com/product" }
     currency { "EUR" }
+	condition { "Test Condition" }
   end
 end

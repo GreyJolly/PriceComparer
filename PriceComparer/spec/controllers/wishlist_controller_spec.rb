@@ -19,6 +19,7 @@ RSpec.describe WishlistController, type: :controller do
         currency: "EUR",
         category: "Test Category",
 		url: "http://example.com/test_product",
+		condition: "Test Condition"
       }
     end
 

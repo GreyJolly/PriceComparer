@@ -32,7 +32,7 @@ class WishlistController < ApplicationController
       return
     end
 
-    product_params = params.permit(:name, :description, :site, :price, :currency, :url, :category)
+    product_params = params.permit(:name, :description, :site, :price, :currency, :url, :category, :condition)
 
     # Find or create the product based on unique attributes (e.g., name and site)
     product = Product.find_or_create_by(name: product_params[:name], site: product_params[:site]) do |p|
@@ -41,6 +41,7 @@ class WishlistController < ApplicationController
       p.currency = product_params[:currency]
       p.url = product_params[:url]
 	  p.category = product_params[:category]
+	  p.condition = product_params[:condition]
     end
 
     if product.persisted?

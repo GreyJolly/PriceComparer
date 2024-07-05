@@ -13,7 +13,8 @@ class EbayService
       'SECURITY-APPNAME' => EBAY_APP_ID,
       'RESPONSE-DATA-FORMAT' => 'JSON',
       'GLOBAL-ID' => 'EBAY-IT',
-      'keywords' => query # The item name to search for
+      'keywords' => query,
+	  'outputSelector' => 'AspectHistogram'
     }
     
     # Encode the query parameters

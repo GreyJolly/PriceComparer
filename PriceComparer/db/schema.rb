@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_07_05_103016) do
+ActiveRecord::Schema.define(version: 2024_07_05_155221) do
 
   create_table "products", force: :cascade do |t|
     t.integer "id_product"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2024_07_05_103016) do
     t.string "category"
     t.string "url"
     t.string "currency"
+    t.string "condition"
     t.index ["id_product"], name: "index_products_on_id_product", unique: true
   end
 

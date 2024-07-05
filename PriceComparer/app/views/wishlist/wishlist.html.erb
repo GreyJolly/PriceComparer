@@ -66,6 +66,7 @@
 			<th>Descrizione</th>
 			<th>Sito</th>
 			<th>Prezzo</th>
+			<th>Condizione</th>
 			<th>Etichette</th>
 			<% if @user == current_user %>
 				<th colspan = "2">Azioni</th>
@@ -77,7 +78,14 @@
         <td><%= product.name %></td>
         <td><%= product.description %></td>
         <td><%= product.site %></td>
-        <td><%= product.price %></td>
+		<td><%= product.price %> 
+			<% if product.currency == 'EUR' %>
+				€
+			<% elsif product.currency == 'USD' %>
+				$
+			<% end %>
+        </td>
+		<td><%= product.condition %></td>
         <td>
           <table>
             <% (product.wishlist_labels || "").split(",").each do |label| %>  <!-- labels are stored as a comma-separated string -->
