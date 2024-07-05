@@ -1,5 +1,4 @@
 class HomeController < ApplicationController
-	
   def index
     @products = Product.all
   end
@@ -23,14 +22,13 @@ class HomeController < ApplicationController
     ebay_products = @ebay_items.map do |item|
       OpenStruct.new(
         name: item["title"][0],
-        description: item["title"][0],  # Assuming eBay items don't have a separate description field
         site: "eBay",
         price: item.dig("sellingStatus", 0, "currentPrice", 0, "__value__").to_f,  # Convert price to float for comparison
         currency: item.dig("sellingStatus", 0, "currentPrice", 0, "@currencyId"),
         url: item["viewItemURL"][0],
-		category: item.dig('primaryCategory', 0, 'categoryName', 0),
-		condition: item.dig('condition', 0, 'conditionDisplayName', 0)
-		)
+        category: item.dig("primaryCategory", 0, "categoryName", 0),
+        condition: item.dig("condition", 0, "conditionDisplayName", 0),
+      )
     end
 
     # Fetch DummyJSON items
@@ -51,19 +49,21 @@ class HomeController < ApplicationController
         price: item["price"].to_f,	# Convert price to float for comparison
         currency: "USD",			# Assuming DummyJSON prices are in USD
         url: "https://dummyjson.com/products/#{item["id"]}", # Construct a URL for the product
-		category: item['category'],
-		condition: "New"
+        category: item["category"],
       )
     end
 
-    # Fetch and filter database products
-    @products = Product.all
-    @products = @products.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%") if @query.present?
-    @products = @products.where("price >= ?", @min_price.to_f) if @min_price.present?
-    @products = @products.where("price <= ?", @max_price.to_f) if @max_price.present?
-
     # Combine and sort products
-    @combined_products = (@products + ebay_products + dummyjson_products)
+
+    @combined_products = []
+
+    max_length = [ebay_products.length, dummyjson_products.length].max
+
+    (0...max_length).each do |i|
+      @combined_products << dummyjson_products[i] if i < dummyjson_products.length
+      @combined_products << ebay_products[i] if i < ebay_products.length
+    end
+
     @combined_products = if @order == "asc"
         @combined_products.sort_by { |product| product.price }
       elsif @order == "desc"

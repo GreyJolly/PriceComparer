@@ -25,7 +25,7 @@ class WishlistController < ApplicationController
 
   def add_to_wishlist
     # Ensure all required parameters are present
-    required_params = [:name, :site, :price, :currency, :url, :category]
+    required_params = [:name, :site, :price, :currency, :url]
     if required_params.any? { |param| params[param].blank? }
       flash[:alert] = "Please provide all required product information."
       redirect_to request.referer || root_path
