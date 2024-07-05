@@ -159,7 +159,7 @@
                 <a href="<%= product.url %>" class="btn-custom">View on eBay</a>
             <% end %>
             <% if user_signed_in? %>
-                <% if Wishlist.exists?(product_id: product.id_product, username: current_user.username) %>
+                <% if Wishlist.exists?(id_product: product.id_product, username: current_user.username) %>
 				<%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %>
                 <% else %>
                 <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: "btn-custom" %>

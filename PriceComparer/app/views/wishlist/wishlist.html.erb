@@ -102,7 +102,7 @@
         </td>
         <% if @user == current_user %>
 			<td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %></td>
-        	<td><%= button_to "Segnala", report_product_product_path(product.id_product), method: :patch %></td>
+        	<td><%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %></td>
         <% end %>
       </tr>
     <% end %>

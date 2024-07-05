@@ -44,7 +44,7 @@ class WishlistController < ApplicationController
 
     if product.persisted?
       # Create or find the wishlist entry
-      wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, product_id: product.id_product)
+      wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, id_product: product.id_product)
       if wishlist_entry.persisted?
         redirect_back fallback_location: root_path, notice: "Product added to wishlist successfully."
       else
@@ -62,7 +62,7 @@ class WishlistController < ApplicationController
     @product = Product.find_by(id_product: params[:id_product])
 
     if @product
-      product_to_be_destroyed = Wishlist.find_by(product_id: @product.id_product, username: current_user.username)
+      product_to_be_destroyed = Wishlist.find_by(id_product: @product.id_product, username: current_user.username)
 
       if product_to_be_destroyed&.persisted?
         product_to_be_destroyed.destroy
@@ -118,6 +118,6 @@ class WishlistController < ApplicationController
   private
 
   def set_wishlist
-    @wishlist = Wishlist.find_by(product_id: params[:id], username: @user.username)
+    @wishlist = Wishlist.find_by(id_product: params[:id], username: @user.username)
   end
 end
