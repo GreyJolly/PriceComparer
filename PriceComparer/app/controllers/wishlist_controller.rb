@@ -25,14 +25,14 @@ class WishlistController < ApplicationController
 
   def add_to_wishlist
     # Ensure all required parameters are present
-    required_params = [:name, :site, :price, :currency, :url]
+    required_params = [:name, :site, :price, :currency, :url, :category]
     if required_params.any? { |param| params[param].blank? }
       flash[:alert] = "Please provide all required product information."
       redirect_to request.referer || root_path
       return
     end
 
-    product_params = params.permit(:name, :description, :site, :price, :currency, :url)
+    product_params = params.permit(:name, :description, :site, :price, :currency, :url, :category)
 
     # Find or create the product based on unique attributes (e.g., name and site)
     product = Product.find_or_create_by(name: product_params[:name], site: product_params[:site]) do |p|
@@ -40,10 +40,13 @@ class WishlistController < ApplicationController
       p.price = product_params[:price]
       p.currency = product_params[:currency]
       p.url = product_params[:url]
+	  p.category = product_params[:category]
     end
 
     if product.persisted?
-      # Create or find the wishlist entry
+	  print(product.category)
+		
+	  # Create or find the wishlist entry
       wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, id_product: product.id_product)
       if wishlist_entry.persisted?
         redirect_back fallback_location: root_path, notice: "Product added to wishlist successfully."

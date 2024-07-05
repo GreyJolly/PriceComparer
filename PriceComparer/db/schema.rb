@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2024_07_05_103016) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "id_product"
-    t.index ["id_product"], name: "index_reports_on_product_id"
+    t.index ["id_product"], name: "index_reports_on_id_product"
   end
 
   create_table "users", force: :cascade do |t|

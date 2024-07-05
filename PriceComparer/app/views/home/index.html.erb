@@ -150,19 +150,26 @@
       <tbody>
         <% (@combined_products || []).each do |product| %>
           <tr class="row">
-            <td class="column"><strong>Nome:</strong> <%= product.name %></td>
-            <td class="column"><strong>Descrizione:</strong> <%= product.description %></td>
-            <td class="column"><strong>Sito:</strong> <%= product.site %></td>
-            <td class="column"><strong>Prezzo:</strong> <%= product.price %></td>
+            <td class="column"><%= product.name %></td>
+            <td class="column"><%= product.description %></td>
+            <td class="column"><%= product.site %></td>
+			<td class="column">
+			<%= product.price %> 
+			<% if product.currency == 'EUR' %>
+				€
+			<% elsif product.currency == 'USD' %>
+				$
+			<% end %>
+			</td>
             <td class="column actions">
-            <% if product.site == "eBay" %>
-                <a href="<%= product.url %>" class="btn-custom">View on eBay</a>
+            <% if product.url.present? %>
+                <a href="<%= product.url %>" class="btn-custom">Vai alla pagina</a>
             <% end %>
             <% if user_signed_in? %>
                 <% if Wishlist.exists?(id_product: product.id_product, username: current_user.username) %>
 				<%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %>
                 <% else %>
-                <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url), method: :post, class: "btn-custom" %>
+                <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url, category: product.category), method: :post, class: "btn-custom" %>
                 <% end %>
                 <%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %>
             <% end %>
