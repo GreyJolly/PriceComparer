@@ -33,11 +33,18 @@ Report.create(
 )
 
 # Create users
-amministratore = User.create(
+User.create(
   email: "amministratore@mail.it",
   username: "amministratore",
   password: "password",
   isAdministrator: true,
+)
+
+User.create(
+  email: "analista@mail.it",
+  username: "analista",
+  password: "password",
+  isAnalyst: true,
 )
 
 User.create(

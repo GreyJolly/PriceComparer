@@ -90,9 +90,18 @@
                 </label>
             </div>
             <div class="col s12">
-                <%= submit_tag "Search", class: 'btn waves-effect waves-light' %>
+                <%= submit_tag "Cerca", class: 'btn waves-effect waves-light' %>
             </div>
         <% end %>
+
+		<div class="row">
+            <div class="col s12">
+				<p>Numero totale di utenti: <%= @users.count %><br>
+        		Analisti: <%= @analyst_count %><br>
+                Amministratori: <%= @administrator_count %><br>
+                Sia Amministratori che Analisti: <%= @analystAdministrato_count %></p>
+            </div>
+        </div>
 
         <div class="table-container">
             <table class="highlight">
@@ -124,13 +133,6 @@
             </table>
         </div>
 
-        <div class="row">
-            <div class="col s12">
-                <p>Numero di analisti: <%= @analyst_count %></p>
-                <p>Numero di amministratori: <%= @administrator_count %></p>
-                <p>Numero di amministratori e analisti: <%= @analystAdministrato_count %></p>
-            </div>
-        </div>
     </div>
 </body>
 </html>

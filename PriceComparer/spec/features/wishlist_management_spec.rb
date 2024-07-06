@@ -16,7 +16,7 @@ RSpec.feature "Wishlist Management", type: :feature do
 
     # Search for the product
     fill_in "query", with: "Test Product"
-    click_button "Search"
+    click_button "Cerca"
 
     # Verify that the product appears in the search results and click on it
     expect(page).to have_content("Test Product")
