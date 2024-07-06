@@ -38,7 +38,7 @@
         <h1 class="center-align">Reports</h1>
         <div class="row">
             <div class="col s12">
-                <%= link_to 'New Report', new_report_path, class: 'btn waves-effect waves-light' %>
+                <%= link_to 'Nuova segnalazione', new_report_path, class: 'btn waves-effect waves-light' %>
             </div>
         </div>
 
@@ -50,8 +50,8 @@
                             <%= link_to report.title, report, class: 'title' %>
                         </div>
                         <div class="col s4 center-text">
-                            <%= link_to 'Edit', edit_report_path(report), class: 'btn-flat waves-effect btn-edit' %>
-                            <%= button_to 'Destroy', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
+                            <%= link_to 'Modifica', edit_report_path(report), class: 'btn-flat waves-effect btn-edit' %>
+                            <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
                         </div>
                     </div>
                 </li>

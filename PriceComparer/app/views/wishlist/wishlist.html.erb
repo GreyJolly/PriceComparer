@@ -104,9 +104,9 @@
 			<% if @user == current_user %>
 				<%= form_with url: add_label_wishlist_path(product.id_product), method: :post, local: true do %>
 				<div class="input-group">
-					<%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "form-control" %>
+					<%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "form-control", id:"inputLabel-"+String(product.id_product), onchange: "showAddButton("+String(product.id_product)+")"%>
 					<div class="input-group-append">
-					<%= submit_tag "Aggiungi", class: "btn btn-primary" %>
+					<%= submit_tag "Aggiungi etichetta", class: "btn btn-primary", id:"submitLabel-"+String(product.id_product), style: "display: none;" %>
 					</div>
 				</div>
 				<% end %>
@@ -121,4 +121,12 @@
 		</tbody>
 		</table>
 
+	<script>
+		function showAddButton(id_product) {
+			if (document.getElementById("inputLabel-"+id_product).value!="")
+				document.getElementById("submitLabel-"+id_product).style.display="inline";
+			else 
+				document.getElementById("submitLabel-"+id_product).style.display="none";
+		}
+	</script>
 </html>

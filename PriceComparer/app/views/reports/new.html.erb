@@ -50,14 +50,14 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <%= form.label :title, "Report's Title" %>
+                    <%= form.label :title, "Titolo" %>
                     <%= form.text_field :title, class: 'validate' %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
-                    <%= form.label :content, "Report's description" %>
+                    <%= form.label :content, "Descrizione" %>
                     <%= form.text_area :content, class: 'materialize-textarea' %>
                 </div>
             </div>
@@ -65,8 +65,8 @@
 
             <div class="row">
                 <div class="input-field col s12">
-                    <%= form.submit 'Submit', class: 'btn waves-effect waves-light btn-submit' %>
-                    <%= link_to 'Back', reports_path, class: 'btn waves-effect waves-light btn-back' %>
+                    <%= form.submit 'Invia', class: 'btn waves-effect waves-light btn-submit' %>
+                    <%= link_to 'Indietro', reports_path, class: 'btn waves-effect waves-light btn-back' %>
                 </div>
             </div>
         <% end %>
