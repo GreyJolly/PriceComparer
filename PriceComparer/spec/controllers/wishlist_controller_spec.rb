@@ -26,7 +26,7 @@ RSpec.describe WishlistController, type: :controller do
     it "adds a product to the wishlist" do
       post :add_to_wishlist, params: valid_product_params
       expect(response).to redirect_to(root_path)
-      expect(flash[:notice]).to eq("Product added to wishlist successfully.")
+      expect(flash[:notice]).to eq("Prodotto aggiunto alla wishlist con successo")
 
       added_product = Product.find_by(name: valid_product_params[:name], site: valid_product_params[:site])
       expect(added_product).to be_present

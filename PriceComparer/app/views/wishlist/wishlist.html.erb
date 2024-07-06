@@ -14,11 +14,6 @@
   <body>
 	<%= render "partials/header" %>
 
-	<% if flash[:error] %>
-      <div class="flash-error">
-        <%= flash[:error] %>
-      </div>
-    <% end %>
 	
 	<p> Wishlist : <%= @user.username %> </p> 
 		<%= form_with url: search_wishlisted_products_path, method: :get, local: true do %>
@@ -58,10 +53,16 @@
 
 		<% end %>
 	
-	<div>
-		<%= flash.notice %>
-	</div>
-	
+	<% if flash[:notice] %>
+      <div class="flash-notive">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+	<% if flash[:error] %>
+      <div class="flash-error">
+        <%= flash[:error] %>
+      </div>
+    <% end %>
 	
 		<table>
 		<thead>
@@ -79,7 +80,7 @@
 		<tbody>
 		<% @wishlisted_products_with_labels.each do |product| %>
 		<tr id="wishlist-item-<%= product.id_product %>">
-			<td><%= product.name %></td>
+			<td id="name"><%= product.name %></td>
 			<td><%= product.description %></td>
 			<td><%= product.site %></td>
 			<td><%= product.price %> 

@@ -86,8 +86,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <%= f.password_field :password, autocomplete: "new-password", class: 'validate' %>
-                    <%= f.label :password, "Password" %>
-                    <span>Lascia vuoto se non desideri cambiarla.</span>
+                    <%= f.label :password, "Nuova password" %>
+                    <span> Lascia vuoto se non desideri cambiare la password</span>
                     <% if @minimum_password_length %>
                         <br />
                         <em>minimo <%= @minimum_password_length %> caratteri</em>

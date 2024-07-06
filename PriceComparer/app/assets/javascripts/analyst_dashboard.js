@@ -15,12 +15,12 @@ function addPriceRange() {
 	  <td><button type="button" class="btn red" onclick="removePriceRange(this)"><i class="material-icons">remove</i></button></td>
 	`;
 	priceRanges.appendChild(newRange);
-	document.getElementById('save-changes').style.display="inline";
+	document.getElementById('save-changes').style.display = "inline";
 }
 
 function removePriceRange(button) {
 	button.parentElement.parentElement.remove();
-	document.getElementById('save-changes').style.display="inline";
+	document.getElementById('save-changes').style.display = "inline";
 }
 
 function savePriceRanges() {
@@ -28,7 +28,10 @@ function savePriceRanges() {
 	document.querySelectorAll('.price-range').forEach(function (row) {
 		var min = parseFloat(row.querySelector('input[name*="[min]"]').value);
 		var max = parseFloat(row.querySelector('input[name*="[max]"]').value);
-		ranges.push({ min: min, max: max });
+		if (min < max)
+			ranges.push({ min: min, max: max });
+		else
+			ranges.push({ min: max, max: min });
 	});
 
 	var selectedCategory = document.getElementById('category-select').value;
@@ -38,7 +41,6 @@ function savePriceRanges() {
 	};
 
 	localStorage.setItem('priceRanges', JSON.stringify(dataToStore));
-	loadPriceRanges();
 }
 
 function loadPriceRanges() {
@@ -61,21 +63,30 @@ function loadPriceRanges() {
 	}
 }
 
-function selectCategory() {
-    var storedData = JSON.parse(localStorage.getItem('priceRanges'));
-    var categorySelect = document.getElementById('category-select');
-
-    if (storedData && storedData.category) {
-        var selectedCategory = storedData.category;
-
-        // Loop through options and set the selected one
-        for (var i = 0; i < categorySelect.options.length; i++) {
-            if (categorySelect.options[i].value === selectedCategory) {
-                categorySelect.selectedIndex = i;
-                break;
-            }
-        }
-    }
+function saveAndLoadPriceRanges() {
+	savePriceRanges();
+	loadPriceRanges();
 }
 
+function selectCategory() {
+	var storedData = JSON.parse(localStorage.getItem('priceRanges'));
+	var categorySelect = document.getElementById('category-select');
+
+	if (storedData && storedData.category) {
+		var selectedCategory = storedData.category;
+
+		// Loop through options and set the selected one
+		for (var i = 0; i < categorySelect.options.length; i++) {
+			if (categorySelect.options[i].value === selectedCategory) {
+				categorySelect.selectedIndex = i;
+				break;
+			}
+		}
+	}
+}
+
+function updatePriceRange() {
+	document.getElementById('save-changes').style.display = "inline";
+	savePriceRanges();
+}
 var storedRanges = JSON.parse(localStorage.getItem('priceRanges'));

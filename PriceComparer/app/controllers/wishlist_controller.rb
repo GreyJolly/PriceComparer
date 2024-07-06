@@ -49,7 +49,7 @@ class WishlistController < ApplicationController
 	  # Create or find the wishlist entry
       wishlist_entry = Wishlist.find_or_create_by(username: current_user.username, id_product: product.id_product)
       if wishlist_entry.persisted?
-        redirect_back fallback_location: root_path, notice: "Product added to wishlist successfully."
+        redirect_back fallback_location: root_path, notice: "Prodotto aggiunto alla wishlist con successo"
       else
         logger.error "Errors: #{wishlist_entry.errors.full_messages.join(", ")}"
         redirect_back fallback_location: root_path, alert: "Unable to add product to wishlist."

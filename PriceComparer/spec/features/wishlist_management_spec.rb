@@ -38,14 +38,13 @@ RSpec.feature "Wishlist Management", type: :feature do
   scenario "User adds a label to an item in the wishlist" do
     visit wishlist_path
     within find("#wishlist-item-#{product.id_product}") do
-      fill_in "label_name", with: "make up"
-      click_button "Aggiungi"
+      fill_in "label_name", with: "make up\r\n"
     end
     expect(page).to have_content("make up")
   end
 
   scenario "User removes a label from an item in the wishlist" do
-	visit wishlist_path
+    visit wishlist_path
     within find("#wishlist-item-#{product.id_product}") do
       click_button "Rimuovi", match: :first
     end
