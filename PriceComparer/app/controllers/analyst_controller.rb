@@ -24,11 +24,21 @@ class AnalystController < ApplicationController
       @price_ranges = []
     end
 
-    @wishlisted_by_price_range = @price_ranges.map do |range|
-      count = Wishlist.joins(:product)
-        .where("products.price >= ? AND products.price < ?", range[:min], range[:max])
-        .count
-      { min: range[:min], max: range[:max], count: count }
+	selected_category = params[:category]
+    if selected_category.present?
+      @wishlisted_by_price_range = @price_ranges.map do |range|
+        count = Wishlist.joins(:product)
+          .where("products.category = ? AND products.price >= ? AND products.price < ?", selected_category, range[:min], range[:max])
+          .count
+        { min: range[:min], max: range[:max], count: count }
+      end
+    else
+      @wishlisted_by_price_range = @price_ranges.map do |range|
+        count = Wishlist.joins(:product)
+          .where("products.price >= ? AND products.price < ?", range[:min], range[:max])
+          .count
+        { min: range[:min], max: range[:max], count: count }
+      end
     end
   end
 end

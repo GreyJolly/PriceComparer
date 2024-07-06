@@ -55,6 +55,13 @@
 
         <div class="col s12 m6">
           <h2>Prodotti salvati per fascia di prezzo:</h2>
+		    <label for="category-select">Seleziona una categoria:</label>
+			<select id="category-select" onchange="savePriceRanges()">
+				<option value="">Tutte le categorie</option>
+				<% @wishlisted_by_category.keys.each do |category| %>
+				<option value="<%= category %>"><%= category %></option>
+				<% end %>
+			</select>
 		    <table class="striped">
               <thead>
                 <tr>
@@ -83,7 +90,7 @@
               <i class="material-icons left">add</i>Aggiungi fascia di prezzo
             </button>
 			<br>
-            <button type="button" class="btn" onclick="savePriceRanges()">Salva fasce</button>
+            <button id= "save-changes" type="button" class="btn" onclick="savePriceRanges()" style="display: none;">Salva fasce</button>
 			<button type="button" class="btn" onclick="loadPriceRanges()">Carica fasce salvate</button>
         </div>
       </div>
