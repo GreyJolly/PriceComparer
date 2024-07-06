@@ -96,10 +96,23 @@ class WishlistController < ApplicationController
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%") if @query.present?
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("price >= ?", @min_price) if @min_price.present?
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("price <= ?", @max_price) if @max_price.present?
-    @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
+    
+	labelFlag = @label.present? && @wishlisted_products_with_labels != [] 	
+	@wishlisted_products_with_labels = @wishlisted_products_with_labels.where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
+	if labelFlag && @wishlisted_products_with_labels == []
+		flash[:notice] = "L'etichetta cercata non è presente nei risultati."
+	else
+		flash[:notice] = ""
+	end
 
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :asc) if params[:order] == "asc"
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :desc) if params[:order] == "desc"
+
+	if @wishlisted_products_with_labels == []
+		flash[:notice] = "Non è stato trovato alcun risultato." if flash[:notice]==""
+	else
+		flash[:notice] = ""
+	end
 
     render :wishlist
   end

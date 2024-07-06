@@ -57,64 +57,68 @@
   			<div class="actions"> <%= submit_tag "Search" %> </div>
 
 		<% end %>
-		
-
-    <table>
-      <thead>
-        <tr>
-			<th>Nome</th>
-			<th>Descrizione</th>
-			<th>Sito</th>
-			<th>Prezzo</th>
-			<th>Condizione</th>
-			<th>Etichette</th>
+	
+	<div>
+		<%= flash.notice %>
+	</div>
+	
+	<% if  flash.notice == "" %>
+		<table>
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Descrizione</th>
+				<th>Sito</th>
+				<th>Prezzo</th>
+				<th>Condizione</th>
+				<th>Etichette</th>
+				<% if @user == current_user %>
+					<th colspan = "2">Azioni</th>
+				<% end %>
+		</thead>
+		<tbody>
+		<% @wishlisted_products_with_labels.each do |product| %>
+		<tr id="wishlist-item-<%= product.id_product %>">
+			<td><%= product.name %></td>
+			<td><%= product.description %></td>
+			<td><%= product.site %></td>
+			<td><%= product.price %> 
+				<% if product.currency == 'EUR' %>
+					€
+				<% elsif product.currency == 'USD' %>
+					$
+				<% end %>
+			</td>
+			<td><%= product.condition %></td>
+			<td>
+			<table>
+				<% (product.wishlist_labels || "").split(",").each do |label| %>  <!-- labels are stored as a comma-separated string -->
+				<tr>
+					<td><%= label.strip %></td>  <!-- .strip to remove any leading/trailing spaces -->
+					<% if @user == current_user %>
+					<td><%= button_to "Rimuovi", remove_label_wishlist_path(product.id_product, label_name: label.strip), method: :delete, class: "btn btn-danger btn-sm" %></td>
+					<% end %>
+				</tr>
+				<% end %>
+			</table>
 			<% if @user == current_user %>
-				<th colspan = "2">Azioni</th>
+				<%= form_with url: add_label_wishlist_path(product.id_product), method: :post, local: true do %>
+				<div class="input-group">
+					<%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "form-control" %>
+					<div class="input-group-append">
+					<%= submit_tag "Aggiungi", class: "btn btn-primary" %>
+					</div>
+				</div>
+				<% end %>
 			<% end %>
-	  </thead>
-     <tbody>
-    <% @wishlisted_products_with_labels.each do |product| %>
-      <tr id="wishlist-item-<%= product.id_product %>">
-        <td><%= product.name %></td>
-        <td><%= product.description %></td>
-        <td><%= product.site %></td>
-		<td><%= product.price %> 
-			<% if product.currency == 'EUR' %>
-				€
-			<% elsif product.currency == 'USD' %>
-				$
+			</td>
+			<% if @user == current_user %>
+				<td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %></td>
+				<td><%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %></td>
 			<% end %>
-        </td>
-		<td><%= product.condition %></td>
-        <td>
-          <table>
-            <% (product.wishlist_labels || "").split(",").each do |label| %>  <!-- labels are stored as a comma-separated string -->
-              <tr>
-                <td><%= label.strip %></td>  <!-- .strip to remove any leading/trailing spaces -->
-                <% if @user == current_user %>
-                  <td><%= button_to "Rimuovi", remove_label_wishlist_path(product.id_product, label_name: label.strip), method: :delete, class: "btn btn-danger btn-sm" %></td>
-                <% end %>
-              </tr>
-            <% end %>
-          </table>
-          <% if @user == current_user %>
-            <%= form_with url: add_label_wishlist_path(product.id_product), method: :post, local: true do %>
-              <div class="input-group">
-                <%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "form-control" %>
-                <div class="input-group-append">
-                  <%= submit_tag "Aggiungi", class: "btn btn-primary" %>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        </td>
-        <% if @user == current_user %>
-			<td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %></td>
-        	<td><%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %></td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+		</tr>
+		<% end %>
+		</tbody>
+		</table>
+  <% end %>
 </html>
