@@ -64,6 +64,16 @@ class HomeController < ApplicationController
       @combined_products << ebay_products[i] if i < ebay_products.length
     end
 
+    if params[:condition] == "new"
+      @combined_products = @combined_products.select do |product|
+        product.condition.present? && product.condition.include?("Nuovo") && !product.condition.include?("Come Nuovo")
+      end
+    elsif params[:condition] == "used"
+      @combined_products = @combined_products.select do |product|
+        product.condition.present? && (!product.condition.include?("Nuovo") || product.condition.include?("Come Nuovo"))
+      end
+    end
+
     @combined_products = if @order == "asc"
         @combined_products.sort_by { |product| product.price }
       elsif @order == "desc"

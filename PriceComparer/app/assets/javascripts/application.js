@@ -7,3 +7,4 @@
 //= require_tree .
 //= require materialize_init
 //= require navbar
+//= require analyst_dashboard.js

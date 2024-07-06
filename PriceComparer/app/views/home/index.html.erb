@@ -113,20 +113,60 @@
           <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate" %>
         </div>
 
+     <div class="row">
+	<div class="col">
+        <p>
+          <label>
+            <%= radio_button_tag :order, "relevance", params[:order] == "relevance" %>
+            <span>Ordina per rilevanza</span>
+          </label>
+        </p>
+	</div>
+	<div class="col">
         <p>
           <label>
             <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
             <span>Ordina per prezzo crescente</span>
           </label>
         </p>
-
+	</div>
+	<div class="col">
         <p>
           <label>
             <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
             <span>Ordina per prezzo decrescente</span>
           </label>
         </p>
+	</div>
+	</div>
 
+    <div class="row">
+
+	<div class="col">
+		<p>
+          <label>
+            <%= radio_button_tag :condition, "any", params[:condition] == "any" %>
+            <span>Qualunque condizione</span>
+          </label>
+        </p>
+	</div>
+	<div class="col">
+        <p>
+          <label>
+            <%= radio_button_tag :condition, "new", params[:condition] == "new" %>
+            <span>Nuovo</span>
+          </label>
+        </p>
+	</div>
+	<div class="col">
+        <p>
+          <label>
+            <%= radio_button_tag :condition, "used", params[:condition] == "used" %>
+            <span>Usato</span>
+          </label>
+        </p>
+			</div>
+	</div>
         <div class="input-field col s12">
           <%= submit_tag "Search", class: "btn-custom" %>
         </div>
