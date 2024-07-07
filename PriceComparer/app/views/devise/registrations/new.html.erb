@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign up</title>
+  <title>Registrati</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" %>
@@ -53,35 +53,35 @@
 </head>
 <body>
   <div class="signup-container">
-    <h2>Sign up</h2>
+    <h2>Registrati</h2>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="input-field">
         <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'validate' %>
-        <%= f.label :username %>
+        <%= f.label "Nome utente" %>
       </div>
       
       <div class="input-field">
         <%= f.email_field :email, autocomplete: "email", class: 'validate' %>
-        <%= f.label :email %>
+        <%= f.label "E-mail" %>
       </div>
 
       <div class="input-field">
         <%= f.password_field :password, autocomplete: "new-password", class: 'validate' %>
-        <%= f.label :password %>
+        <%= f.label "Password" %>
         <% if @minimum_password_length %>
-        <small><em>(<%= @minimum_password_length %> characters minimum)</em></small>
+        <small><em>minimo <%= @minimum_password_length %> caratteri</em></small>
         <% end %>
       </div>
 
       <div class="input-field">
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'validate' %>
-        <%= f.label :password_confirmation %>
+        <%= f.label "Conferma password" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Sign up", class: "btn waves-effect waves-light" %>
+        <%= f.submit "Registrati", class: "btn waves-effect waves-light" %>
       </div>
     <% end %>
 

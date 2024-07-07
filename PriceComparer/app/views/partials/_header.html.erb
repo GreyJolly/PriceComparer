@@ -13,16 +13,16 @@
         <li><%= link_to "Wishlist", wishlist_path, method: :get %></li>
         <% if current_user.isAdministrator? %>
           <li><%= link_to "Utenti", users_list_path, method: :get %></li>
-          <li><%= link_to "Reports", reports_path, method: :get %></li>
+          <li><%= link_to "Segnalazioni", reports_path, method: :get %></li>
         <% end %>
         <% if current_user.isAnalyst? %>
           <li><%= link_to "Dashboard", products_dashboard_path %></li>
         <% end %>
         <li><%= link_to "Profilo", edit_user_registration_path, method: :get %></li>
-        <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "Disconnetti", destroy_user_session_path, method: :delete %></li>
       <% else %>
-        <li><%= link_to "Sign up", new_user_registration_path %></li> 
-        <li><%= link_to "Login", new_user_session_path %></li>
+        <li><%= link_to "Registrati", new_user_registration_path %></li> 
+        <li><%= link_to "Accedi", new_user_session_path %></li>
       <% end %>
     </ul>
   </div>
@@ -34,15 +34,15 @@
     <li><%= link_to "Wishlist", wishlist_path, method: :get %></li>
     <% if current_user.isAdministrator? %>
       <li><%= link_to "Utenti", users_list_path, method: :get %></li>
-      <li><%= link_to "Reports", reports_path, method: :get %></li>
+      <li><%= link_to "Segnalazioni", reports_path, method: :get %></li>
     <% end %>
     <% if current_user.isAnalyst? %>
       <li><%= link_to "Dashboard", products_dashboard_path %></li>
     <% end %>
     <li><%= link_to "Profilo", edit_user_registration_path, method: :get %></li>
-    <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+    <li><%= link_to "Disconnetti", destroy_user_session_path, method: :delete %></li>
   <% else %>
-    <li><%= link_to "Sign up", new_user_registration_path %></li> 
-    <li><%= link_to "Login", new_user_session_path %></li>
+    <li><%= link_to "Registrati", new_user_registration_path %></li> 
+    <li><%= link_to "Accedi", new_user_session_path %></li>
   <% end %>
 </ul>
