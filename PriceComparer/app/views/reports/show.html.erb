@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= @report.title %> Report</title>
@@ -9,34 +9,64 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <style>
-        .btn-edit {
-            background-color: #ff9800 !important; /* Arancione */
-            color: white !important;
-        }
-        .btn-back {
-            background-color: #f44336 !important; /* Rosso */
-            color: white !important;
-        }
-        .report-title {
-            margin-top: 20px;
-        }
-        .report-content {
-            margin-top: 20px;
-        }
+      .btn-edit {
+          background-color: #ff9800 !important; /* Arancione */
+          color: white !important;
+      }
+      .btn-back {
+          background-color: #f44336 !important; /* Rosso */
+          color: white !important;
+      }
+      .report-title {
+          margin-top: 20px;
+      }
+      .report-content {
+          margin-top: 20px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <%= render "partials/header" %>
-
     <div class="container">
-        <h3 class="center-align report-title"><%= @report.title %></h3>
-        <p class="report-content"><%= @report.content %></p>
-        <div class="row">
-            <div class="col s12">
-                <%= link_to 'Modifica', edit_report_path(@report), class: 'btn waves-effect waves-light btn-edit' %>
-                <%= link_to 'Indietro', reports_path, class: 'btn waves-effect waves-light btn-back' %>
-            </div>
+      <h3 class="center-align report-title"><%= @report.title %></h3>
+      <p class="report-content"><%= @report.content %></p>
+      <div class="row">
+        <div class="col s12">
+          <%= link_to 'Modifica', edit_report_path(@report), class: 'btn waves-effect waves-light btn-edit' %>
+          <%= link_to 'Indietro', reports_path, class: 'btn waves-effect waves-light btn-back' %>
         </div>
+      </div>
     </div>
-</body>
+    <% if @product.present? %>
+      <table class="striped responsive-table vertical-table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Descrizione</th>
+            <th>Sito</th>
+            <th>Prezzo</th>
+            <th>Condizione</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row">
+            <td class="column"><%= @product.name %></td>
+            <td class="column"><%= @product.description %></td>
+            <td class="column"><%= @product.site %></td>
+            <td class="column">
+              <%= @product.price %>
+              <% if @product.currency == 'EUR' %>
+                €
+              <% elsif @product.currency == 'USD' %>
+                $
+              <% end %>
+              <td class="column"><%= @product.condition %></td>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% elsif @report.id_product.present? %>
+      Il prodotto segnalato non è più presente nel database.
+    <% end %>
+  </body>
 </html>

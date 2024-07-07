@@ -35,7 +35,7 @@
     <%= render "partials/header" %>
 
     <div class="container">
-        <h1 class="center-align"><%= action_name.capitalize %> Report</h1>
+        <h1 class="center-align"> Nuova segnalazione</h1>
         <%= form_with model: @report, local: true, html: { class: 'col s12' } do |form| %>
             <% if @report.errors.any? %>
                 <div id="error_explanation" class="error-explanation">

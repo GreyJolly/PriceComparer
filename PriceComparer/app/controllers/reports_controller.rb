@@ -11,6 +11,7 @@ class ReportsController < ApplicationController
   
     def show
       @report = Report.find(params[:id])
+	  @product = Product.find_by(id_product: @report.id_product) if @report.id_product.present?
     end
   
     def new
@@ -46,6 +47,14 @@ class ReportsController < ApplicationController
       @report.destroy
       redirect_to reports_path
     end
+
+	def destroy_with_product
+		@report = Report.find(params[:id])
+		@product = Product.find_by(id_product: @report.id_product)
+		@report.destroy
+		@product.destroy if @product.present?
+		redirect_to reports_path
+	end
   
     def report_product
       @product = Product.find_by(id_product: params[:id_product])
@@ -54,7 +63,7 @@ class ReportsController < ApplicationController
         return
       end
   
-      @report = Report.new(title: "Segnalazione per #{@product.name}, id: #{@product.id_product}", content: "Il prodotto #{@product.name} presenta problemi", id_product: @product.id_product)
+      @report = Report.new(title: "Segnalazione per #{@product.name}", content: "Il prodotto #{@product.name} presenta problemi", id_product: @product.id_product)
       
       if @report.save
         redirect_to edit_report_path(@report), notice: 'Report creato con successo. Puoi modificarlo qui sotto.'

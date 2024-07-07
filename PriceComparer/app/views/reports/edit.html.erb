@@ -14,7 +14,7 @@
     <%= render "partials/header" %>
 
     <div class="container">
-        <h1 class="center-align"><%= action_name.capitalize %> Report</h1>
+        <h1 class="center-align"> Modifica segnalazione</h1>
 
         <%= form_with model: @report, local: true, html: { class: 'col s12' } do |form| %>
             <% if @report.errors.any? %>
@@ -31,14 +31,14 @@
             <div class="row">
                 <div class="input-field col s12">
                     <%= form.text_field :title, class: "validate"%>
-                    <%= form.label :title, "Title" %>
+                    <%= form.label :title, "Titolo" %>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s12">
                     <%= form.text_area :content, class: "materialize-textarea"%>
-                    <%= form.label :content, "Content" %>
+                    <%= form.label :content, "Descrizione" %>
                 </div>
             </div>
 

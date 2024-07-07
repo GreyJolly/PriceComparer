@@ -164,6 +164,7 @@
           </div>
         </div>
       <% end %>
+	  <% if @combined_products.present? %>
       <table class="striped responsive-table vertical-table">
         <thead>
           <tr>
@@ -199,18 +200,19 @@
                   <a href="<%= product.url %>" class="btn-custom">Vai alla pagina</a>
                 <% end %>
                 <% if user_signed_in? %>
-                  <% if Wishlist.exists?(id_product: product.id_product, username: current_user.username) %>
+                  <% if Wishlist.find_by(id_product: product.id_product, username: current_user.username).present? %>
                     <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %>
                   <% else %>
                     <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url, category: product.category, condition: product.condition), method: :post, class: "btn-custom" %>
                   <% end %>
-                  <%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %>
+                  <%= button_to "Segnala", new_report_path, method: :get, class: "btn-custom" %>
                 <% end %>
               </td>
             </tr>
           <% end %>
         </tbody>
       </table>
+	  <% end %>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>

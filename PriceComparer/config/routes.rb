@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
     devise_for :users, controllers: { sessions: "sessions", omniauth_callbacks: "users/omniauth_callbacks" }
   
-    resources :reports
+    resources :reports do
+		member do
+			delete "destroy_with_product", to: "reports#destroy_with_product"
+		end
+	end
   
     resources :products do
       collection do

@@ -66,11 +66,12 @@ class WishlistController < ApplicationController
 
     if @product
       product_to_be_destroyed = Wishlist.find_by(id_product: @product.id_product, username: current_user.username)
-
+	  
       if product_to_be_destroyed&.persisted?
-        product_to_be_destroyed.destroy
+		product_to_be_destroyed.destroy
         flash[:notice] = "Product removed from wishlist successfully."
-      else
+		@product.destroy if Wishlist.where(id_product: @product.id_product).where.not(username: current_user.username).exists?
+	  else
         flash[:alert] = "Product not found in wishlist."
       end
     else

@@ -46,7 +46,7 @@ class ProductsController < ApplicationController
           return
         end
   
-    @report = Report.new(title: "Segnalazione per #{@product.name}, id: #{@product.id_product}", content: "Il prodotto #{@product.name} presenta problemi", id_product: @product.id_product)
+    @report = Report.new(title: "Segnalazione per #{@product.name}", content: "Il prodotto #{@product.name} presenta problemi", id_product: @product.id_product)
 
     if @report.save
         redirect_to edit_report_path(@report), notice: 'Report creato con successo. Puoi modificarlo qui sotto.'

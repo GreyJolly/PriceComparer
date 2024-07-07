@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reports</title>
@@ -9,55 +9,54 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <style>
-        .btn-edit {
-            background-color: #2196F3 !important; /* Blu */
-            color: white !important;
-            margin-right: 10px;
-        }
-        .btn-destroy {
-            background-color: #f44336 !important; /* Rosso */
-            color: white !important;
-        }
-        .center-text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-        .collection-item .row {
-            display: flex;
-            align-items: center;
-        }
+      .btn-edit {
+          background-color: #2196F3 !important; /* Blu */
+          color: white !important;
+          margin-right: 10px;
+      }
+      .btn-destroy {
+          background-color: #f44336 !important; /* Rosso */
+          color: white !important;
+      }
+      .center-text {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+      }
+      .collection-item .row {
+          display: flex;
+          align-items: center;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <%= render "partials/header" %>
-
     <div class="container">
-        <h1 class="center-align">Reports</h1>
-        <div class="row">
-            <div class="col s12">
-                <%= link_to 'Nuova segnalazione', new_report_path, class: 'btn waves-effect waves-light' %>
-            </div>
+      <h1 class="center-align">Segnalazioni</h1>
+      <div class="row">
+        <div class="col s12">
+          <%= link_to 'Nuova segnalazione', new_report_path, class: 'btn waves-effect waves-light' %>
         </div>
-
-        <ul class="collection">
-            <% @reports.each do |report| %>
-                <li class="collection-item">
-                    <div class="row">
-                        <div class="col s8">
-                            <%= link_to report.title, report, class: 'title' %>
-                        </div>
-                        <div class="col s4 center-text">
-                            <%= link_to 'Modifica', edit_report_path(report), class: 'btn-flat waves-effect btn-edit' %>
-                            <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
-                        </div>
-                    </div>
-                </li>
-            <% end %>
-        </ul>
+      </div>
+      <ul class="collection">
+        <% @reports.each do |report| %>
+          <li class="collection-item">
+            <div class="row">
+              <div class="col s8">
+                <%= link_to report.title, report, class: 'title' %>
+              </div>
+              <div class="col s4 center-text">
+                <%= link_to 'Modifica', edit_report_path(report), class: 'btn-flat waves-effect btn-edit' %>
+                <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
+                <% if report.id_product.present? && Product.find_by(id_product: report.id_product).present? %>
+				<%= button_to 'Elimina prodotto', destroy_with_product_report_path(report), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn-flat waves-effect btn-destroy' %>
+				<% end %>
+			  </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
     </div>
-
-</body>
+  </body>
 </html>
