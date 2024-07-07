@@ -27,10 +27,8 @@
       }
     </style>
   </head>
-
   <body>
     <%= render "partials/header" %>
-
     <div class="container">
       <div class="row">
         <div class="col s12 m6">
@@ -52,50 +50,48 @@
             </tbody>
           </table>
         </div>
-
         <div class="col s12 m6">
           <h2>Prodotti salvati per fascia di prezzo:</h2>
-		    <label for="category-select">Seleziona una categoria:</label>
-			<select id="category-select" onchange="saveAndLoadPriceRanges()">
-				<option value="">Tutte le categorie</option>
-				<% @wishlisted_by_category.keys.each do |category| %>
-				<option value="<%= category %>"><%= category %></option>
-				<% end %>
-			</select>
-		    <table class="striped">
-              <thead>
-                <tr>
-                  <th>Prezzo minimo</th>
-                  <th>Prezzo massimo</th>
-                  <th>Numero</th>
-                  <th>Azione</th>
+          <label for="category-select">Seleziona una categoria:</label>
+          <select id="category-select" onchange="saveAndLoadPriceRanges()">
+            <option value="">Tutte le categorie</option>
+            <% @wishlisted_by_category.keys.each do |category| %>
+              <option value="<%= category %>"><%= category %></option>
+            <% end %>
+          </select>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>Prezzo minimo</th>
+                <th>Prezzo massimo</th>
+                <th>Numero</th>
+                <th>Azione</th>
+              </tr>
+            </thead>
+            <tbody id="price-ranges">
+              <% @wishlisted_by_price_range.each_with_index do |range, index| %>
+                <tr class="price-range">
+                  <td><%= number_field_tag "price_ranges[#{index}][min]", range[:min], class: "validate", onchange: "updatePriceRange()" %></td>
+                  <td><%= number_field_tag "price_ranges[#{index}][max]", range[:max], class: "validate", onchange: "updatePriceRange()" %></td>
+                  <td><%= range[:count] %></td>
+                  <td>
+                    <button type="button" class="btn red" onclick="removePriceRange(this)">
+                      <i class="material-icons">remove</i>
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody id="price-ranges">
-                <% @wishlisted_by_price_range.each_with_index do |range, index| %>
-                  <tr class="price-range">
-                    <td><%= number_field_tag "price_ranges[#{index}][min]", range[:min], class: "validate", onchange: "updatePriceRange()" %></td>
-                    <td><%= number_field_tag "price_ranges[#{index}][max]", range[:max], class: "validate", onchange: "updatePriceRange()" %></td>
-                    <td><%= range[:count] %></td>
-                    <td>
-                      <button type="button" class="btn red" onclick="removePriceRange(this)">
-                        <i class="material-icons">remove</i>
-                      </button>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-            <button type="button" class="btn" onclick="addPriceRange()">
-              <i class="material-icons left">add</i>Aggiungi fascia di prezzo
-            </button>
-			<br>
-            <button id= "save-changes" type="button" class="btn" onclick="saveAndLoadPriceRanges()" style="display: none;">Salva fasce</button>
-			<button type="button" class="btn" onclick="loadPriceRanges()">Carica fasce salvate</button>
+              <% end %>
+            </tbody>
+          </table>
+          <button type="button" class="btn" onclick="addPriceRange()">
+            <i class="material-icons left">add</i>Aggiungi fascia di prezzo
+          </button>
+          <br>
+          <button id= "save-changes" type="button" class="btn" onclick="saveAndLoadPriceRanges()" style="display: none;">Salva fasce</button>
+          <button type="button" class="btn" onclick="loadPriceRanges()">Carica fasce salvate</button>
         </div>
       </div>
     </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>

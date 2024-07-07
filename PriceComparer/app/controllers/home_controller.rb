@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def search
     @query = params[:query]
     @min_price = params[:min_price]
-    @max_price = params[:max_price]
+	@max_price = params[:max_price]
     @order = params[:order]
 
     # Fetch eBay items
