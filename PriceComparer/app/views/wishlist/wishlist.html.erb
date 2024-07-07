@@ -45,9 +45,9 @@
       </p>
       <div class="actions"> <%= submit_tag "Cerca" %> </div>
     <% end %>
-    <% if flash[:notice] %>
-      <div class="flash-notive">
-        <%= flash[:notice] %>
+    <% if flash[:custom] %>
+      <div class="flash-custom">
+        <%= flash[:custom] %>
       </div>
     <% end %>
     <% if flash[:error] %>

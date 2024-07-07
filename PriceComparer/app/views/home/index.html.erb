@@ -200,8 +200,8 @@
                   <a href="<%= product.url %>" class="btn-custom">Vai alla pagina</a>
                 <% end %>
                 <% if user_signed_in? %>
-                  <% if Wishlist.find_by(id_product: product.id_product, username: current_user.username).present? %>
-                    <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %>
+				<% if Wishlist.joins(:product).exists?(products: { name: product.name, site: product.site }, username: current_user.username) %>
+					Presente nella wishlist
                   <% else %>
                     <%= button_to "Aggiungi alla wishlist", add_to_wishlist_products_path(name: product.name, description: product.description, site: product.site, price: product.price, currency: product.currency, url: product.url, category: product.category, condition: product.condition), method: :post, class: "btn-custom" %>
                   <% end %>

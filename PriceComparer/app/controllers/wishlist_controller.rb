@@ -65,13 +65,15 @@ class WishlistController < ApplicationController
     @product = Product.find_by(id_product: params[:id_product])
 
     if @product
-      product_to_be_destroyed = Wishlist.find_by(id_product: @product.id_product, username: current_user.username)
+      wishlist_entry = Wishlist.find_by(id_product: @product.id_product, username: current_user.username)
 	  
-      if product_to_be_destroyed&.persisted?
-		product_to_be_destroyed.destroy
+      if wishlist_entry&.persisted?
+		wishlist_entry.destroy
         flash[:notice] = "Product removed from wishlist successfully."
-		@product.destroy if Wishlist.where(id_product: @product.id_product).where.not(username: current_user.username).exists?
-	  else
+		unless Wishlist.where(id_product: @product.id_product).where.not(username: current_user.username).exists?
+			@product.destroy
+		end
+		else
         flash[:alert] = "Product not found in wishlist."
       end
     else
@@ -101,18 +103,18 @@ class WishlistController < ApplicationController
 	labelFlag = @label.present? && @wishlisted_products_with_labels != [] 	
 	@wishlisted_products_with_labels = @wishlisted_products_with_labels.where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
 	if labelFlag && @wishlisted_products_with_labels == []
-		flash[:notice] = "L'etichetta cercata non è presente nei risultati."
+		flash[:custom] = "L'etichetta cercata non è presente nei risultati."
 	else
-		flash[:notice] = ""
+		flash[:custom] = ""
 	end
 
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :asc) if params[:order] == "asc"
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :desc) if params[:order] == "desc"
 
 	if @wishlisted_products_with_labels == []
-		flash[:notice] = "Non è stato trovato alcun risultato." if flash[:notice]==""
+		flash[:custom] = "Non è stato trovato alcun risultato." if flash[:notice]==""
 	else
-		flash[:notice] = ""
+		flash[:custom] = ""
 	end
 
     render :wishlist
