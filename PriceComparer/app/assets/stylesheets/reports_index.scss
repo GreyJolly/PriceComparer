@@ -1,0 +1,21 @@
+@import "colors";
+
+.btn-edit {
+    background-color: #2196F3 !important; /* Blu */
+    color: white !important;
+    margin-right: 10px;
+}
+.btn-destroy {
+    background-color: #f44336 !important; /* Rosso */
+    color: white !important;
+}
+.center-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.collection-item .row {
+    display: flex;
+    align-items: center;
+}

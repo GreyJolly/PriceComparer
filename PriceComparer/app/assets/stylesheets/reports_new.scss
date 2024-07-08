@@ -1,0 +1,21 @@
+@import "colors";
+
+.btn-back {
+    background-color: #f44336 !important; /* Rosso */
+    color: white !important;
+    margin-top: 10px;
+    margin-left: 10px; /* Optional: Adds some space between the buttons */
+}
+.btn-submit {
+    background-color: #4CAF50 !important; /* Verde */
+    color: white !important;
+    margin-top: 10px;
+}
+.input-field {
+    margin-bottom: 20px;
+}
+.error-explanation {
+    background-color: #ffebee; /* Light red background */
+    padding: 20px;
+    border-radius: 5px;
+}

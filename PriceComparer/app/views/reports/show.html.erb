@@ -7,23 +7,9 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'reports_show', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-    <style>
-      .btn-edit {
-          background-color: #ff9800 !important; /* Arancione */
-          color: white !important;
-      }
-      .btn-back {
-          background-color: #f44336 !important; /* Rosso */
-          color: white !important;
-      }
-      .report-title {
-          margin-top: 20px;
-      }
-      .report-content {
-          margin-top: 20px;
-      }
-    </style>
+
   </head>
   <body>
     <%= render "partials/header" %>
