@@ -5,8 +5,8 @@ class HomeController < ApplicationController
 
   def search
     @query = params[:query]
-    @min_price = params[:min_price]
-	@max_price = params[:max_price]
+    @min_price = params[:min_price].to_f
+	@max_price = params[:max_price].to_f
     @order = params[:order]
 
     # Fetch eBay items
@@ -74,6 +74,10 @@ class HomeController < ApplicationController
       end
     end
 
+	@combined_products = @combined_products.select do |product|
+		product.price >= @min_price && product.price <= @max_price
+	end
+
     @combined_products = if @order == "asc"
         @combined_products.sort_by { |product| product.price }
       elsif @order == "desc"
@@ -81,7 +85,7 @@ class HomeController < ApplicationController
       else
         @combined_products
       end
-
+	  
     render :index
   end
 end
