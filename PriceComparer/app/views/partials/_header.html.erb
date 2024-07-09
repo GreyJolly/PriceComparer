@@ -1,7 +1,7 @@
 <nav>
   <div class="nav-wrapper">
     <% if user_signed_in? %>
-      <a href="#" class="brand-logo left">Benvenuto <%= current_user.username %></a>
+      <a href="#" id="welcome-title" class="brand-logo left">Benvenuto <%= current_user.username %></a>
     <% else %>
       <a href="#" class="brand-logo center">Benvenuto</a>
     <% end %>

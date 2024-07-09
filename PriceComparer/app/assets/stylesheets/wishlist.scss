@@ -1,0 +1,86 @@
+// Import Materialize
+@import 'materialize';
+@import "colors";
+
+// Custom styles
+.container {
+    margin-top: 20px;
+}
+.input-field {
+    margin-bottom: 20px;
+}
+.card-panel {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+.product-card {
+    margin-bottom: 20px;
+}
+.product-card .card-content {
+    display: flex;
+    flex-direction: column;
+}
+.product-card .actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.product-card .actions .btn {
+    margin-right: 10px;
+}
+.product-card .actions .btn:last-child {
+    margin-right: 0;
+}
+.product-card .label-form {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.product-card .label-form .input-field {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+.product-card .label-form .btn {
+    flex-shrink: 0;
+}
+.product-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.product-card {
+    flex: 0 1 calc(33.333% - 10px);
+    box-sizing: border-box;
+}
+.card-panel.teal.lighten-2 {
+    display: flex;
+}
+
+#result-message {
+    color: $header-color;
+    font-size: 1.5em;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 992px) {
+    .product-card {
+        flex: 0 1 calc(50% - 10px);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .product-card {
+        flex: 0 1 100%;
+    }
+    .product-card .actions {
+        flex-direction: column;
+    }
+    .product-card .actions .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .product-card .actions .btn:last-child {
+        margin-bottom: 0;
+    }
+}
+

@@ -1,139 +1,120 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Price Comparer</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "application", media: "all" %>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
-  <body>
-    <%= render "partials/header" %>
-    <p> Wishlist : <%= @user.username %> </p>
-    <%= form_with url: search_wishlisted_products_path, method: :get, local: true, id: 'search-form' do %>
-      <div class="field">
-        <%= label_tag :query, "Cerca" %>
-        <%= text_field_tag :query, params[:query] %>
-      </div>
-      <div class="field">
-        <%= label_tag :min_price, "Prezzo minimo" %>
-        <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, id: 'min_price' %>
-      </div>
-      <div class="field">
-        <%= label_tag :max_price, "Prezzo massimo" %>
-        <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, id: 'max_price' %>
-      </div>
-      <% if @user == current_user %>
-        <div class="field">
-          <%= label_tag :label, "Etichetta" %>
-          <%= text_field_tag :label, params[:label] %>
-        </div>
-      <% end %>
-      <p>
-        <label>
-          <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
-          <span>Ordina per prezzo crescente</span>
-        </label>
-      </p>
-      <p>
-        <label>
-          <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
-          <span>Ordina per prezzo decrescente</span>
-        </label>
-      </p>
-      <div class="actions"> <%= submit_tag "Cerca" %> </div>
-    <% end %>
-    <% if flash[:custom] %>
-      <div class="flash-custom">
-        <%= flash[:custom] %>
-      </div>
-    <% end %>
-    <% if flash[:error] %>
-      <div class="flash-error">
-        <%= flash[:error] %>
-      </div>
-    <% end %>
-	<% if @wishlisted_products_with_labels.present? %>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Descrizione</th>
-          <th>Sito</th>
-          <th>Prezzo</th>
-          <th>Condizione</th>
-          <% if @user == current_user %>
-            <th>Etichette</th>
-            <th colspan = "2">Azioni</th>
-          <% end %>
-        </thead>
-        <tbody>
-          <% @wishlisted_products_with_labels.each do |product| %>
-            <tr id="wishlist-item-<%= product.id_product %>">
-              <td id="name"><%= product.name %></td>
-              <td><%= product.description %></td>
-              <td><%= product.site %></td>
-              <td><%= product.price %>
-                <% if product.currency == 'EUR' %>
-                  €
-                <% elsif product.currency == 'USD' %>
-                  $
-                <% end %>
-              </td>
-              <td><%= product.condition %></td>
-              <td>
+    <head>
+        <title>Price Comparer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <%= stylesheet_link_tag "application", media: "all" %>
+        <%= stylesheet_link_tag "wishlist", media: "all" %>
+        <%= javascript_include_tag "wishlist" %>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <%= render "partials/header" %>
+        <div class="container">
+            <h5>Wishlist: <%= @user.username %></h5>
+            <%= form_with url: search_wishlisted_products_path, method: :get, local: true, id: 'search-form', class: "row" do %>
+                <div class="input-field col s12 m6">
+                    <%= label_tag :query, "Cerca" %>
+                    <%= text_field_tag :query, params[:query], class: "validate" %>
+                </div>
+                <div class="input-field col s12 m6">
+                    <%= label_tag :min_price, "Prezzo minimo" %>
+                    <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, id: 'min_price', class: "validate" %>
+                </div>
+                <div class="input-field col s12 m6">
+                    <%= label_tag :max_price, "Prezzo massimo" %>
+                    <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, id: 'max_price', class: "validate" %>
+                </div>
                 <% if @user == current_user %>
-                  <table>
-                    <% (product.wishlist_labels || "").split(",").each do |label| %>  <!-- labels are stored as a comma-separated string -->
-                      <tr>
-                        <td><%= label.strip %></td>
-                        <td><%= button_to "-", remove_label_wishlist_path(product.id_product, label_name: label.strip), method: :delete, class: "btn red" %></td>
-                      </tr>
-                    <% end %>
-                  </table>
-                  <%= form_with url: add_label_wishlist_path(product.id_product), method: :post, local: true do %>
-                    <div class="input-group">
-                      <%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "form-control", id:"inputLabel-"+String(product.id_product), onchange: "showAddButton("+String(product.id_product)+")"%>
-                      <div class="input-group-append">
-                        <%= submit_tag "Aggiungi etichetta", class: "btn btn-primary", id:"submitLabel-"+String(product.id_product), style: "display: none;" %>
-                      </div>
+                    <div class="input-field col s12 m6">
+                        <%= label_tag :label, "Etichetta" %>
+                        <%= text_field_tag :label, params[:label], class: "validate" %>
                     </div>
-                  <% end %>
                 <% end %>
-              </td>
-              <% if @user == current_user %>
-                <td><%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn-custom", params: { id_product: product.id_product } %></td>
-                <td><%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn-custom" %></td>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-	  <% else %>
-	  Nessun prodotto presente nella wishlist.
-	  <% end %>
-      <script>
-        function showAddButton(id_product) {
-        	if (document.getElementById("inputLabel-"+id_product).value!="")
-        		document.getElementById("submitLabel-"+id_product).style.display="inline";
-        	else
-        		document.getElementById("submitLabel-"+id_product).style.display="none";
-        }
-
-	  	document.getElementById('search-form').addEventListener('submit', function(event) {
-
-            var minPriceField = document.getElementById('min_price');
-            var maxPriceField = document.getElementById('max_price');
-            var minPrice = parseFloat(minPriceField.value);
-            var maxPrice = parseFloat(maxPriceField.value);
-
-            if (!isNaN(minPrice) && !isNaN(maxPrice) && minPrice > maxPrice) {
-              // Swap the values
-              minPriceField.value = maxPrice;
-              maxPriceField.value = minPrice;
+                <div class="col s12">
+                    <p>
+                        <label>
+                            <%= radio_button_tag :order, "asc", params[:order] == "asc" %>
+                            <span>Ordina per prezzo crescente</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <%= radio_button_tag :order, "desc", params[:order] == "desc" %>
+                            <span>Ordina per prezzo decrescente</span>
+                        </label>
+                    </p>
+                </div>
+                <div class="col s12">
+                    <%= submit_tag "Cerca", class: "btn waves-effect waves-light" %>
+                </div>
+            <% end %>
+            
+            <% if flash[:error] %>
+                <div class="card-panel red lighten-2">
+                    <%= flash[:error] %>
+                </div>
+            <% end %>
+            <% if @wishlisted_products_with_labels.present? %>
+                <div class="product-cards">
+                    <% @wishlisted_products_with_labels.each do |product| %>
+                        <div class="card product-card">
+                            <div class="card-content">
+                                <span class="card-title"><%= product.name %></span>
+                                <p><strong>Descrizione:</strong> <%= product.description %></p>
+                                <p><strong>Sito:</strong> <%= product.site %></p>
+                                <p><strong>Prezzo:</strong> <%= product.price %> 
+                                    <% if product.currency == 'EUR' %>
+                                        <span>€</span>
+                                    <% elsif product.currency == 'USD' %>
+                                        <span>$</span>
+                                    <% end %>
+                                </p>
+                                <p><strong>Condizione:</strong> <%= product.condition %></p>
+                                <% if @user == current_user %>
+                                    <div>
+                                        <strong>Etichette:</strong>
+                                        <table>
+                                            <% (product.wishlist_labels || "").split(",").each do |label| %>
+                                                <tr>
+                                                    <td><%= label.strip %></td>
+                                                    <td><%= button_to "-", remove_label_wishlist_path(product.id_product, label_name: label.strip), method: :delete, class: "btn red" %></td>
+                                                </tr>
+                                            <% end %>
+                                        </table>
+                                        <%= form_with url: add_label_wishlist_path(product.id_product), method: :post, local: true, class: "label-form" do %>
+                                            <div class="input-field">
+                                                <%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "validate", id:"inputLabel-"+String(product.id_product), onchange: "showAddButton("+String(product.id_product)+")" %>
+                                            </div>
+                                            <%= submit_tag "Aggiungi etichetta", class: "btn btn-primary", id:"submitLabel-"+String(product.id_product), style: "display: none;" %>
+                                        <% end %>
+                                    </div>
+                                    <div class="actions">
+                                        <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn red" %>
+                                        <%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn yellow darken-2" %>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+                    <% end %>
+                </div>
+            <% else %>
+                <div class="card-panel teal lighten-2">
+                    <%= flash[:custom] %>
+                    <span id="result-message">Nessun prodotto presente nella wishlist.</span>
+                </div>
+                <p></p>
+            <% end %>
+        </div>
+        <%= render "partials/footer" %>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script>
+            function showAddButton(productId) {
+                document.getElementById("submitLabel-" + productId).style.display = 'inline-block';
             }
-          });
-      </script>
-    </html>
+        </script>
+    </body>
+</html>
