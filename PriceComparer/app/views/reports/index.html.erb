@@ -27,10 +27,10 @@
                 <%= link_to report.title, report, class: 'title' %>
               </div>
               <div class="col s4 center-text">
-                <%= link_to 'Modifica', edit_report_path(report), class: 'btn-flat waves-effect btn-edit' %>
-                <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat waves-effect btn-destroy' %>
-                <% if report.id_product.present? && Product.find_by(id_product: report.id_product).present? %>
-				<%= button_to 'Elimina prodotto', destroy_with_product_report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat waves-effect btn-destroy' %>
+                <%= button_to 'Modifica', edit_report_path(report), method: :get, class: 'btn-flat btn-edit' %>
+                <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
+				<% if report.id_product.present? && Product.find_by(id_product: report.id_product).present? %>
+				<%= button_to 'Elimina prodotto', destroy_with_product_report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
 				<% end %>
 			  </div>
             </div>

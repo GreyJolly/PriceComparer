@@ -55,6 +55,7 @@
         <%= flash[:error] %>
       </div>
     <% end %>
+	<% if @wishlisted_products_with_labels.present? %>
     <table>
       <thead>
         <tr>
@@ -88,7 +89,7 @@
                     <% (product.wishlist_labels || "").split(",").each do |label| %>  <!-- labels are stored as a comma-separated string -->
                       <tr>
                         <td><%= label.strip %></td>
-                        <td><%= button_to "Rimuovi", remove_label_wishlist_path(product.id_product, label_name: label.strip), method: :delete, class: "btn btn-danger btn-sm" %></td>
+                        <td><%= button_to "-", remove_label_wishlist_path(product.id_product, label_name: label.strip), method: :delete, class: "btn red" %></td>
                       </tr>
                     <% end %>
                   </table>
@@ -110,6 +111,9 @@
           <% end %>
         </tbody>
       </table>
+	  <% else %>
+	  Nessun prodotto presente nella wishlist.
+	  <% end %>
       <script>
         function showAddButton(id_product) {
         	if (document.getElementById("inputLabel-"+id_product).value!="")
