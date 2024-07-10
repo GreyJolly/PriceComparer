@@ -93,7 +93,7 @@
                                         <% end %>
                                     </div>
                                     <div class="actions">
-                                        <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product), method: :delete, class: "btn red" %>
+                                        <%= button_to "Rimuovi dalla wishlist", remove_from_wishlist_product_path(product, id_product: product.id_product), method: :delete, class: "btn red" %>
                                         <%= button_to "Segnala", report_product_product_path(product, id_product: product.id_product), method: :patch, class: "btn yellow darken-2" %>
                                     </div>
                                 <% end %>
@@ -103,7 +103,6 @@
                 </div>
             <% else %>
                 <div class="card-panel teal lighten-2">
-                    
                     <span id="result-message"><%= flash[:custom] %></span>
                 </div>
                 <p></p>

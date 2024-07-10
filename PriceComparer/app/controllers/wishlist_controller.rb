@@ -21,6 +21,11 @@ class WishlistController < ApplicationController
       .joins(:wishlists)
       .where(wishlists: { username: @user.username })
       .select("products.*, wishlists.labels AS wishlist_labels")
+
+	if @wishlisted_products_with_labels == []
+		flash[:custom] = "Nessun prodotto presente nella wishlist"
+		return
+	end
   end
 
   def add_to_wishlist
@@ -98,6 +103,7 @@ class WishlistController < ApplicationController
 
 	if @wishlisted_products_with_labels == []
 		flash[:custom] = "Nessun prodotto presente nella wishlist"
+		render :wishlist
 		return
 	end
 	
