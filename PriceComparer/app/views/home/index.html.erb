@@ -22,15 +22,15 @@
         <div class="row">
           <div class="input-field col s12">
             <%= label_tag :query, "Cerca" %>
-            <%= text_field_tag :query, params[:query], class: "validate" %>
+            <%= text_field_tag :query, params[:query], class: "validate", required: "true", oninvalid: "this.setCustomValidity('Inserisci il nome del prodotto da cercare')", oninput: "setCustomValidity('')" %>
           </div>
           <div class="input-field col s12 m6">
             <%= label_tag :min_price, "Prezzo minimo" %>
-            <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate", id: 'min_price' %>
+            <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, class: "validate", id: 'min_price', oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
           </div>
           <div class="input-field col s12 m6">
             <%= label_tag :max_price, "Prezzo massimo" %>
-            <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate", id: 'max_price' %>
+            <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, class: "validate", id: 'max_price', oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
           </div>
           <div class="col s12">
             <div class="row radio-filters">

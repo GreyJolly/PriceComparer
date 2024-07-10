@@ -22,11 +22,11 @@
                 </div>
                 <div class="input-field col s12 m6">
                     <%= label_tag :min_price, "Prezzo minimo" %>
-                    <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, id: 'min_price', class: "validate" %>
+                    <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, id: 'min_price', class: "validate", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
                 </div>
                 <div class="input-field col s12 m6">
                     <%= label_tag :max_price, "Prezzo massimo" %>
-                    <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, id: 'max_price', class: "validate" %>
+                    <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, id: 'max_price', class: "validate", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
                 </div>
                 <% if @user == current_user %>
                     <div class="input-field col s12 m6">
@@ -49,7 +49,7 @@
                     </p>
                 </div>
                 <div class="col s12">
-                    <%= submit_tag "Cerca", class: "btn waves-effect waves-light" %>
+                    <%= submit_tag "Cerca", class: "btn" %>
                 </div>
             <% end %>
             
@@ -103,8 +103,8 @@
                 </div>
             <% else %>
                 <div class="card-panel teal lighten-2">
-                    <%= flash[:custom] %>
-                    <span id="result-message">Nessun prodotto presente nella wishlist.</span>
+                    
+                    <span id="result-message"><%= flash[:custom] %></span>
                 </div>
                 <p></p>
             <% end %>

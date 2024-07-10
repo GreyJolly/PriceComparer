@@ -71,8 +71,8 @@
             <tbody id="price-ranges">
               <% @wishlisted_by_price_range.each_with_index do |range, index| %>
                 <tr class="price-range">
-                  <td><%= number_field_tag "price_ranges[#{index}][min]", range[:min], class: "validate", onchange: "updatePriceRange()" %></td>
-                  <td><%= number_field_tag "price_ranges[#{index}][max]", range[:max], class: "validate", onchange: "updatePriceRange()" %></td>
+                  <td><%= number_field_tag "price_ranges[#{index}][min]", range[:min], class: "validate", onchange: "updatePriceRange()", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %></td>
+                  <td><%= number_field_tag "price_ranges[#{index}][max]", range[:max], class: "validate", onchange: "updatePriceRange()", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %></td>
                   <td><%= range[:count] %></td>
                   <td>
                     <button type="button" class="btn red" onclick="removePriceRange(this)">

@@ -96,6 +96,11 @@ class WishlistController < ApplicationController
       .where(wishlists: { username: current_user.username })
       .select("products.*, wishlists.labels AS wishlist_labels")
 
+	if @wishlisted_products_with_labels == []
+		flash[:custom] = "Nessun prodotto presente nella wishlist"
+		return
+	end
+	
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("name LIKE ? OR description LIKE ?", "%#{@query}%", "%#{@query}%") if @query.present?
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("price >= ?", @min_price) if @min_price.present?
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.where("price <= ?", @max_price) if @max_price.present?
@@ -103,7 +108,7 @@ class WishlistController < ApplicationController
 	labelFlag = @label.present? && @wishlisted_products_with_labels != [] 	
 	@wishlisted_products_with_labels = @wishlisted_products_with_labels.where("wishlists.labels LIKE ?", "%#{@label}%") if @label.present?
 	if labelFlag && @wishlisted_products_with_labels == []
-		flash[:custom] = "L'etichetta cercata non è presente nei risultati."
+		flash[:custom] = "L'etichetta cercata non è presente nei risultati"
 	else
 		flash[:custom] = ""
 	end
@@ -112,7 +117,7 @@ class WishlistController < ApplicationController
     @wishlisted_products_with_labels = @wishlisted_products_with_labels.order(price: :desc) if params[:order] == "desc"
 
 	if @wishlisted_products_with_labels == []
-		flash[:custom] = "Non è stato trovato alcun risultato." if flash[:notice]==""
+		flash[:custom] = "Non è stato trovato alcun risultato" if flash[:custom]==""
 	else
 		flash[:custom] = ""
 	end
