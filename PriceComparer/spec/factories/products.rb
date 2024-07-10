@@ -1,4 +1,3 @@
-# spec/factories/products.rb
 FactoryBot.define do
   factory :product do
     sequence(:id_product) { |n| n }
