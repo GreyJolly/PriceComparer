@@ -1,13 +1,6 @@
 class AdministratorController < ApplicationController
 	before_action :authorize_admins
 
-	def authorize_admins
-		unless current_user && current_user.isAdministrator
-		  flash[:alert] = "You are not authorized to access this page. You have been redirected"
-		  redirect_to root_path
-		end
-	end
-
 	def users_list
     	@users = User.all
 		@analyst_count = User.where(isAnalyst: true).count
@@ -77,4 +70,12 @@ class AdministratorController < ApplicationController
 		render :users_list
 	end
 
+	private 
+
+	def authorize_admins
+		unless current_user && current_user.isAdministrator
+		  flash[:alert] = "You are not authorized to access this page. You have been redirected"
+		  redirect_to root_path
+		end
+	end
 end

@@ -1,13 +1,6 @@
 class AnalystController < ApplicationController
   before_action :authorize_analysts
 
-  def authorize_analysts
-    unless current_user && current_user.isAnalyst
-      flash[:alert] = "You are not authorized to access this page. You have been redirected"
-      redirect_to root_path
-    end
-  end
-
   def products_dashboard
     # Fetch the number of wishlisted items by category
     @wishlisted_by_category = Wishlist.joins(:product)
@@ -24,7 +17,7 @@ class AnalystController < ApplicationController
       @price_ranges = []
     end
 
-	selected_category = params[:category]
+    selected_category = params[:category]
     if selected_category.present?
       @wishlisted_by_price_range = @price_ranges.map do |range|
         count = Wishlist.joins(:product)
@@ -39,6 +32,15 @@ class AnalystController < ApplicationController
           .count
         { min: range[:min], max: range[:max], count: count }
       end
+    end
+  end
+
+  private
+
+  def authorize_analysts
+    unless current_user && current_user.isAnalyst
+      flash[:alert] = "You are not authorized to access this page. You have been redirected"
+      redirect_to root_path
     end
   end
 end
