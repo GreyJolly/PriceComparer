@@ -61,7 +61,7 @@
             <% if @wishlisted_products_with_labels.present? %>
                 <div class="product-cards">
                     <% @wishlisted_products_with_labels.each do |product| %>
-                        <div class="card product-card">
+                        <div class="card product-card" id="wishlist-item-<%= product.id_product %>">
                             <div class="card-content">
                                 <span class="card-title"><%= product.name %></span>
                                 <p><strong>Descrizione:</strong> <%= product.description %></p>
