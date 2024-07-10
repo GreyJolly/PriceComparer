@@ -3,3 +3,4 @@
 //= link application.js
 //= link analyst_dashboard.js
 //= link wishlist.js
+//= link home.js
