@@ -7,51 +7,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'reports_edit', media: 'all', data: {turbolinks: false} %>
     <%= javascript_include_tag 'application' %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <style>
-        html {
-            width: 100% !important;
-        }
 
-        .container {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .btn-group .btn {
-            flex: 1 1 auto;
-            max-width: 200px;
-            margin: 0;
-        }
-        @media (max-width: 600px) {
-            .btn-group {
-                flex-direction: column;
-            }
-            .btn-group .btn {
-                width: 100%;
-                margin-bottom: 10px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-        }
-    </style>
 </head>
 <body>
     <%= render "partials/header" %>
-    <div class="container">
-        <h1 class="center-align">Modifica segnalazione</h1>
+    <div class="container-report">
+        <h1 class="center-align h1-reports">Modifica segnalazione</h1>
         <%= form_with model: @report, local: true, html: { class: 'col s12' } do |form| %>
             <% if @report.errors.any? %>
                 <div id="error_explanation" class="card-panel red lighten-4">

@@ -1,0 +1,116 @@
+@import "colors";
+
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.dashboard-container {
+    margin-top: 20px;
+
+    h2 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+        font-weight: bold;
+    }
+
+    select {
+        display: block;
+        margin-bottom: 20px;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .responsive-table {
+        width: 100%;
+        margin-bottom: 20px;
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    }
+
+    .price-range-min,
+    .price-range-max {
+        width: 100px;
+    }
+
+    .btn-dashboard {
+        background-color: $primary-color;
+        color: #fff;
+        margin: 10px 0;
+        display: inline-block;
+        text-align: center;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+
+        &:hover {
+            background-color: $primary-color-dark;
+        }
+    }
+
+    .price-range-remove {
+        background-color: $error-color;
+
+        &:hover {
+            background-color: $error-color-light;
+        }
+    }
+
+    .price-range-add,
+    .price-range-save,
+    .price-range-load {
+        display: block;
+        width: 100%;
+        max-width: 200px;
+        margin: 10px auto;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .dashboard-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .responsive-table th,
+    .responsive-table td {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .responsive-table th {
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .responsive-table td {
+        text-align: left;
+        padding-left: 10px;
+        border-bottom: none;
+    }
+
+    .responsive-table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+        margin-right: 10px;
+    }
+}

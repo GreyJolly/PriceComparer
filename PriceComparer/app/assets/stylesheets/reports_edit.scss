@@ -1,0 +1,37 @@
+@import "colors";
+
+html {
+    width: 100% !important;
+}
+
+.container-report {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.btn-group .btn {
+    flex: 1 1 auto;
+    max-width: 200px;
+    margin: 0;
+}
+@media (max-width: 600px) {
+    .btn-group {
+        flex-direction: column;
+    }
+    .btn-group .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .h1-reports {
+        font-size: 48px;
+    }
+}

@@ -30,7 +30,7 @@
     justify-content: space-between;
   }
   .collection-item .title {
-    flex: 1 1 auto;
+    align-items: flex-start;
   }
   .collection-item .actions {
     display: flex;

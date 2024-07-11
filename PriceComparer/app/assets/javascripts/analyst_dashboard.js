@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
 	selectCategory();
 });
 
+
+saveAndLoadPriceRanges();
+
+
+
+
 function addPriceRange() {
 	var index = document.querySelectorAll('.price-range').length;
 	var priceRanges = document.getElementById('price-ranges');

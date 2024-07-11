@@ -1,107 +1,107 @@
-// app/assets/stylesheets/home.scss
 @import "colors";
 
 body {
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.btn-custom {
+  background-color: $primary-color;
+  color: #fff;
+  width: 100%;
+  max-width: 200px;
+  margin: 10px auto;
+  display: block;
+  line-height: 50%;
+  text-transform: "none";
+  padding: 10px;
+  border-radius: 5px;
+  &:hover {
+    background-color: $primary-color-dark;
   }
-  
-  .container {
-    margin-top: 20px;
+}
+
+input[type="radio"] {
+  appearance: none;
+  &:checked + span {
+    color: #00796b;
   }
-  
-  .btn-custom {
-    background-color: $primary-color;
-    color: #fff;
-    width: 100%;
-    max-width: 200px;
-    margin: 10px auto;
+}
+
+.radio-filters {
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: flex-start;
+  label {
+    margin-right: 20px; /* Aggiunto per spazio tra le opzioni */
+  }
+}
+
+.responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  th, td {
+    padding: 16px 24px;
+    text-align: left;
+    word-wrap: break-word;
+    border: none; // Rimuove le righe di separazione
+  }
+}
+
+.report-button {
+  background-color: $error-color;
+  color: #fff;
+  width: 100%;
+  max-width: 200px;
+  margin: 10px auto;
+  display: block;
+  text-align: center;
+  &:hover {
+    background-color: $error-color-light;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  table, thead, tbody, th, td, tr {
     display: block;
-    line-height: 50%;
-	text-transform: "none";
-	padding: 10px;
-	border-radius: 5px;
-    white-space: nowrap;
-    &:hover {
-      background-color: $primary-color-dark;
-    }
-  }
-  
-  input[type="radio"] {
-    appearance: none;
-    &:checked + span {
-      color: #00796b;
-    }
-  }
-  
-  .radio-filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .responsive-table {
-    width: 100%;
-    overflow-x: auto;
-    margin-bottom: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-    th, td {
-      padding: 16px 24px;
-      text-align: left;
-      word-wrap: break-word;
-      border: none; // Rimuove le righe di separazione
-    }
   }
 
-  .report-button {
-    background-color: $error-color;
-    color: #fff;
-    width: 100%;
-    max-width: 200px;
-    margin: 10px auto;
-    display: block;
-    text-align: center;
-    &:hover {
-      background-color: $error-color-light;
-    }
+  .home-thead>tr {
+    display: none;
   }
-  
-  @media only screen and (max-width: 600px) {
-    table, thead, tbody, th, td, tr {
-      display: block;
-    }
-  
-    thead tr {
-      display: none;
-    }
-  
-    tr {
-      margin-bottom: 10px;
-      border-bottom: 2px solid #ddd; // Aggiunge una linea di separazione tra le righe per i dispositivi mobili
-    }
-  
-    td {
-      text-align: left;
-      padding-left: 0;
-      position: relative;
-      display: flex;
-      flex-direction: column; // Dispone i contenuti in colonna
-    }
-  
-    td::before {
-      content: attr(data-label);
-      font-weight: bold;
-      margin-bottom: 5px; // Aggiunge spazio tra l'etichetta e il contenuto
-      color: #00796b; // Colore distintivo per le etichette
-    }
+
+  tr {
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd; // Aggiunge una linea di separazione tra le righe per i dispositivi mobili
   }
-  
-  .center-align {
-    text-align: center;
+
+  td {
+    text-align: left;
+    padding-left: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column; // Dispone i contenuti in colonna
   }
-  
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    margin-bottom: 5px; // Aggiunge spazio tra l'etichetta e il contenuto
+    color: #00796b; // Colore distintivo per le etichette
+  }
+}
+
+.center-align {
+  text-align: center;
+}

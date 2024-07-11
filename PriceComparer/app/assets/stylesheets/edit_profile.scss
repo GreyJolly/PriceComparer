@@ -1,0 +1,82 @@
+// app/assets/stylesheets/registration.scss
+@import "colors";
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.profile-header {
+    background-color: $secondary-color-dark;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.profile-container {
+    margin-top: 20px;
+
+    h3 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .input-field {
+        margin-bottom: 20px;
+
+        label {
+            color: $text-color;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            border-bottom: 1px solid $text-color;
+            box-shadow: none;
+
+            &:focus {
+                border-bottom: 2px solid $primary-color-dark;
+                box-shadow: none;
+            }
+        }
+
+        span {
+            font-size: 0.8rem;
+            color: grey;
+        }
+    }
+
+    .center-align {
+        text-align: center;
+    }
+
+    .profile-submit-btn {
+        background-color: $primary-color;
+        &:hover {
+            background-color: $primary-color-dark;
+        }
+    }
+
+    .profile-delete-btn {
+        background-color: $error-color;
+        &:hover {
+            background-color: $error-color-light;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        h3 {
+            font-size: 1.5rem;
+        }
+
+        .input-field label,
+        .input-field span {
+            font-size: 0.8rem;
+        }
+
+        .profile-submit-btn,
+        .profile-delete-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+}

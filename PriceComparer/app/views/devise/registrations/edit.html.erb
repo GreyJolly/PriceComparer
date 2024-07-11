@@ -8,17 +8,18 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" %>
-    <%= stylesheet_link_tag 'registration', media: 'all', data: {turbolinks: false} %>
+    <%= stylesheet_link_tag 'edit_profile', media: 'all', data: {turbolinks: false} %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <%= render "partials/header" %>
-    <div class="header">
+    <div class="header profile-header">
         <div class="container">
             <h3>Profilo</h3>
         </div>
     </div>
 
-    <div class="container">
+    <div class="container profile-container">
         <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'col s12' }) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -72,17 +73,17 @@
             </div>
 
             <div class="row">
-                <div class="col s12">
-                    <%= f.submit "Aggiorna informazioni", class: 'btn' %>
+                <div class="col s12 center-align">
+                    <%= f.submit "Aggiorna informazioni", class: 'btn profile-submit-btn' %>
                 </div>
             </div>
         <% end %>
 
-        <h3>Elimina il mio account</h3>
+        <h3>Azioni irreversibili</h3>
 
         <div class="row">
-            <div class="col s12">
-                Desideri cancellare il tuo account? <%= button_to "Elimina il mio account", registration_path(resource_name), data: { confirm: "Sei sicuro?", turbo_confirm: "Sei sicuro?" }, method: :delete, class: 'btn red' %>
+            <div class="col s12 center-align">
+                Desideri cancellare il tuo account? <%= button_to "Elimina il mio account", registration_path(resource_name), data: { confirm: "Sei sicuro?", turbo_confirm: "Sei sicuro?" }, method: :delete, class: 'btn red profile-delete-btn' %>
             </div>
         </div>
 
