@@ -1,0 +1,62 @@
+@import "colors";
+
+.flash-error {
+    background-color: #ffebee; /* Light red background */
+    color: #d32f2f; /* Dark red text */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.btn-toggle {
+    margin-top: 5px;
+}
+.header {
+    background-color: #4CAF50; /* Green */
+    padding: 20px;
+    color: white;
+    text-align: center; /* Center align text */
+}
+.container {
+    margin-top: 30px;
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.user-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.user-card .card-info {
+    margin-bottom: 15px;
+}
+.user-card .card-info span {
+    display: block;
+    margin-bottom: 5px;
+}
+.user-card .card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+@media only screen and (max-width: 992px) {
+    .user-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+@media only screen and (max-width: 600px) {
+    .user-card {
+        flex: 1 1 100%;
+    }
+    .user-card .card-actions {
+        flex-direction: column;
+    }
+}
