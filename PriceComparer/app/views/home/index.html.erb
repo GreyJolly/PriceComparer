@@ -114,7 +114,7 @@
                   <td data-label="Condizione"><%= product.condition %></td>
                   <td data-label="Azioni" class="center-align">
                     <% if product.url.present? %>
-                      <a href="<%= product.url %>" class="btn-custom btn-small">Vai alla pagina</a>
+                      <a href="<%= product.url %>" class="btn-custom btn-small">Mostra</a>
                     <% end %>
                     <% if user_signed_in? %>
                       <% if Wishlist.joins(:product).exists?(products: { name: product.name, site: product.site }, username: current_user.username) %>

@@ -1,22 +1,8 @@
 class WishlistController < ApplicationController
-  before_action :authorize_users, :set_wishlist, only: [:add_label, :remove_label]
-
-  def authorize_users
-    unless current_user
-      flash[:alert] = "Non hai effettuato l'accesso. Sei stato redirezionato"
-      redirect_to root_path
-    end
-
-    if current_user.isAdministrator && params[:user].present?
-      @user = User.find_by(username: params[:user])
-    else
-      @user = current_user
-    end
-  end
+  before_action :authorize_users
+  before_action :set_wishlist, only: [:add_label, :remove_label]
 
   def wishlist
-    authorize_users()
-
     @wishlisted_products_with_labels = Product
       .joins(:wishlists)
       .where(wishlists: { username: @user.username })
@@ -89,8 +75,6 @@ class WishlistController < ApplicationController
   end
 
   def search
-    authorize_users()
-
     @query = params[:query]
     @min_price = params[:min_price]
     @max_price = params[:max_price]
@@ -150,4 +134,18 @@ class WishlistController < ApplicationController
   def set_wishlist
     @wishlist = Wishlist.find_by(id_product: params[:id], username: @user.username)
   end
+
+  def authorize_users
+    unless current_user
+      flash[:alert] = "Non hai effettuato l'accesso. Sei stato redirezionato"
+      redirect_to root_path
+    end
+
+    if current_user && current_user.isAdministrator && params[:user].present?
+      @user = User.find_by(username: params[:user])
+    else
+      @user = current_user
+    end
+  end
+
 end

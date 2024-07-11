@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Administrator</title>
@@ -10,75 +10,75 @@
     <%= stylesheet_link_tag "user_list", media: "all" %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
-</head>
-<body>
+  </head>
+  <body>
     <%= render "partials/header" %>
     <div class="header">
-        <div class="container">
-            <h3>Lista utenti</h3>
-        </div>
+      <div class="container">
+        <h3>Lista utenti</h3>
+      </div>
     </div>
     <div class="container">
-        <% if flash[:error] %>
+      <% if flash[:error] %>
         <div class="flash-error">
-            <%= flash[:error] %>
+          <%= flash[:error] %>
         </div>
-        <% end %>
-        <%= form_with url: search_users_users_path, method: :get, local: true, html: { class: 'row' } do %>
+      <% end %>
+      <%= form_with url: search_users_users_path, method: :get, local: true, html: { class: 'row' } do %>
         <div class="input-field col s12">
-            <%= label_tag :query_user, "Cerca" %>
-            <%= text_field_tag :query_user, params[:query_user], class: 'validate' %>
+          <%= label_tag :query_user, "Cerca" %>
+          <%= text_field_tag :query_user, params[:query_user], class: 'validate' %>
         </div>
         <div class="col s12">
-            <label>
-                <%= check_box_tag :alphabetical, '1', params[:alphabetical] == '1' %>
-                <span>Ordine alfabetico</span>
-            </label>
+          <label>
+            <%= check_box_tag :alphabetical, '1', params[:alphabetical] == '1' %>
+            <span>Ordine alfabetico</span>
+          </label>
         </div>
         <div class="col s12 checkbox-group">
-            <p>Filtra per ruolo:</p>
-            <label>
-                <%= check_box_tag :administrator, '1', params[:administrator] == '1' %>
-                <span>Amministratore</span>
-            </label>
-            <label>
-                <%= check_box_tag :analyst, '1', params[:analyst] == '1' %>
-                <span>Analista</span>
-            </label>
-            <label>
-                <%= check_box_tag :neither_role, '1', params[:neither_role] == '1' %>
-                <span>Nessun ruolo</span>
-            </label>
+          <p>Filtra per ruolo:</p>
+          <label>
+            <%= check_box_tag :administrator, '1', params[:administrator] == '1' %>
+            <span>Amministratore</span>
+          </label>
+          <label>
+            <%= check_box_tag :analyst, '1', params[:analyst] == '1' %>
+            <span>Analista</span>
+          </label>
+          <label>
+            <%= check_box_tag :neither_role, '1', params[:neither_role] == '1' %>
+            <span>Nessun ruolo</span>
+          </label>
         </div>
         <div class="col s12">
-            <%= submit_tag "Cerca", class: 'btn waves-effect waves-light' %>
+          <%= submit_tag "Cerca", class: 'btn waves-effect waves-light' %>
         </div>
-        <% end %>
-        <div class="row">
-            <div class="col s12">
-                <p>Numero totale di utenti: <%= @users.count %><br>
-                    Analisti: <%= @analyst_count %><br>
-                    Amministratori: <%= @administrator_count %><br>
-                    Sia Amministratori che Analisti: <%= @analystAdministrator_count %></p>
+      <% end %>
+      <div class="row">
+        <div class="col s12">
+          <p>Numero totale di utenti: <%= @users.count %><br>
+            Analisti: <%= @analyst_count %><br>
+            Amministratori: <%= @administrator_count %><br>
+            Sia Amministratori che Analisti: <%= @analystAdministrator_count %></p>
+        </div>
+      </div>
+      <div class="card-container">
+        <% @users.each do |user| %>
+          <div class="user-card <%= 'admin-row' if user.isAdministrator %>">
+            <div class="card-info">
+              <span id="card-name"><b>Nome:</b> <%= user.username %></span>
+              <span id="card-role"><b>Ruolo:</b> <%= user.isAdministrator ? "Amministratore" : "" %> <%= user.isAnalyst ? "Analista" : "" %></span>
+              <span id="card-mail"><b>Mail:</b> <%= user.email %></span>
             </div>
-        </div>
-        <div class="card-container">
-            <% @users.each do |user| %>
-                <div class="user-card <%= 'admin-row' if user.isAdministrator %>">
-                    <div class="card-info">
-                        <span id="card-name"><strong>Nome:</strong> <%= user.username %></span>
-                        <span id="card-role"><strong>Ruolo:</strong> <%= user.isAdministrator ? "Amministratore" : "" %> <%= user.isAnalyst ? "Analista" : "" %></span>
-                        <span id="card-mail"><strong>Mail:</strong> <%= user.email %></span>
-                    </div>
-                    <div class="card-actions">
-                        <%= button_to "Toggle Amministratore", toggle_admin_user_path(user), method: :patch, class: 'btn btn-toggle waves-effect waves-light orange' %>
-                        <%= button_to "Toggle Analista", toggle_analyst_user_path(user), method: :patch, class: 'btn btn-toggle waves-effect waves-light blue' %>
-                        <%= button_to "Mostra wishlist", wishlist_path, method: :get, params: { user: user.username }, class: 'btn btn-toggle waves-effect waves-light green' %>
-                    </div>
-                </div>
-            <% end %>
-        </div>
+            <div class="card-actions">
+              <%= button_to "Toggle Amministratore", toggle_admin_user_path(user), method: :patch, class: 'btn btn-toggle waves-effect waves-light orange' %>
+              <%= button_to "Toggle Analista", toggle_analyst_user_path(user), method: :patch, class: 'btn btn-toggle waves-effect waves-light blue' %>
+              <%= button_to "Mostra wishlist", wishlist_path, method: :get, params: { user: user.username }, class: 'btn btn-toggle waves-effect waves-light green' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
-</body>
+    <%= render "partials/footer" %>
+  </body>
 </html>
