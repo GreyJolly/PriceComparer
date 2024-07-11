@@ -18,14 +18,14 @@
       <div class="row">
         <div class="col s12 m6">
           <h2>Prodotti salvati per categoria:</h2>
-          <table class="striped responsive-table">
+          <table class="striped">
             <thead>
               <tr>
                 <th>Categoria</th>
                 <th>Numero</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="data-body">
               <% @wishlisted_by_category.each do |category, count| %>
                 <tr>
                   <td><%= category %></td>
@@ -44,7 +44,7 @@
               <option value="<%= category %>"><%= category %></option>
             <% end %>
           </select>
-          <table class="striped responsive-table">
+          <table class="striped">
             <thead>
               <tr>
                 <th>Prezzo minimo</th>
@@ -68,12 +68,14 @@
               <% end %>
             </tbody>
           </table>
-          <button type="button" class="btn-dashboard price-range-add" onclick="addPriceRange()">
-            <i class="material-icons left">add</i>Aggiungi fascia di prezzo
-          </button>
-          <br>
-          <button id="save-changes" type="button" class="btn-dashboard price-range-save" onclick="saveAndLoadPriceRanges()" style="display: none;">Salva fasce</button>
-          <button type="button" class="btn-dashboard price-range-load" onclick="loadPriceRanges()">Carica fasce salvate</button>
+          <div class="btn-dashboard-container">
+            <button type="button" class="btn-dashboard price-range-add" onclick="addPriceRange()">
+                <i class="material-icons left">add</i>Aggiungi fascia di prezzo
+            </button>
+            <br>
+            <button id="save-changes" type="button" class="btn-dashboard price-range-save" onclick="saveAndLoadPriceRanges()" style="display: none;">Salva fasce</button>
+            <button type="button" class="btn-dashboard price-range-load" onclick="loadPriceRanges()">Carica fasce salvate</button>
+          </div>
         </div>
       </div>
     </div>
