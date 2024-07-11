@@ -9,50 +9,89 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag 'reports_show', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+      .container {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 80vh; /* Adjust height as necessary */
+      }
+      .report-content {
+        margin-bottom: 10px; /* Reduce space between description and table */
+      }
+      .btn-group {
+        display: flex;
+        justify-content: center;
+        align-items: center !important;
+        gap: 10px;
+        margin-top: 10px; /* Add margin to ensure proper spacing */
+      }
+      .btn-group .btn {
+        min-width: 120px; /* Reduce button width */
+        padding: 0 20px; /* Reduce padding */
+        margin: 0;
+      }
+      @media (max-width: 600px) {
+        .btn-group {
+          flex-direction: column;
+        }
+        .btn-group .btn {
+          width: 100%; /* Full width on mobile */
+          margin-bottom: 10px;
+        }
+      }
+      .report-table {
+        margin-top: 10px; /* Reduce space between description and table */
+      }
+      .report-table th, .report-table td {
+        text-align: left;
+        padding: 8px;
+      }
+    </style>
   </head>
   <body>
     <%= render "partials/header" %>
     <div class="container">
       <h3 class="center-align report-title"><%= @report.title %></h3>
       <p class="report-content"><%= @report.content %></p>
-      <div class="row">
-        <div class="col s12">
-          <%= link_to 'Modifica', edit_report_path(@report), class: 'btn waves-effect waves-light btn-edit' %>
-          <%= link_to 'Indietro', :back, class: 'btn waves-effect waves-light btn-back' %>
-        </div>
+      <% if @product.present? %>
+        <table class="striped responsive-table report-table">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Descrizione</th>
+              <th>Sito</th>
+              <th>Prezzo</th>
+              <th>Condizione</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @product.name %></td>
+              <td><%= @product.description %></td>
+              <td><%= @product.site %></td>
+              <td>
+                <%= @product.price %>
+                <% if @product.currency == 'EUR' %>
+                  €
+                <% elsif @product.currency == 'USD' %>
+                  $
+                <% end %>
+              </td>
+              <td><%= @product.condition %></td>
+            </tr>
+          </tbody>
+        </table>
+      <% elsif @report.id_product.present? %>
+        <p>Il prodotto segnalato non è più presente nel database.</p>
+      <% end %>
+      <div class="row btn-group">
+        <%= link_to 'Modifica', edit_report_path(@report), class: 'btn waves-effect waves-light btn-edit' %>
+        <%= link_to 'Indietro', reports_path, class: 'btn waves-effect waves-light btn-back' %>
       </div>
     </div>
-    <% if @product.present? %>
-      <table class="striped responsive-table vertical-table">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Descrizione</th>
-            <th>Sito</th>
-            <th>Prezzo</th>
-            <th>Condizione</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="row">
-            <td class="column"><%= @product.name %></td>
-            <td class="column"><%= @product.description %></td>
-            <td class="column"><%= @product.site %></td>
-            <td class="column">
-              <%= @product.price %>
-              <% if @product.currency == 'EUR' %>
-                €
-              <% elsif @product.currency == 'USD' %>
-                $
-              <% end %>
-              <td class="column"><%= @product.condition %></td>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% elsif @report.id_product.present? %>
-      Il prodotto segnalato non è più presente nel database.
-    <% end %>
   </body>
 </html>

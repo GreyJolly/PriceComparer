@@ -19,3 +19,36 @@
     display: flex;
     align-items: center;
 }
+
+.container {
+    margin-top: 30px;
+  }
+  .collection-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .collection-item .title {
+    flex: 1 1 auto;
+  }
+  .collection-item .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .collection-item .actions .btn-flat {
+    flex: 1 1 auto;
+    margin-right: 10px;
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .collection-item .title,
+    .collection-item .actions .btn-flat {
+      flex: 1 1 100%;
+      margin-bottom: 10px;
+    }
+    .collection-item .actions {
+      justify-content: center;
+    }
+  }

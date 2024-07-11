@@ -9,14 +9,55 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag 'reports_new', media: 'all' %>
     <%= javascript_include_tag 'application' %>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .error-explanation {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .btn-group .btn {
+            flex: 1 1 auto;
+            max-width: 200px;
+            margin: 0;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 36px;
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .btn-group .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <%= render "partials/header" %>
 
     <div class="container">
-        <h1 class="center-align"> Nuova segnalazione</h1>
+        <h1 class="center-align">Nuova segnalazione</h1>
         <%= form_with model: @report, local: true, html: { class: 'col s12' } do |form| %>
             <% if @report.errors.any? %>
                 <div id="error_explanation" class="error-explanation">
@@ -43,12 +84,9 @@
                 </div>
             </div>
 
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <%= form.submit 'Invia', class: 'btn btn-submit' %>
-                    <%= link_to 'Indietro', :back, class: 'btn btn-back' %>
-                </div>
+            <div class="row btn-group">
+                <%= form.submit 'Invia', class: 'btn btn-submit waves-effect waves-light' %>
+                <%= link_to 'Indietro', reports_path, class: 'btn btn-back waves-effect waves-light' %>
             </div>
         <% end %>
     </div>

@@ -8,7 +8,8 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag 'reports_index', media: 'all' %>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   </head>
   <body>
     <%= render "partials/header" %>
@@ -22,21 +23,20 @@
       <ul class="collection">
         <% @reports.each do |report| %>
           <li class="collection-item">
-            <div class="row">
-              <div class="col s8">
-                <%= link_to report.title, report, class: 'title' %>
-              </div>
-              <div class="col s4 center-text">
-                <%= button_to 'Modifica', edit_report_path(report), method: :get, class: 'btn-flat btn-edit' %>
-                <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
-				<% if report.id_product.present? && Product.find_by(id_product: report.id_product).present? %>
-				<%= button_to 'Elimina prodotto', destroy_with_product_report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
-				<% end %>
-			  </div>
+            <div class="title">
+              <%= link_to report.title, report %>
+            </div>
+            <div class="actions">
+              <%= button_to 'Modifica', edit_report_path(report), method: :get, class: 'btn-flat btn-edit' %>
+              <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
+              <% if report.id_product.present? && Product.find_by(id_product: report.id_product).present? %>
+                <%= button_to 'Elimina prodotto', destroy_with_product_report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
+              <% end %>
             </div>
           </li>
         <% end %>
       </ul>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   </body>
 </html>
