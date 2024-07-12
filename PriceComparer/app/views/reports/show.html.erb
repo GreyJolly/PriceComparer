@@ -66,6 +66,9 @@
               <th>Sito</th>
               <th>Prezzo</th>
               <th>Condizione</th>
+              <% if @product.url.present? %>
+                <td></td>
+              <% end %>
             </tr>
           </thead>
           <tbody>
@@ -82,6 +85,9 @@
                 <% end %>
               </td>
               <td><%= @product.condition %></td>
+              <% if @product.url.present? %>
+                <td><a href="<%= @product.url %>" class="btn-custom btn-small">Mostra</a></td>
+              <% end %>
             </tr>
           </tbody>
         </table>

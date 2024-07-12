@@ -28,7 +28,7 @@
             </div>
             <div class="actions">
               <%= button_to 'Modifica', edit_report_path(report), method: :get, class: 'btn-flat btn-edit' %>
-              <%= button_to 'Elimina', report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
+              <%= button_to 'Elimina segnalazione', report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
               <% if report.id_product.present? && Product.find_by(id_product: report.id_product).present? %>
                 <%= button_to 'Elimina prodotto', destroy_with_product_report_path(report), method: :delete, data: { confirm: 'Sei sicuro?' }, class: 'btn-flat btn-destroy' %>
               <% end %>
