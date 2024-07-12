@@ -19,7 +19,7 @@
           <li><%= link_to "Dashboard", products_dashboard_path %></li>
         <% end %>
         <li><%= link_to "Profilo", edit_user_registration_path, method: :get %></li>
-        <li><%= link_to "Disconnetti", destroy_user_session_path, method: :delete %></li>
+        <li><%= link_to "Disconnettiti", destroy_user_session_path, method: :delete %></li>
       <% else %>
         <li><%= link_to "Registrati", new_user_registration_path %></li> 
         <li><%= link_to "Accedi", new_user_session_path %></li>
@@ -40,7 +40,7 @@
       <li><%= link_to "Dashboard", products_dashboard_path %></li>
     <% end %>
     <li><%= link_to "Profilo", edit_user_registration_path, method: :get %></li>
-    <li><%= link_to "Disconnetti", destroy_user_session_path, method: :delete %></li>
+    <li><%= link_to "Disconnettiti", destroy_user_session_path, method: :delete %></li>
   <% else %>
     <li><%= link_to "Registrati", new_user_registration_path %></li> 
     <li><%= link_to "Accedi", new_user_session_path %></li>

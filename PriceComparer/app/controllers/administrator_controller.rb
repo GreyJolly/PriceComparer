@@ -65,7 +65,7 @@ class AdministratorController < ApplicationController
 
 		@analyst_count = @users.where(isAnalyst: true).count
 		@administrator_count = @users.where(isAdministrator: true).count
-		@analystAdministrato_count = @users.where(isAnalyst: true, isAdministrator: true).count
+		@analystAdministrator_count = @users.where(isAnalyst: true, isAdministrator: true).count
 		
 		render :users_list
 	end
