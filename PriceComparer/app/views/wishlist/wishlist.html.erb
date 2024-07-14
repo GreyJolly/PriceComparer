@@ -22,11 +22,11 @@
         </div>
         <div class="input-field col s12 m6">
           <%= label_tag :min_price, "Prezzo minimo" %>
-          <%= number_field_tag :min_price, params[:min_price], min: 0.01, step: 0.01, id: 'min_price', class: "validate", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
+          <%= number_field_tag :min_price, params[:min_price], min: 0, step: 0.01, id: 'min_price', class: "validate", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
         </div>
         <div class="input-field col s12 m6">
           <%= label_tag :max_price, "Prezzo massimo" %>
-          <%= number_field_tag :max_price, params[:max_price], min: 0.01, step: 0.01, id: 'max_price', class: "validate", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
+          <%= number_field_tag :max_price, params[:max_price], min: 0, step: 0.01, id: 'max_price', class: "validate", oninvalid: "this.setCustomValidity('Prezzo non valido')", oninput: "setCustomValidity('')" %>
         </div>
         <% if @user == current_user %>
           <div class="input-field col s12 m6">
@@ -65,11 +65,15 @@
                 <span class="card-title"><%= product.name %></span>
                 <p><b>Descrizione:</b> <%= product.description %></p>
                 <p><b>Sito:</b> <%= product.site %></p>
-                <p><b>Prezzo:</b> <%= product.price %>
+                <p><b>Prezzo:</b> <%= sprintf('%.2f', product.price) %>
                   <% if product.currency == 'EUR' %>
-                    <span>€</span>
+                    €
                   <% elsif product.currency == 'USD' %>
-                    <span>$</span>
+                    $
+                  <% elsif product.currency == 'GBP' %>
+                    £
+                  <% else %>
+                    <%= product.currency%>
                   <% end %>
                 </p>
                 <p><b>Condizione:</b> <%= product.condition %></p>
@@ -88,9 +92,9 @@
                     </table>
                     <%= form_with url: add_label_wishlist_path(product.id_product), method: :post, local: true, class: "label-form" do %>
                       <div class="input-field">
-                        <%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "validate", id:"inputLabel-"+String(product.id_product), onchange: "showAddButton("+String(product.id_product)+")" %>
+                        <%= text_field_tag :label_name, nil, placeholder: "Aggiungi etichetta", class: "validate", id:"inputLabel-"+String(product.id_product) %>
                       </div>
-                      <%= submit_tag "Aggiungi etichetta", class: "btn btn-primary", id:"submitLabel-"+String(product.id_product), style: "display: none;" %>
+                      <%= submit_tag "Aggiungi etichetta", class: "btn btn-primary", id:"submitLabel-"+String(product.id_product) %>
                     <% end %>
                   </div>
                   <div class="actions">
@@ -106,15 +110,22 @@
         <div class="card-panel teal lighten-2">
           <span id="result-message" class = "centered-span"><%= flash[:custom] %></span>
         </div>
-        <p></p>
       <% end %>
     </div>
     <%= render "partials/footer" %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-      function showAddButton(productId) {
-          document.getElementById("submitLabel-" + productId).style.display = 'inline-block';
-      }
+      document.getElementById('search-form').addEventListener('submit', function(event) {
+      	var minPriceField = document.getElementById('min_price');
+      	var maxPriceField = document.getElementById('max_price');
+      	var minPrice = parseFloat(minPriceField.value);
+      	var maxPrice = parseFloat(maxPriceField.value);
+
+      	if (!isNaN(minPrice) && !isNaN(maxPrice) && minPrice > maxPrice) {
+			minPriceField.value = maxPrice;
+			maxPriceField.value = minPrice;
+      	}
+        });
     </script>
   </body>
 </html>

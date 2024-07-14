@@ -9,33 +9,33 @@
     <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" %>
     <style>
       body {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          background-color: #028888;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #028888;
       }
       .login-container {
-          background: white;
-          padding: 40px 50px;
-          border-radius: 10px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-          text-align: center;
+        background: white;
+        padding: 40px 50px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
       }
       .login-container h2 {
-          margin-bottom: 30px;
+        margin-bottom: 30px;
       }
       .input-field {
-          margin-bottom: 20px;
+        margin-bottom: 20px;
       }
       .actions {
-          margin-top: 20px;
+        margin-top: 20px;
       }
       .actions .btn {
-          width: 100%;
+        width: 100%;
       }
       .links {
-          margin-top: 20px;
+        margin-top: 20px;
       }
     </style>
   </head>
@@ -44,21 +44,22 @@
       <h2>Accedi</h2>
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="input-field">
-          <%= f.email_field :email, autofocus: true, required:"true", oninvalid: "this.setCustomValidity('Inserisci un indirizzo e-mail valido')", oninput: "setCustomValidity('')", autocomplete: "email", class: 'validate' %>
-          <%= f.label :email, "E-mail" %>
+          <%= f.email_field :email, id: 'email', autofocus: true, required: true, oninvalid: "this.setCustomValidity('Inserisci un indirizzo e-mail valido')", oninput: "setCustomValidity('')", autocomplete: "email", class: 'validate' %>
+          <%= f.label :email, "E-mail", for: 'email' %>
         </div>
         <div class="input-field">
-          <%= f.password_field :password, required:"true", oninvalid: "this.setCustomValidity('Inserisci una password')", oninput: "setCustomValidity('')", autocomplete: "current-password", class: 'validate' %>
-          <%= f.label :password, "Password" %>
+          <%= f.password_field :password, id: 'password', required: true, oninvalid: "this.setCustomValidity('Inserisci una password')", oninput: "setCustomValidity('')", autocomplete: "current-password", class: 'validate' %>
+          <%= f.label :password, "Password", for: 'password' %>
         </div>
         <% if devise_mapping.rememberable? %>
           <div class="input-field">
             <label>
-              <%= f.check_box :remember_me, checked: true %>
+              <%= f.check_box :remember_me, id: 'remember_me', checked: true %>
               <span>Ricordati di me</span>
             </label>
           </div>
-        <% end %><br><br>
+        <% end %><br>
+        <br>
         <div class="actions">
           <%= f.submit "Accedi", class: 'btn' %>
         </div>
@@ -66,12 +67,12 @@
       <div class="links">
         <%= render "devise/shared/links" %>
       </div>
-      <%= link_to 'Indietro', :back , class: 'btn btn-back' %>
+      <%= link_to 'Indietro', :back, class: 'btn btn-back' %>
     </div>
     <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" %>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-          M.updateTextFields();
+        M.updateTextFields();
       });
     </script>
   </body>

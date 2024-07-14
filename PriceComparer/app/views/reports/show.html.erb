@@ -77,11 +77,15 @@
               <td><%= @product.description %></td>
               <td><%= @product.site %></td>
               <td>
-                <%= @product.price %>
+                <%= sprintf('%.2f', @product.price) %>
                 <% if @product.currency == 'EUR' %>
                   €
                 <% elsif @product.currency == 'USD' %>
                   $
+                <% elsif @product.currency == 'GBP' %>
+                  £
+                <% else %>
+                  <%= @product.currency%>
                 <% end %>
               </td>
               <td><%= @product.condition %></td>
@@ -95,8 +99,8 @@
         <p>Il prodotto segnalato non è più presente nel database.</p>
       <% end %>
       <div class="row btn-group">
-        <%= link_to 'Modifica', edit_report_path(@report), class: 'btn waves-effect waves-light btn-edit' %>
-        <%= link_to 'Indietro', reports_path, class: 'btn waves-effect waves-light btn-back' %>
+        <%= link_to 'Modifica', edit_report_path(@report), class: 'btn btn-edit' %>
+        <%= link_to 'Indietro', reports_path, class: 'btn btn-back' %>
       </div>
     </div>
   </body>

@@ -38,15 +38,13 @@
       .links {
         margin-top: 20px;
       }
-
-        .btn-google {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+      .btn-google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-
       .btn-google i {
-          margin-right: 8px;
+        margin-right: 8px;
       }
     </style>
   </head>
@@ -56,23 +54,23 @@
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <div class="input-field">
-          <%= f.text_field :username, autofocus: true, required:"true", oninvalid: "this.setCustomValidity('Inserisci un nome utente valido')", oninput: "setCustomValidity('')", autocomplete: "username", class: 'validate' %>
-          <%= f.label "Nome utente" %>
+          <%= f.text_field :username, id: 'username', autofocus: true, required: true, oninvalid: "this.setCustomValidity('Inserisci un nome utente valido')", oninput: "setCustomValidity('')", autocomplete: "username", class: 'validate' %>
+          <%= f.label :username, "Nome utente", for: 'username' %>
         </div>
         <div class="input-field">
-          <%= f.email_field :email, autocomplete: "email", required:"true", oninvalid: "this.setCustomValidity('Inserisci un indirizzo e-mail valido')", oninput: "setCustomValidity('')", class: 'validate' %>
-          <%= f.label "E-mail" %>
+          <%= f.email_field :email, id: 'email', autocomplete: "email", required: true, oninvalid: "this.setCustomValidity('Inserisci un indirizzo e-mail valido')", oninput: "setCustomValidity('')", class: 'validate' %>
+          <%= f.label :email, "E-mail", for: 'email' %>
         </div>
         <div class="input-field">
-          <%= f.password_field :password, autocomplete: "new-password", required:"true", oninvalid: "this.setCustomValidity('Inserisci una password')", oninput: "setCustomValidity('')", class: 'validate' %>
-          <%= f.label "Password" %>
+          <%= f.password_field :password, id: 'password', autocomplete: "new-password", required: true, oninvalid: "this.setCustomValidity('Inserisci una password')", oninput: "setCustomValidity('')", class: 'validate' %>
+          <%= f.label :password, "Password", for: 'password' %>
           <% if @minimum_password_length %>
             <small><em>minimo <%= @minimum_password_length %> caratteri</em></small>
           <% end %>
         </div>
         <div class="input-field">
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", required:"true", oninvalid: "this.setCustomValidity('Inserisci la stessa password')", oninput: "setCustomValidity('')", class: 'validate' %>
-          <%= f.label "Conferma password" %>
+          <%= f.password_field :password_confirmation, id: 'password_confirmation', autocomplete: "new-password", required: true, oninvalid: "this.setCustomValidity('Inserisci la stessa password')", oninput: "setCustomValidity('')", class: 'validate' %>
+          <%= f.label :password_confirmation, "Conferma password", for: 'password_confirmation' %>
         </div>
         <div class="actions">
           <%= f.submit "Registrati", class: "btn" %>

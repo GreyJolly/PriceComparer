@@ -28,8 +28,8 @@ function savePriceRanges() {
 	document.querySelectorAll('.price-range').forEach(function (row) {
 		var min = parseFloat(row.querySelector('input[name*="[min]"]').value);
 		var max = parseFloat(row.querySelector('input[name*="[max]"]').value);
-		if (isNaN(min)) min = 0;
-		if (isNaN(max)) max = 0;
+		if (isNaN(min) || min < 0) min = 0;
+		if (isNaN(max) || max < 0) max = 0;
 		if (min < max)
 			ranges.push({ min: min, max: max });
 		else
